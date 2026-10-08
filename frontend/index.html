@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal Global Website and Professional Portfolio — Software Engineering, Cybersecurity, AWS Cloud, Networking, UX/UI Design, and Project Management.">
+    <title>Personal Global Website | Professional Portfolio</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css?v=2.8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Site Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-link">
+                <img src="logo.png" alt="Personal Global Logo" class="brand-logo-img">
+                <div class="brand-info">
+                    <span class="brand-name">Design Lyricist </span>
+                    <span class="brand-title">Portfolio &amp; Engineering Platform</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-item-link active">Home</a></li>
+                    <li><a href="#expertise" class="nav-item-link">Expertise</a></li>
+                    <li><a href="#skills" class="nav-item-link">Skills</a></li>
+                    <li><a href="#certifications" class="nav-item-link">Certifications</a></li>
+                    <li><a href="#experience" class="nav-item-link">Experience</a></li>
+                    <li><a href="#projects" class="nav-item-link">Projects</a></li>
+                    <li><a href="#design" class="nav-item-link">Design &amp; UX</a></li>
+                    <li><a href="#blog" class="nav-item-link">Blog</a></li>
+                    <li><a href="projects.html" class="nav-item-link">All Projects</a></li>
+                    <li><a href="#contact" class="nav-item-link">Contact</a></li>
+                    <li><a href="admin/login.html" class="nav-btn-admin">🔐 Admin Portal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="home">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 22px;">
+                        <div class="hero-pill" id="heroPill" style="margin-bottom: 0;">
+                            <span id="heroPillText">🚀 Production Ready Solutions &amp; Engineering</span>
+                        </div>
+                        <div class="hero-availability-badge" id="heroAvailabilityBadge" style="display: none; margin-bottom: 0;">
+                            <span class="pulse-dot"></span>
+                            <span id="heroAvailabilityText">Available for Opportunities</span>
+                        </div>
+                    </div>
+                    <h1 class="hero-title" id="heroTitle">
+                        <span id="heroTitlePrefix">Building Scalable Systems, Robust Security &amp; </span><span class="hero-highlight" id="heroTitleHighlight">Modern Digital Experiences</span>
+                    </h1>
+                    <p class="hero-description" id="heroDescription">
+                        Senior Full-Stack Engineer, Cybersecurity Specialist, Cloud Architect &amp; Designer. 
+                        Delivering end-to-end digital excellence across Software Engineering, AWS Cloud, Networks, and UX/UI Design.
+                    </p>
+                    <div class="hero-actions" id="heroActions">
+                        <a href="#projects" class="btn btn-primary" id="heroPrimaryBtn">Explore Featured Projects &darr;</a>
+                        <a href="projects.html" class="btn btn-secondary" id="heroSecondaryBtn">Full Project Catalog &rarr;</a>
+                        <a href="#" class="btn btn-secondary" id="heroResumeBtn" style="display: none;" target="_blank" rel="noopener noreferrer">Download Resume 📄</a>
+                    </div>
+                    <div class="hero-social-bar">
+                        <span class="hero-social-label">Profiles:</span>
+                        <div class="hero-social-links" id="heroSocialLinks">
+                            <!-- Populated dynamically via /api/social/public -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Disciplines / Expertise -->
+        <section class="domains-section" id="expertise">
+            <div class="container">
+                <div class="domains-grid">
+                    <div class="domain-card">
+                        <span class="domain-icon">💻</span>
+                        <span class="domain-name">Software Engineering</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">🛡️</span>
+                        <span class="domain-name">Cybersecurity</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">☁️</span>
+                        <span class="domain-name">AWS Cloud</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">🌐</span>
+                        <span class="domain-name">Networking</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">✨</span>
+                        <span class="domain-name">UX/UI Design</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">🎨</span>
+                        <span class="domain-name">Graphic Design</span>
+                    </div>
+                    <div class="domain-card">
+                        <span class="domain-icon">📊</span>
+                        <span class="domain-name">Project Management</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Competencies Section -->
+        <section class="skills-section" id="skills">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
+                        <span>⚡ Core Technical Competencies</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Technical Skills &amp; Proficiencies
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        Specialized capabilities across modern software engineering, defensive cybersecurity, cloud infrastructure, network topology, and design systems.
+                    </p>
+                </div>
+
+                <!-- Discipline Filter Tabs -->
+                <div class="skills-filter-tabs" id="skillsFilterTabs"></div>
+
+                <!-- Skills Grid -->
+                <div class="skills-grid" id="skillsGrid"></div>
+            </div>
+        </section>
+
+        <!-- Accredited Industry Certifications Section -->
+        <section class="certifications-section" id="certifications">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
+                        <span>📜 Verified Industry Credentials</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Accredited Certifications
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        Globally recognized vendor credentials validating domain mastery across AWS Cloud Architecture, Cybersecurity Defense, Network Engineering, and Agile Delivery.
+                    </p>
+                </div>
+
+                <!-- Certifications Grid -->
+                <div class="certifications-grid" id="certificationsGrid">
+                    <!-- Populated dynamically via script.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Experience & Education History Section -->
+        <section class="career-section" id="experience">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
+                        <span>🏢 Career Milestones &amp; Academic Heritage</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Experience &amp; Education
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        A documented track record of high-impact engineering leadership, enterprise cybersecurity implementations, and rigorous academic foundations.
+                    </p>
+                </div>
+
+                <!-- Career / Education Tab Switcher -->
+                <div class="career-tabs" id="careerTabs">
+                    <button type="button" class="career-tab-btn active" data-tab="experience" id="tabExperienceBtn">
+                        🏢 Work Experience
+                    </button>
+                    <button type="button" class="career-tab-btn" data-tab="education" id="tabEducationBtn">
+                        🎓 Education &amp; Degrees
+                    </button>
+                </div>
+
+                <!-- Experience Timeline Container -->
+                <div class="timeline-container active" id="experienceTimelineContainer">
+                    <div class="timeline-track" id="experienceTimelineTrack">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+
+                <!-- Education Timeline Container -->
+                <div class="timeline-container" id="educationTimelineContainer" style="display: none;">
+                    <div class="timeline-track" id="educationTimelineTrack">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Showcase Section -->
+        <section class="projects-section" id="projects" style="padding: 40px 0 80px;">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>Featured Technical Projects</h2>
+                        <p>Real-world applications and architectures dynamically loaded from PostgreSQL database.</p>
+                    </div>
+                    <a href="projects.html" class="section-action-link">
+                        View Complete Catalog &rarr;
+                    </a>
+                </div>
+
+                <!-- Category Filter Tabs -->
+                <div class="filter-tabs" id="filterTabs"></div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Populated dynamically via script.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Portfolio & UX/UI Showcase Section -->
+        <section class="design-uxui-section" id="design">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
+                        <span>🎨 Visual Identity &amp; Product Design</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Design Portfolio &amp; UX/UI Case Studies
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        Branding guidelines, vector iconography, and deep-dive product design case studies engineered for clarity, cognitive ergonomics, and enterprise impact.
+                    </p>
+                </div>
+
+                <!-- Design / UX Tab Switcher -->
+                <div class="design-tabs" id="designTabs">
+                    <button type="button" class="design-tab-btn active" data-tab="design" id="tabDesignBtn">
+                        🎨 Graphic &amp; Visual Design
+                    </button>
+                    <button type="button" class="design-tab-btn" data-tab="uxui" id="tabUXUIBtn">
+                        ✨ UX/UI Product Case Studies
+                    </button>
+                </div>
+
+                <!-- Graphic Design Container -->
+                <div class="design-gallery-container active" id="designGalleryContainer">
+                    <div class="design-grid" id="designGalleryGrid">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+
+                <!-- UX/UI Case Studies Container -->
+                <div class="uxui-showcase-container" id="uxuiShowcaseContainer" style="display: none;">
+                    <div class="uxui-grid" id="uxuiShowcaseGrid">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Blog & Engineering Articles Section -->
+        <section class="blog-section" id="blog">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
+                        <span>✍️ Insights &amp; Architecture Writeups</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Technical Blog &amp; Engineering Articles
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        In-depth articles covering zero-trust cloud architecture, defensive cybersecurity, asynchronous backend systems, and modern UX design systems.
+                    </p>
+                </div>
+
+                <div class="blog-grid" id="blogArticlesGrid">
+                    <!-- Populated dynamically via script.js -->
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="blog.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <span>📚 View All Articles &amp; Writeups</span>
+                        <span>&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact CTA & Inquiries Section -->
+        <section class="contact-cta-section" id="contact">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <!-- Left Column: Contact Details & Value Prop -->
+                    <div class="contact-info-col">
+                        <div class="section-pill" style="align-self: flex-start; margin-bottom: 8px;">
+                            <span>Direct Communication</span>
+                        </div>
+                        <h2 class="contact-heading">Let's Discuss Opportunities &amp; Architecture</h2>
+                        <p class="contact-intro">
+                            Whether you represent an enterprise seeking technical leadership, a recruiter with an executive role, or a team planning a high-scale product build, I am always open to meaningful discussions.
+                        </p>
+
+                        <div class="contact-cards-list">
+                            <div class="contact-card-item">
+                                <div class="contact-card-icon">✉️</div>
+                                <div class="contact-card-content">
+                                    <span class="contact-card-label">Direct Inquiries</span>
+                                    <a href="mailto:admin@example.com" class="contact-card-value">admin@example.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-card-item">
+                                <div class="contact-card-icon">⚡</div>
+                                <div class="contact-card-content">
+                                    <span class="contact-card-label">Response Time</span>
+                                    <span class="contact-card-value">Within 24 Hours (Business Days)</span>
+                                </div>
+                            </div>
+                            <div class="contact-card-item">
+                                <div class="contact-card-icon">🌐</div>
+                                <div class="contact-card-content">
+                                    <span class="contact-card-label">Collaboration Mode</span>
+                                    <span class="contact-card-value">Remote • Global Timezones • Advisory</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-quote">
+                            <blockquote>
+                                "Simplicity is prerequisite for reliability. Building scalable systems starts with clear problem definitions."
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Form -->
+                    <div class="contact-form-col">
+                        <div class="contact-form-card">
+                            <div class="form-header">
+                                <h3>Send a Message</h3>
+                                <p>Fill out the form below to send an inquiry directly to my inbox.</p>
+                            </div>
+
+                            <!-- Alert Banner for live status -->
+                            <div id="contactFormAlert" class="contact-form-alert" style="display: none;"></div>
+
+                            <form id="publicContactForm" novalidate>
+                                <div class="form-row-2col">
+                                    <div class="form-group">
+                                        <label for="contactName">Your Name <span class="required-star">*</span></label>
+                                        <input type="text" id="contactName" name="name" class="form-control" placeholder="e.g. Sarah Jenkins" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contactEmail">Email Address <span class="required-star">*</span></label>
+                                        <input type="email" id="contactEmail" name="email" class="form-control" placeholder="e.g. sarah@company.com" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contactSubject">Subject / Topic <span class="required-star">*</span></label>
+                                    <input type="text" id="contactSubject" name="subject" class="form-control" placeholder="e.g. Zero-Trust Architecture Review" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contactMessage">Message <span class="required-star">*</span></label>
+                                    <textarea id="contactMessage" name="message" class="form-control" rows="5" placeholder="Share your project scope, questions, or timeline..." required></textarea>
+                                </div>
+
+                                <div class="form-actions" style="margin-top: 10px;">
+                                    <button type="submit" id="contactSubmitBtn" class="btn-submit-contact">
+                                        <span id="contactSubmitText">🚀 Send Message</span>
+                                        <span id="contactSubmitSpinner" style="display: none;">⏳ Sending...</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Public Certificate Details Modal -->
+    <div class="public-modal" id="publicCertModal" role="dialog" aria-modal="true" aria-labelledby="publicCertModalTitle">
+        <div class="public-modal-dialog">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="publicCertIssuer">Issuer Organization</span>
+                        <h2 id="publicCertModalTitle">Certificate Title</h2>
+                    </div>
+                    <button type="button" class="public-modal-close" id="closePublicCertModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <div class="public-modal-hero">
+                        <div class="public-modal-badge-container" id="publicCertBadgeContainer">
+                            <!-- Digital badge image or accredited seal -->
+                        </div>
+                        <div class="public-modal-meta-grid">
+                            <div class="public-meta-item">
+                                <span class="meta-label">Credential ID:</span>
+                                <div class="meta-val-copy">
+                                    <code id="publicCertId">N/A</code>
+                                    <button type="button" class="btn-copy-id" id="copyCertIdBtn" title="Copy Credential ID">📋 Copy</button>
+                                </div>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Issue Date:</span>
+                                <span class="meta-val" id="publicCertIssueDate">—</span>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Validity / Expiration:</span>
+                                <span class="meta-val" id="publicCertExpiryDate">—</span>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Verification Status:</span>
+                                <span class="meta-val status-verified">✓ Verified &amp; Active</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="public-modal-section">
+                        <h4>Domain Competencies &amp; Validated Technical Mastery</h4>
+                        <p id="publicCertDescription" class="public-cert-desc">
+                            Description of skills and technologies validated...
+                        </p>
+                    </div>
+
+                    <div class="public-modal-actions" id="publicCertActions">
+                        <!-- Verification Link button and Close button -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Public Design Artwork Modal -->
+    <div class="public-modal" id="publicDesignModal" role="dialog" aria-modal="true" aria-labelledby="publicDesignTitle">
+        <div class="public-modal-dialog">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="publicDesignCategory">Graphic Design</span>
+                        <h2 id="publicDesignTitle">Artwork Title</h2>
+                    </div>
+                    <button type="button" class="public-modal-close" id="closePublicDesignModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <div style="width: 100%; border-radius: 12px; overflow: hidden; background: var(--color-background); border: 1.5px solid var(--color-secondary-light); margin-bottom: 20px; text-align: center;">
+                        <img id="publicDesignImg" src="" alt="" style="max-width: 100%; max-height: 520px; object-fit: contain; display: block; margin: 0 auto;">
+                    </div>
+                    <div class="public-modal-hero" style="margin-bottom: 16px;">
+                        <div class="public-modal-meta-grid" style="width: 100%; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+                            <div class="public-meta-item">
+                                <span class="meta-label">Client / Purpose:</span>
+                                <span class="meta-val" id="publicDesignClient">—</span>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Year:</span>
+                                <span class="meta-val" id="publicDesignYear">—</span>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Tools Used:</span>
+                                <span class="meta-val" id="publicDesignTools">—</span>
+                            </div>
+                            <div class="public-meta-item">
+                                <span class="meta-label">Tags:</span>
+                                <span class="meta-val" id="publicDesignTags">—</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="public-modal-section">
+                        <h4>Creative Rationale &amp; Visual Direction</h4>
+                        <p id="publicDesignDesc" class="public-cert-desc">
+                            Description...
+                        </p>
+                    </div>
+                    <div class="public-modal-actions" style="margin-top: 18px;">
+                        <button type="button" class="btn btn-secondary" onclick="closePublicDesignModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Public UX/UI Case Study Modal -->
+    <div class="public-modal" id="publicCaseStudyModal" role="dialog" aria-modal="true" aria-labelledby="publicCSTitle">
+        <div class="public-modal-dialog" style="max-width: 840px;">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="publicCSCategory">Enterprise SaaS</span>
+                        <h2 id="publicCSTitle">Case Study Title</h2>
+                        <p id="publicCSSubtitle" style="font-size: 14px; color: var(--color-primary-blue); font-weight: 600; margin-top: 4px;"></p>
+                    </div>
+                    <button type="button" class="public-modal-close" id="closePublicCSModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <img id="publicCSCoverImg" src="" alt="" class="public-cs-hero-img">
+
+                    <div class="public-cs-meta-grid">
+                        <div>
+                            <span class="meta-label">Client:</span>
+                            <div id="publicCSClient" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">My Role:</span>
+                            <div id="publicCSRole" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Duration:</span>
+                            <div id="publicCSDuration" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Tools &amp; Methods:</span>
+                            <div id="publicCSTools" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                    </div>
+
+                    <div class="public-cs-block">
+                        <h4>⚠️ The Challenge &amp; Problem Statement</h4>
+                        <div id="publicCSProblem" class="public-cs-block-content"></div>
+                    </div>
+
+                    <div class="public-cs-block">
+                        <h4>💡 Solution &amp; Interaction Architecture</h4>
+                        <div id="publicCSSolution" class="public-cs-block-content"></div>
+                    </div>
+
+                    <div class="public-cs-block">
+                        <h4>🔄 Design Process &amp; Research Stages</h4>
+                        <div id="publicCSProcess" class="public-cs-block-content"></div>
+                    </div>
+
+                    <div class="public-cs-results-box" id="publicCSResultsBox">
+                        <h4>📈 Measurable Impact &amp; Usability Metrics</h4>
+                        <p id="publicCSResults"></p>
+                    </div>
+
+                    <div class="public-modal-actions" id="publicCSActions">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Public Technical Blog Article Reader Modal -->
+    <div class="public-modal" id="publicBlogModal" role="dialog" aria-modal="true" aria-labelledby="publicBlogModalTitle">
+        <div class="public-modal-dialog" style="max-width: 860px;">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="publicBlogCategory">Cybersecurity &amp; Cloud</span>
+                        <h2 id="publicBlogModalTitle">Article Title</h2>
+                        <p id="publicBlogSubtitle" style="font-size: 14.5px; color: var(--color-primary-blue); font-weight: 600; margin-top: 4px; line-height: 1.4;"></p>
+                    </div>
+                    <button type="button" class="public-modal-close" id="closePublicBlogModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <img id="publicBlogCoverImg" src="" alt="" class="public-cs-hero-img" style="max-height: 360px;">
+
+                    <div class="public-cs-meta-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+                        <div>
+                            <span class="meta-label">Author:</span>
+                            <div id="publicBlogAuthor" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">Design Lyricist</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Published Date:</span>
+                            <div id="publicBlogDate" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Estimated Read:</span>
+                            <div id="publicBlogReadTime" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">5 min read</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Article Views:</span>
+                            <div id="publicBlogViews" style="font-weight: 700; color: var(--color-primary-blue); font-size: 13.5px;">—</div>
+                        </div>
+                    </div>
+
+                    <div id="publicBlogTagsWrap" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;"></div>
+
+                    <div class="public-article-content" id="publicBlogContent">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+
+                    <div class="public-modal-actions" style="margin-top: 28px; justify-content: space-between;">
+                        <button type="button" class="btn btn-secondary" id="shareBlogBtn">📋 Copy Article Link</button>
+                        <button type="button" class="btn btn-primary" onclick="closePublicBlogModal()">Done Reading</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h4>Personal Global Website</h4>
+                    <p>Engineered with FastAPI, PostgreSQL &amp; Vanilla JavaScript.</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#expertise">Expertise</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#design">Design &amp; UX</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="projects.html">Catalog</a></li>
+                    <li><a href="admin/login.html">Admin CMS</a></li>
+                </ul>
+                <div class="footer-social-row">
+                    <span class="footer-social-title">Connect with me across the web:</span>
+                    <div class="footer-social-icons" id="footerSocialIcons">
+                        <!-- Populated dynamically via /api/social/public -->
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Personal Global Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js?v=2.8"></script>
+</body>
+</html>

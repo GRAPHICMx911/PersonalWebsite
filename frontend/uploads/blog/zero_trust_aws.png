@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#063F60"/>
+  <circle cx="400" cy="225" r="180" stroke="#087DD8" stroke-width="2" stroke-dasharray="8 8" opacity="0.4"/>
+  <circle cx="400" cy="225" r="120" stroke="#6FB7E1" stroke-width="2" opacity="0.6"/>
+  <rect x="350" y="175" width="100" height="100" rx="18" fill="#087DD8"/>
+  <path d="M400 195 L400 240 M380 215 L400 195 L420 215" stroke="#E8EEEE" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="400" cy="245" r="6" fill="#C4E0E1"/>
+  <text x="400" y="325" text-anchor="middle" fill="#E8EEEE" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700">Zero-Trust Cloud Architecture</text>
+  <text x="400" y="355" text-anchor="middle" fill="#6FB7E1" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AWS Defense-in-Depth &amp; Cryptographic Identity</text>
+</svg>

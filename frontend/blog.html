@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Technical Blog & Engineering Articles — Deep dives into Cybersecurity, Cloud Architecture, Asynchronous Microservices, and UX Systems.">
+    <title>Technical Blog &amp; Articles | Personal Global Website</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .blog-page-hero {
+            padding: 60px 0 40px;
+            background: linear-gradient(180deg, var(--color-background) 0%, rgba(196, 224, 225, 0.4) 100%);
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .blog-search-bar {
+            max-width: 520px;
+            margin: 20px 0 0;
+            position: relative;
+        }
+        .blog-search-bar input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px 0 44px;
+            border-radius: 12px;
+            border: 1.5px solid var(--border);
+            background: #ffffff;
+            color: var(--color-primary-dark);
+            font-size: 15px;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(6, 63, 96, 0.04);
+            transition: var(--transition);
+        }
+        .blog-search-bar input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(8, 125, 216, 0.18);
+        }
+        .search-icon-public {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Site Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-link">
+                <img src="logo.png" alt="Personal Global Logo" class="brand-logo-img">
+                <div class="brand-info">
+                    <span class="brand-name">Design Lyricist</span>
+                    <span class="brand-title">Portfolio &amp; Engineering Platform</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-item-link">Home</a></li>
+                    <li><a href="index.html#expertise" class="nav-item-link">Expertise</a></li>
+                    <li><a href="index.html#skills" class="nav-item-link">Skills</a></li>
+                    <li><a href="index.html#certifications" class="nav-item-link">Certifications</a></li>
+                    <li><a href="index.html#experience" class="nav-item-link">Experience</a></li>
+                    <li><a href="index.html#projects" class="nav-item-link">Projects</a></li>
+                    <li><a href="index.html#design" class="nav-item-link">Design &amp; UX</a></li>
+                    <li><a href="blog.html" class="nav-item-link active">Blog</a></li>
+                    <li><a href="projects.html" class="nav-item-link">All Projects</a></li>
+                    <li><a href="index.html#contact" class="nav-item-link">Contact</a></li>
+                    <li><a href="admin/login.html" class="nav-btn-admin">🔐 Admin Portal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="blog-page-hero">
+        <div class="container">
+            <div class="hero-pill">
+                <span>✍️ Technical Insights &amp; Writeups</span>
+            </div>
+            <h1 class="hero-title" style="margin-bottom: 12px;">Engineering Articles &amp; Research</h1>
+            <p class="hero-description" style="max-width: 680px; margin-bottom: 20px;">
+                Architectural patterns, defensive cybersecurity paradigms, microservices optimization, and human-centered design systems.
+            </p>
+
+            <div class="blog-search-bar">
+                <span class="search-icon-public">🔍</span>
+                <input
+                    type="text"
+                    id="searchBlogCatalogInput"
+                    placeholder="Search articles by title, tags, or domain..."
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Catalog Main Section -->
+    <main class="container" style="padding-bottom: 80px;">
+        <!-- Category Filter Tabs -->
+        <div class="filter-tabs" id="blogCategoryTabs"></div>
+
+        <!-- Articles Grid Container -->
+        <div class="blog-grid" id="allBlogGrid"></div>
+    </main>
+
+    <!-- Public Technical Blog Article Reader Modal -->
+    <div class="public-modal" id="publicBlogModal" role="dialog" aria-modal="true" aria-labelledby="publicBlogModalTitle">
+        <div class="public-modal-dialog" style="max-width: 860px;">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="publicBlogCategory">Cybersecurity &amp; Cloud</span>
+                        <h2 id="publicBlogModalTitle">Article Title</h2>
+                        <p id="publicBlogSubtitle" style="font-size: 14.5px; color: var(--color-primary-blue); font-weight: 600; margin-top: 4px; line-height: 1.4;"></p>
+                    </div>
+                    <button type="button" class="public-modal-close" id="closePublicBlogModalBtn" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <img id="publicBlogCoverImg" src="" alt="" class="public-cs-hero-img" style="max-height: 360px;">
+
+                    <div class="public-cs-meta-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+                        <div>
+                            <span class="meta-label">Author:</span>
+                            <div id="publicBlogAuthor" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">Design Lyricist</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Published Date:</span>
+                            <div id="publicBlogDate" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Estimated Read:</span>
+                            <div id="publicBlogReadTime" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">5 min read</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Article Views:</span>
+                            <div id="publicBlogViews" style="font-weight: 700; color: var(--color-primary-blue); font-size: 13.5px;">—</div>
+                        </div>
+                    </div>
+
+                    <div id="publicBlogTagsWrap" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;"></div>
+
+                    <div class="public-article-content" id="publicBlogContent">
+                        <!-- Populated dynamically via script.js -->
+                    </div>
+
+                    <div class="public-modal-actions" style="margin-top: 28px; justify-content: space-between;">
+                        <button type="button" class="btn btn-secondary" id="shareBlogBtn">📋 Copy Article Link</button>
+                        <button type="button" class="btn btn-primary" onclick="closePublicBlogModal()">Done Reading</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h4>Personal Global Website</h4>
+                    <p>Engineered with FastAPI, PostgreSQL &amp; Vanilla JavaScript.</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">All Projects</a></li>
+                    <li><a href="blog.html">Technical Blog</a></li>
+                    <li><a href="admin/login.html">Admin CMS</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Personal Global Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js?v=2.5"></script>
+</body>
+</html>

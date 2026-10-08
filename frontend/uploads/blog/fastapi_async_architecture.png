@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#063F60"/>
+  <rect x="180" y="160" width="120" height="130" rx="12" fill="#E8EEEE" stroke="#C4E0E1" stroke-width="2"/>
+  <text x="240" y="215" text-anchor="middle" fill="#063F60" font-family="system-ui, sans-serif" font-size="16" font-weight="800">FastAPI</text>
+  <text x="240" y="240" text-anchor="middle" fill="#087DD8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Async Loop</text>
+  
+  <path d="M315 225 L385 225" stroke="#6FB7E1" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="380,218 395,225 380,232" fill="#6FB7E1"/>
+  
+  <rect x="400" y="160" width="120" height="130" rx="12" fill="#087DD8"/>
+  <text x="460" y="215" text-anchor="middle" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="16" font-weight="800">Redis</text>
+  <text x="460" y="240" text-anchor="middle" fill="#C4E0E1" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Cache Layer</text>
+  
+  <path d="M535 225 L605 225" stroke="#6FB7E1" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="600,218 615,225 600,232" fill="#6FB7E1"/>
+
+  <rect x="620" y="160" width="120" height="130" rx="12" fill="#E8EEEE" stroke="#C4E0E1" stroke-width="2"/>
+  <text x="680" y="215" text-anchor="middle" fill="#063F60" font-family="system-ui, sans-serif" font-size="16" font-weight="800">PostgreSQL</text>
+  <text x="680" y="240" text-anchor="middle" fill="#087DD8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">SQLAlchemy 2</text>
+  
+  <text x="400" y="340" text-anchor="middle" fill="#E8EEEE" font-family="system-ui, sans-serif" font-size="22" font-weight="700">High-Concurrency Microservices</text>
+  <text x="400" y="370" text-anchor="middle" fill="#6FB7E1" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Sub-10ms Latency &amp; Non-Blocking I/O</text>
+</svg>

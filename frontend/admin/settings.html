@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Settings &amp; Profile CMS | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/settings.css?v=2.8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link active">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Website Settings &amp; Profile CMS</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Global Settings &amp; Profile Configuration</h1>
+                        <p>Control primary identity, hero banner, SEO tags, resume downloads, and live availability across your website.</p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-save-settings" id="topSaveBtn">
+                            <span>💾</span> Save Changes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Settings Tabs Bar -->
+                <div class="settings-tabs-card">
+                    <button type="button" class="settings-tab-btn active" data-tab="profile">
+                        <span>👤</span> General Profile
+                    </button>
+                    <button type="button" class="settings-tab-btn" data-tab="hero">
+                        <span>🚀</span> Hero Banner &amp; Headline
+                    </button>
+                    <button type="button" class="settings-tab-btn" data-tab="resume">
+                        <span>📄</span> Resume &amp; Documents
+                    </button>
+                    <button type="button" class="settings-tab-btn" data-tab="seo">
+                        <span>🌐</span> SEO &amp; Social Metadata
+                    </button>
+                </div>
+
+                <!-- Form Wrapping All Panels -->
+                <form id="settingsForm" novalidate>
+                    <!-- PANEL 1: GENERAL PROFILE -->
+                    <div class="settings-panel active" id="panel-profile">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Professional Identity &amp; Contact</h3>
+                                <p>Primary personal and engineering credentials rendered across the website header and footer.</p>
+                            </div>
+
+                            <div class="settings-row-2col">
+                                <div class="form-group">
+                                    <label for="fullName">Full Legal / Professional Name *</label>
+                                    <input type="text" id="fullName" class="form-control" placeholder="e.g. Alexander Mitchell" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="professionalTitle">Professional Title / Headline *</label>
+                                    <input type="text" id="professionalTitle" class="form-control" placeholder="e.g. Senior Full-Stack Engineer &amp; Cloud Architect" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bioSummary">Executive Summary / Bio</label>
+                                <textarea id="bioSummary" class="form-control" rows="3" placeholder="Brief summary of professional journey, engineering values, and specializations..."></textarea>
+                                <span class="form-hint">Displayed in public modals, about snippets, and platform introductions.</span>
+                            </div>
+
+                            <div class="settings-row-2col">
+                                <div class="form-group">
+                                    <label for="contactEmail">Primary Contact Email *</label>
+                                    <input type="email" id="contactEmail" class="form-control" placeholder="e.g. admin@example.com" required>
+                                    <span class="form-hint">Receives visitor contact inquiries submitted from the public form.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Location / Timezone</label>
+                                    <input type="text" id="location" class="form-control" placeholder="e.g. San Francisco, CA / Remote (UTC-7)">
+                                </div>
+                            </div>
+
+                            <div class="settings-card-header" style="margin-top: 14px;">
+                                <h3>Career Status &amp; Availability</h3>
+                                <p>Control the live status badge shown on your portfolio banner.</p>
+                            </div>
+
+                            <div class="settings-row-2col" style="align-items: center;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                        <label class="switch">
+                                            <input type="checkbox" id="isHiringAvailable" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                        <span style="font-size: 14px; font-weight: 700; color: var(--color-primary-dark);">
+                                            Currently Available for Opportunities
+                                        </span>
+                                    </label>
+                                    <span class="form-hint" style="margin-left: 54px;">When enabled, visitors see an active availability status.</span>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="availabilityBadgeText">Availability Badge Text</label>
+                                    <input type="text" id="availabilityBadgeText" class="form-control" placeholder="e.g. Open for Senior / Staff / Lead Roles">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2: HERO BANNER & HEADLINE -->
+                    <div class="settings-panel" id="panel-hero">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Hero Banner Content</h3>
+                                <p>The primary introduction visitors see when landing on your global homepage.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heroPillText">Hero Pill Tagline *</label>
+                                <input type="text" id="heroPillText" class="form-control" placeholder="e.g. 🚀 Production Ready Solutions &amp; Engineering" required>
+                            </div>
+
+                            <div class="settings-row-2col">
+                                <div class="form-group">
+                                    <label for="heroTitlePrefix">Hero Main Title (Prefix) *</label>
+                                    <input type="text" id="heroTitlePrefix" class="form-control" placeholder="e.g. Building Scalable Systems, Robust Security &amp;" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroTitleHighlight">Hero Highlighted Text (Blue Gradient) *</label>
+                                    <input type="text" id="heroTitleHighlight" class="form-control" placeholder="e.g. Modern Digital Experiences" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heroDescription">Hero Paragraph Description *</label>
+                                <textarea id="heroDescription" class="form-control" rows="3" placeholder="Engaging summary of skills and domain mastery..." required></textarea>
+                            </div>
+
+                            <div class="settings-row-2col">
+                                <div class="form-group">
+                                    <label for="heroPrimaryBtnText">Primary Button Text *</label>
+                                    <input type="text" id="heroPrimaryBtnText" class="form-control" placeholder="e.g. Explore Featured Projects ↓" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroPrimaryBtnUrl">Primary Button Target URL *</label>
+                                    <input type="text" id="heroPrimaryBtnUrl" class="form-control" placeholder="e.g. #projects" required>
+                                </div>
+                            </div>
+
+                            <div class="settings-row-2col">
+                                <div class="form-group">
+                                    <label for="heroSecondaryBtnText">Secondary Button Text *</label>
+                                    <input type="text" id="heroSecondaryBtnText" class="form-control" placeholder="e.g. Download Resume / CV 📄" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="heroSecondaryBtnUrl">Secondary Button Target URL</label>
+                                    <input type="text" id="heroSecondaryBtnUrl" class="form-control" placeholder="e.g. /uploads/documents/resume.pdf">
+                                </div>
+                            </div>
+
+                            <!-- Live Hero Section Preview -->
+                            <div class="settings-card-header" style="margin-top: 14px;">
+                                <h3>Live Hero Banner Preview</h3>
+                                <p>Updates in real time as you adjust the inputs above.</p>
+                            </div>
+                            <div class="hero-preview-box">
+                                <div class="preview-pill" id="livePreviewPill">🚀 Production Ready Solutions &amp; Engineering</div>
+                                <h2 class="preview-title">
+                                    <span id="livePreviewPrefix">Building Scalable Systems, Robust Security &amp; </span>
+                                    <span class="preview-highlight" id="livePreviewHighlight">Modern Digital Experiences</span>
+                                </h2>
+                                <p class="preview-desc" id="livePreviewDesc">
+                                    Senior Full-Stack Engineer, Cybersecurity Specialist, Cloud Architect &amp; Designer. Delivering end-to-end digital excellence across Software Engineering, AWS Cloud, Networks, and UX/UI Design.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 3: RESUME & DOCUMENTS -->
+                    <div class="settings-panel" id="panel-resume">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Curriculum Vitae (CV) &amp; Resume Management</h3>
+                                <p>Upload your latest professional resume in PDF format to make it downloadable across the portfolio.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload New Resume PDF</label>
+                                <div class="dropzone-container" id="resumeDropzone">
+                                    <div class="dropzone-icon">📄</div>
+                                    <div class="dropzone-text">Click or drag &amp; drop to upload updated Resume / CV</div>
+                                    <div class="dropzone-subtext">Supported formats: PDF, DOCX (Max: 10MB)</div>
+                                    <input type="file" id="resumeFileInput" accept=".pdf,.docx,.doc" style="display: none;">
+                                </div>
+                            </div>
+
+                            <div class="file-status-box" id="resumeStatusBox">
+                                <div class="file-info">
+                                    <span class="file-badge-icon">📑</span>
+                                    <div>
+                                        <div class="file-name" id="currentResumeFileName">No resume uploaded yet</div>
+                                        <div style="font-size: 12px; color: var(--text-muted);" id="currentResumeUrlText">/uploads/documents/resume.pdf</div>
+                                    </div>
+                                </div>
+                                <div class="file-actions">
+                                    <a href="#" id="viewResumeLink" target="_blank" rel="noopener noreferrer">View File &rarr;</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top: 24px;">
+                                <label for="resumeDownloadUrl">Or Set Direct Custom Resume URL</label>
+                                <input type="url" id="resumeDownloadUrl" class="form-control" placeholder="https://example.com/resume.pdf">
+                                <span class="form-hint">Direct link to an externally hosted CV (e.g. Google Drive, GitHub Releases, or Cloudfront).</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 4: SEO & METADATA -->
+                    <div class="settings-panel" id="panel-seo">
+                        <div class="settings-card">
+                            <div class="settings-card-header">
+                                <h3>Search Engine Optimization &amp; Social Previews</h3>
+                                <p>Configure search engine snippets, meta keywords, and OpenGraph card previews for LinkedIn &amp; X / Twitter.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="metaTitle">Browser Window &amp; Search Title (Meta Title) *</label>
+                                <input type="text" id="metaTitle" class="form-control" placeholder="e.g. Alexander Mitchell — Senior Full-Stack Engineer &amp; Cloud Architect" required>
+                                <span class="form-hint">Displayed in Google search results and browser window tabs (optimal: 50-60 characters).</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="metaDescription">Search Snippet Description (Meta Description) *</label>
+                                <textarea id="metaDescription" class="form-control" rows="3" placeholder="Engaging summary for search engines (optimal: 120-160 characters)..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="metaKeywords">Keywords &amp; Competencies (Comma-Separated)</label>
+                                <input type="text" id="metaKeywords" class="form-control" placeholder="Full-Stack Engineer, Cloud Architect, FastAPI, PostgreSQL, AWS, Cybersecurity, UX/UI">
+                                <span class="form-hint">Separated by commas to help search crawlers categorize competencies.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ogImageUrl">OpenGraph Social Share Image URL</label>
+                                <input type="url" id="ogImageUrl" class="form-control" placeholder="e.g. https://yourdomain.com/og-banner.png">
+                                <span class="form-hint">Image preview rendered when links are shared on LinkedIn, X / Twitter, Discord, and Slack.</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Sticky Actions Bar -->
+                <div class="sticky-actions-bar">
+                    <div class="status-indicator-text" id="statusIndicator">
+                        <span>●</span> Ready. All settings synchronized with PostgreSQL.
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <a href="../index.html" target="_blank" class="btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center;">
+                            Preview Live Site &rarr;
+                        </a>
+                        <button type="button" class="btn-save-settings" id="bottomSaveBtn">
+                            <span>💾</span> Save All Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/settings.js?v=2.8"></script>
+</body>
+</html>

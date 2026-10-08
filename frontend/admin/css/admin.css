@@ -1,0 +1,261 @@
+/* =========================================================
+   PERSONAL GLOBAL WEBSITE — ADMIN LOGIN STYLESHEET
+   =========================================================
+   OFFICIAL PALETTE:
+   --color-primary-dark:    #063F60 (Deep Navy - Main dark brand color)
+   --color-primary-blue:    #087DD8 (Bright Blue - Primary action color)
+   --color-primary-light:   #6FB7E1 (Primary Light Blue - Accent & highlights)
+   --color-secondary-light: #C4E0E1 (Soft Aqua - Cards, form fields, borders)
+   --color-background:      #E8EEEE (Very Light Background - Page background)
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Official Brand Colors */
+    --color-primary-dark: #063F60;
+    --color-primary-blue: #087DD8;
+    --color-primary-light: #6FB7E1;
+    --color-secondary-light: #C4E0E1;
+    --color-background: #E8EEEE;
+
+    /* Semantic Aliases */
+    --primary: var(--color-primary-blue);
+    --primary-dark: var(--color-primary-dark);
+    --primary-light: var(--color-primary-light);
+    --background: var(--color-background);
+    --card: #ffffff;
+    --text: var(--color-primary-dark);
+    --text-muted: #537488;
+    --border: var(--color-secondary-light);
+
+    /* Functional Status Colors */
+    --danger: #b91c1c;
+    --danger-bg: #fef2f2;
+    --danger-border: #fecaca;
+    --success: #15803d;
+    --success-bg: #f0fdf4;
+    --success-border: #bbf7d0;
+
+    --shadow: 0 16px 36px -6px rgba(6, 63, 96, 0.15), 0 6px 14px -3px rgba(6, 63, 96, 0.08);
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at 20% 20%, #C4E0E1 0%, #E8EEEE 55%, #d9e6e6 100%);
+    -webkit-font-smoothing: antialiased;
+}
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 42px 36px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.admin-login-logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    display: block;
+    object-fit: contain;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(6, 63, 96, 0.15);
+    border: 3px solid var(--border);
+    padding: 4px;
+}
+
+.brand-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-blue) 100%);
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(8, 125, 216, 0.25);
+}
+
+.login-header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--color-primary-dark);
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+}
+
+.login-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.form-group input {
+    width: 100%;
+    height: 46px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s ease;
+    background-color: #fafcfc;
+    color: var(--color-primary-dark);
+}
+
+.form-group input:focus {
+    background-color: #ffffff;
+    border-color: var(--color-primary-blue);
+    box-shadow: 0 0 0 3px rgba(8, 125, 216, 0.18);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 68px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--color-primary-blue);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 4px;
+}
+
+.password-toggle:hover {
+    color: var(--color-primary-dark);
+}
+
+.login-button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-primary-blue);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(8, 125, 216, 0.25);
+    margin-top: 4px;
+}
+
+.login-button:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(6, 63, 96, 0.3);
+}
+
+.login-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.login-message {
+    display: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 2px;
+}
+
+.login-message.error {
+    display: block;
+    color: var(--danger);
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+}
+
+.login-message.success {
+    display: block;
+    color: var(--success);
+    background: var(--success-bg);
+    border: 1px solid var(--success-border);
+}
+
+.login-footer {
+    margin-top: 26px;
+    text-align: center;
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.login-footer p {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.login-footer a {
+    color: var(--color-primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-footer a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Messages &amp; Inquiries | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/messages.css?v=2.6">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link active">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Inquiries &amp; Messages Inbox</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Contact Inquiries</h1>
+                        <p>Review and manage messages, recruiter inquiries, and collaboration requests submitted via the public website.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button type="button" class="btn-action-mark-all" id="markAllReadBtn">
+                            <span>✓</span> Mark All Read
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inbox Stats Overview Grid -->
+                <div class="inbox-stats-grid">
+                    <div class="inbox-stat-card active-stat" id="statCardAll" data-filter="all">
+                        <div class="inbox-stat-icon">📬</div>
+                        <div class="inbox-stat-info">
+                            <div class="stat-value" id="statTotalCount">0</div>
+                            <div class="stat-label">Total Messages</div>
+                        </div>
+                    </div>
+                    <div class="inbox-stat-card" id="statCardUnread" data-filter="unread">
+                        <div class="inbox-stat-icon" style="color: var(--color-primary-blue);">✉️</div>
+                        <div class="inbox-stat-info">
+                            <div class="stat-value" id="statUnreadCount" style="color: var(--color-primary-blue);">0</div>
+                            <div class="stat-label">Unread</div>
+                        </div>
+                    </div>
+                    <div class="inbox-stat-card" id="statCardRead" data-filter="read">
+                        <div class="inbox-stat-icon" style="color: #15803d;">📖</div>
+                        <div class="inbox-stat-info">
+                            <div class="stat-value" id="statReadCount">0</div>
+                            <div class="stat-label">Read</div>
+                        </div>
+                    </div>
+                    <div class="inbox-stat-card" id="statCardArchived" data-filter="archived">
+                        <div class="inbox-stat-icon" style="color: #64748b;">📁</div>
+                        <div class="inbox-stat-info">
+                            <div class="stat-value" id="statArchivedCount">0</div>
+                            <div class="stat-label">Archived</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toolbar & Tabs -->
+                <div class="toolbar-card">
+                    <div class="inbox-tabs">
+                        <button type="button" class="inbox-tab-btn active" data-filter="all" id="tabAll">
+                            All (<span id="tabCountAll">0</span>)
+                        </button>
+                        <button type="button" class="inbox-tab-btn" data-filter="unread" id="tabUnread">
+                            Unread (<span id="tabCountUnread">0</span>)
+                        </button>
+                        <button type="button" class="inbox-tab-btn" data-filter="read" id="tabRead">
+                            Read (<span id="tabCountRead">0</span>)
+                        </button>
+                        <button type="button" class="inbox-tab-btn" data-filter="archived" id="tabArchived">
+                            Archived (<span id="tabCountArchived">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="searchMessagesInput" placeholder="Search by sender, email, subject, or message content...">
+                    </div>
+                </div>
+
+                <!-- Table Card -->
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table class="data-table" id="messagesTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 250px;">SENDER</th>
+                                    <th>SUBJECT &amp; PREVIEW</th>
+                                    <th style="width: 140px;">DATE</th>
+                                    <th style="width: 110px;">STATUS</th>
+                                    <th style="width: 140px; text-align: right;">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messagesTableBody">
+                                <!-- Populated dynamically by messages.js -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyInboxState" style="display: none; padding: 48px 24px; text-align: center;">
+                        <div style="font-size: 42px; margin-bottom: 12px;">📭</div>
+                        <h3 style="font-size: 18px; color: var(--color-primary-dark); margin-bottom: 6px;" id="emptyTitle">No Messages Found</h3>
+                        <p style="font-size: 13.5px; color: var(--text-secondary); max-width: 420px; margin: 0 auto;" id="emptySubtitle">
+                            There are currently no inquiries in this folder.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Message Detail Modal -->
+    <div class="modal-overlay" id="messageDetailModal" role="dialog" aria-modal="true" aria-labelledby="detailSubject">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Message Details</h3>
+                <button type="button" class="btn-close-modal" id="closeDetailModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Sender Row -->
+                <div class="detail-sender-row">
+                    <div class="detail-sender-meta">
+                        <div class="detail-avatar" id="detailSenderAvatar">?</div>
+                        <div>
+                            <div class="detail-name" id="detailSenderName">Sender Name</div>
+                            <a href="#" class="detail-email-link" id="detailSenderEmail">sender@example.com</a>
+                        </div>
+                    </div>
+                    <div class="detail-time" id="detailReceivedDate">Oct 08, 2026 at 10:30 PM</div>
+                </div>
+
+                <!-- Subject -->
+                <div class="detail-subject-box">
+                    <div class="detail-subject-label">Subject</div>
+                    <div class="detail-subject-title" id="detailSubject">Discussion Regarding Project Architecture</div>
+                </div>
+
+                <!-- Message Body -->
+                <div class="detail-body-box">
+                    <div class="detail-body-text" id="detailMessageContent">
+                        Message content will appear here...
+                    </div>
+                </div>
+
+                <!-- Metadata Footer -->
+                <div class="detail-meta-footer">
+                    <span id="detailClientMeta">IP: 127.0.0.1</span>
+                    <span id="detailStatusBadge"><span class="badge-unread">UNREAD</span></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <a id="detailReplyMailtoBtn" href="#" class="btn-primary" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <span>↩️</span> Quick Reply
+                    </a>
+                    <button type="button" class="btn-secondary" id="detailToggleReadBtn">Mark as Unread</button>
+                    <button type="button" class="btn-secondary" id="detailToggleArchiveBtn">Archive</button>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-danger" id="detailDeleteBtn">Delete</button>
+                    <button type="button" class="btn-secondary" id="detailCloseBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteConfirmModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="modal-header" style="background: var(--danger);">
+                <h3 id="deleteModalTitle">Delete Message</h3>
+                <button type="button" class="btn-close-modal" id="closeDeleteModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 28px 24px;">
+                <div style="font-size: 40px; margin-bottom: 12px;">⚠️</div>
+                <h4 style="font-size: 18px; color: var(--color-primary-dark); margin-bottom: 8px;">Are you sure?</h4>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.5;">
+                    This will permanently delete the message from <strong id="deleteSenderName">Sender</strong>. This action cannot be undone.
+                </p>
+                <input type="hidden" id="deleteMessageId">
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/messages.js?v=2.6"></script>
+</body>
+</html>

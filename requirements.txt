@@ -1,0 +1,12 @@
+# Personal Global Website & CMS — Python Dependencies
+# Python 3.13+ compatible
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+sqlalchemy>=2.0.0
+psycopg>=3.1.0
+python-dotenv>=1.0.0
+pydantic>=2.6.0
+python-jose[cryptography]>=3.3.0
+pwdlib[argon2]>=0.2.0
+python-multipart>=0.0.9
+alembic>=1.13.0

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Blog &amp; Articles Management | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/blog.css?v=2.5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                <a href="blog.html" class="nav-link active">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Technical Blog Management</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Technical Blog &amp; Engineering Articles</h1>
+                        <p>Publish architecture deep-dives, cybersecurity research, software development tutorials, and design engineering guides.</p>
+                    </div>
+                    <button type="button" class="btn-action-add" id="openAddBlogModalBtn">
+                        <span>+</span>
+                        <span>New Article</span>
+                    </button>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="blog-stats-grid">
+                    <div class="blog-stat-card">
+                        <div class="blog-stat-icon">📚</div>
+                        <div class="blog-stat-info">
+                            <div class="stat-value" id="statTotalArticles">0</div>
+                            <div class="stat-label">Total Articles</div>
+                        </div>
+                    </div>
+                    <div class="blog-stat-card">
+                        <div class="blog-stat-icon">🚀</div>
+                        <div class="blog-stat-info">
+                            <div class="stat-value" id="statPublishedArticles">0</div>
+                            <div class="stat-label">Published Live</div>
+                        </div>
+                    </div>
+                    <div class="blog-stat-card">
+                        <div class="blog-stat-icon">📝</div>
+                        <div class="blog-stat-info">
+                            <div class="stat-value" id="statDraftArticles">0</div>
+                            <div class="stat-label">Drafts Pending</div>
+                        </div>
+                    </div>
+                    <div class="blog-stat-card">
+                        <div class="blog-stat-icon">👁️</div>
+                        <div class="blog-stat-info">
+                            <div class="stat-value" id="statTotalViews">0</div>
+                            <div class="stat-label">Total Article Reads</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toolbar & Filters -->
+                <div class="toolbar-card">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchBlogInput" class="search-input" placeholder="Search articles by title, tags, or author...">
+                    </div>
+                    <div class="filter-group">
+                        <select id="filterBlogCategory" class="filter-select">
+                            <option value="all">All Categories</option>
+                        </select>
+                        <select id="filterBlogStatus" class="filter-select">
+                            <option value="all">All Statuses</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Drafts</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Articles Data Table -->
+                <div class="table-card">
+                    <div class="table-responsive">
+                        <table class="data-table" id="blogTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px;">Cover</th>
+                                    <th>Article Title &amp; Slug</th>
+                                    <th>Category</th>
+                                    <th>Reading Time</th>
+                                    <th>Views</th>
+                                    <th>Status</th>
+                                    <th>Featured</th>
+                                    <th style="text-align: right; width: 140px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blogTableBody">
+                                <tr class="loading-row">
+                                    <td colspan="8">
+                                        <div class="spinner"></div>
+                                        <p>Loading blog articles from database...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Article Modal -->
+    <div class="modal-overlay" id="blogModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Technical Article</h3>
+                <button type="button" class="btn-close-modal" id="closeBlogModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="blogForm" autocomplete="off">
+                    <input type="hidden" id="blogId">
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="postTitle" class="form-label">Article Title *</label>
+                        <input type="text" id="postTitle" class="form-input" placeholder="e.g. Zero-Trust Cloud Architecture on AWS" required>
+                    </div>
+
+                    <!-- Slug -->
+                    <div class="form-group">
+                        <label for="postSlug" class="form-label">URL Slug (Auto-generated or custom) *</label>
+                        <div class="slug-row">
+                            <input type="text" id="postSlug" class="form-input" placeholder="e.g. zero-trust-cloud-architecture-aws" required>
+                            <button type="button" class="btn-slug-gen" id="btnGenSlug">Auto-Generate</button>
+                        </div>
+                    </div>
+
+                    <!-- Subtitle -->
+                    <div class="form-group">
+                        <label for="postSubtitle" class="form-label">Subtitle / Deck</label>
+                        <input type="text" id="postSubtitle" class="form-input" placeholder="e.g. Eliminating implicit trust across VPC networks and service meshes">
+                    </div>
+
+                    <!-- Grid: Category, Reading Time, Author -->
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label for="postCategory" class="form-label">Category *</label>
+                            <input type="text" id="postCategory" class="form-input" list="blogCategoryList" placeholder="e.g. Cybersecurity & Cloud" required>
+                            <datalist id="blogCategoryList">
+                                <option value="Cybersecurity & Cloud">
+                                <option value="Software Engineering">
+                                <option value="DevOps & SRE">
+                                <option value="Networking & Infrastructure">
+                                <option value="UX/UI Design & Systems">
+                                <option value="AI & Machine Learning">
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="postReadingTime" class="form-label">Reading Time (Mins)</label>
+                            <input type="number" id="postReadingTime" class="form-input" min="1" max="120" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="postAuthor" class="form-label">Author Name</label>
+                            <input type="text" id="postAuthor" class="form-input" value="Design Lyricist">
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-group">
+                        <label for="postTags" class="form-label">Tags (comma-separated)</label>
+                        <input type="text" id="postTags" class="form-input" placeholder="e.g. AWS, Zero-Trust, Kubernetes, IAM, Security">
+                    </div>
+
+                    <!-- Cover Image -->
+                    <div class="form-group">
+                        <label class="form-label">Cover Header Image</label>
+                        <div class="image-upload-wrap">
+                            <input type="text" id="postCoverUrl" class="form-input" placeholder="/uploads/blog/cover.png or external URL">
+                            <div class="upload-dropzone" id="coverDropzone">
+                                <span>📁 Drag &amp; drop cover image or click to upload</span>
+                                <input type="file" id="coverFileInput" accept="image/*" style="display: none;">
+                            </div>
+                            <img id="coverPreview" class="upload-preview" alt="Cover Preview">
+                        </div>
+                    </div>
+
+                    <!-- Excerpt -->
+                    <div class="form-group">
+                        <label for="postExcerpt" class="form-label">Short Excerpt / Summary (Displayed on cards)</label>
+                        <textarea id="postExcerpt" class="form-textarea" rows="2" placeholder="Brief 1-2 sentence overview of the article..."></textarea>
+                    </div>
+
+                    <!-- Content (With Toolbar) -->
+                    <div class="form-group">
+                        <label for="postContent" class="form-label">Article Content (HTML / Markdown supported) *</label>
+                        <div class="editor-toolbar">
+                            <button type="button" class="editor-btn" data-tag="bold" title="Bold text"><strong>B</strong></button>
+                            <button type="button" class="editor-btn" data-tag="italic" title="Italic text"><em>I</em></button>
+                            <button type="button" class="editor-btn" data-tag="h2" title="Section Heading 2">H2</button>
+                            <button type="button" class="editor-btn" data-tag="h3" title="Sub-section Heading 3">H3</button>
+                            <button type="button" class="editor-btn" data-tag="code" title="Inline code">&lt;/&gt;</button>
+                            <button type="button" class="editor-btn" data-tag="codeblock" title="Code block">Code Block</button>
+                            <button type="button" class="editor-btn" data-tag="ul" title="Bullet list">• List</button>
+                            <button type="button" class="editor-btn" data-tag="quote" title="Blockquote">Quote</button>
+                        </div>
+                        <textarea id="postContent" class="form-textarea editor-textarea" rows="12" placeholder="Write your full technical article here with code snippets, architectural explanations, and insights..." required></textarea>
+                    </div>
+
+                    <!-- Status Toggles -->
+                    <div style="display: flex; gap: 24px; padding: 12px 0;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="postIsPublished">
+                            <span>Publish Live (Visible on public website)</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="postIsFeatured">
+                            <span>Featured Article (Pinned to top)</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelBlogBtn">Cancel</button>
+                <button type="button" class="btn-primary" id="saveBlogBtn">Save Article</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteBlogModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="modal-header" style="background: var(--danger);">
+                <h3 id="deleteModalTitle">Delete Article</h3>
+                <button type="button" class="btn-close-modal" id="closeDeleteModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 28px 24px;">
+                <div style="font-size: 40px; margin-bottom: 12px;">⚠️</div>
+                <h4 style="font-size: 18px; color: var(--color-primary-dark); margin-bottom: 8px;">Are you sure?</h4>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.5;">
+                    This will permanently delete <strong id="deleteArticleTitle">this article</strong> and all its analytics. This action cannot be undone.
+                </p>
+                <input type="hidden" id="deleteArticleId">
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/blog.js?v=2.5"></script>
+</body>
+</html>
