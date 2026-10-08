@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" fill="#063F60"/>
+  <rect x="220" y="110" width="360" height="200" rx="14" fill="#072b42" stroke="#087DD8" stroke-width="2"/>
+  <rect x="240" y="135" width="320" height="28" rx="6" fill="#063F60" stroke="#6FB7E1" stroke-width="1"/>
+  <circle cx="260" cy="149" r="6" fill="#087DD8"/>
+  <text x="280" y="154" fill="#E8EEEE" font-family="monospace" font-size="12">ALERT #9821: Zero-Trust Perimeter Anomaly</text>
+  
+  <rect x="240" y="175" width="320" height="28" rx="6" fill="#063F60" stroke="#6FB7E1" stroke-width="1"/>
+  <circle cx="260" cy="189" r="6" fill="#6FB7E1"/>
+  <text x="280" y="194" fill="#E8EEEE" font-family="monospace" font-size="12">AUTOMATION: Token Revocation In-Progress</text>
+  
+  <rect x="240" y="215" width="320" height="28" rx="6" fill="#063F60" stroke="#6FB7E1" stroke-width="1"/>
+  <circle cx="260" cy="229" r="6" fill="#C4E0E1"/>
+  <text x="280" y="234" fill="#E8EEEE" font-family="monospace" font-size="12">STATUS: Threat Neutralized in 1.4s</text>
+
+  <text x="400" y="350" text-anchor="middle" fill="#E8EEEE" font-family="system-ui, sans-serif" font-size="22" font-weight="700">Modern SOC Incident Triage</text>
+  <text x="400" y="380" text-anchor="middle" fill="#6FB7E1" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Cognitive Ergonomics &amp; MTTD Reduction</text>
+</svg>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Management | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/education.css?v=2.3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link active">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                                <a href="blog.html" class="nav-link">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Education Qualifications Management</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Academic & Professional Qualifications</h1>
+                        <p>Manage university degrees, coursework, academic distinctions, research projects, and institution credentials.</p>
+                    </div>
+                    <button type="button" class="btn-action-add" id="openAddEduModalBtn">
+                        <span>+</span>
+                        <span>Add Education Qualification</span>
+                    </button>
+                </div>
+
+                <!-- Toolbar & Filters -->
+                <div class="toolbar-card">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input
+                            type="text"
+                            id="searchEduInput"
+                            placeholder="Search by degree, institution, or field of study..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="filterStatus" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="true">Active / Published</option>
+                            <option value="false">Draft / Inactive</option>
+                        </select>
+
+                        <button type="button" class="btn-outline" id="clearFiltersBtn">
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <table class="education-table">
+                        <thead>
+                            <tr>
+                                <th>Degree & Field of Study</th>
+                                <th>Institution</th>
+                                <th>Period</th>
+                                <th>Grade / Distinctions</th>
+                                <th>Order</th>
+                                <th>Status</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eduTableBody">
+                            <tr>
+                                <td colspan="7" class="loading-cell">Loading education qualifications data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Education Modal -->
+    <div class="modal" id="eduModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add Education Qualification</h3>
+                    <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+                </div>
+
+                <form id="eduForm" class="modal-form">
+                    <div id="formMessage" class="form-message"></div>
+
+                    <div class="form-grid">
+                        <!-- Degree Title -->
+                        <div class="form-field col-span-2">
+                            <label for="eduDegree">Degree / Qualification <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="eduDegree"
+                                placeholder="e.g., Master of Science (M.S.) in Cybersecurity, Bachelor of Science (B.S.)"
+                                required
+                            >
+                        </div>
+
+                        <!-- Field of Study -->
+                        <div class="form-field col-span-2">
+                            <label for="eduField">Field of Study / Major <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="eduField"
+                                placeholder="e.g., Computer Science, Information Security & Network Defense"
+                                required
+                            >
+                        </div>
+
+                        <!-- Institution Name -->
+                        <div class="form-field col-span-2">
+                            <label for="eduInstitution">University / College / Institution <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="eduInstitution"
+                                placeholder="e.g., Metropolitan Institute of Technology, State University of Engineering"
+                                required
+                            >
+                        </div>
+
+                        <!-- Start Year -->
+                        <div class="form-field">
+                            <label for="eduStartYear">Start Year / Date</label>
+                            <input
+                                type="text"
+                                id="eduStartYear"
+                                placeholder="e.g., 2020 or Sep 2020"
+                            >
+                        </div>
+
+                        <!-- End Year -->
+                        <div class="form-field">
+                            <label for="eduEndYear">End Year / Graduation</label>
+                            <input
+                                type="text"
+                                id="eduEndYear"
+                                placeholder="e.g., 2022 or Present"
+                            >
+                        </div>
+
+                        <!-- Grade / GPA / Honours -->
+                        <div class="form-field">
+                            <label for="eduGrade">Grade / GPA / Honours</label>
+                            <input
+                                type="text"
+                                id="eduGrade"
+                                placeholder="e.g., GPA: 3.92 / 4.0 (Summa Cum Laude)"
+                            >
+                        </div>
+
+                        <!-- Display Order -->
+                        <div class="form-field">
+                            <label for="eduOrder">Display Order (Lower = higher priority)</label>
+                            <input
+                                type="number"
+                                id="eduOrder"
+                                value="0"
+                                min="0"
+                            >
+                        </div>
+
+                        <!-- Activities & Societies -->
+                        <div class="form-field col-span-2">
+                            <label for="eduActivities">Activities, Leadership & Societies</label>
+                            <input
+                                type="text"
+                                id="eduActivities"
+                                placeholder="e.g., Cyber Defense Club Lead, ACM Student Chapter, Graduate Teaching Fellow"
+                            >
+                        </div>
+
+                        <!-- Institution Website URL -->
+                        <div class="form-field col-span-2">
+                            <label for="eduInstitutionUrl">Institution Website URL</label>
+                            <input
+                                type="url"
+                                id="eduInstitutionUrl"
+                                placeholder="https://university.example.edu"
+                            >
+                        </div>
+
+                        <!-- Institution Logo Upload / URL -->
+                        <div class="form-field col-span-2">
+                            <label for="eduLogoUrl">Institution Crest / Logo</label>
+                            <div class="image-input-group">
+                                <input
+                                    type="text"
+                                    id="eduLogoUrl"
+                                    placeholder="/uploads/education/crest.png or external URL"
+                                >
+                                <label for="eduLogoFileInput" class="file-upload-btn">
+                                    📁 Upload
+                                </label>
+                                <input
+                                    type="file"
+                                    id="eduLogoFileInput"
+                                    accept="image/*"
+                                    style="display: none;"
+                                >
+                            </div>
+                            <span class="field-hint" id="eduLogoUploadStatus">Upload institution crest or seal (PNG, WebP, SVG, JPG)</span>
+                        </div>
+
+                        <!-- Active Toggle -->
+                        <div class="form-field col-span-2">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="eduActive" checked>
+                                <span>👁️ Active / Visible on Website</span>
+                            </label>
+                        </div>
+
+                        <!-- Description & Relevant Coursework -->
+                        <div class="form-field col-span-2">
+                            <label for="eduDescription">Curriculum Highlights, Thesis & Capstone</label>
+                            <textarea
+                                id="eduDescription"
+                                rows="4"
+                                placeholder="• Thesis: Zero-Trust Cryptographic Architectures for Hybrid Cloud Systems.&#10;• Advanced Coursework: Applied Cryptography, Distributed Systems, Network Penetration Testing, Cloud Security.&#10;• Dean's High Honor List for Academic Excellence."
+                            ></textarea>
+                            <span class="field-hint">Supports bullet points (•) and multi-line descriptions for rich timeline presentation.</span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary-modal" id="cancelModalBtn">Cancel</button>
+                        <button type="submit" class="btn-primary-modal" id="saveEduBtn">Save Qualification</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast"></div>
+
+    <script src="js/education.js?v=2.3"></script>
+</body>
+</html>

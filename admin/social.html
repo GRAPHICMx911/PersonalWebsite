@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Links &amp; Profiles | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/social.css?v=2.7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                <a href="blog.html" class="nav-link">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link active">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Social Links &amp; Media Profiles</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Developer &amp; Social Profiles</h1>
+                        <p>Manage external links, repository handles, community channels, and verified profiles shown across your public website.</p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-primary-action" id="openAddSocialBtn">
+                            <span>+</span> Add Social Link
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview Grid -->
+                <div class="social-stats-grid">
+                    <div class="social-stat-card">
+                        <div class="social-stat-icon">🔗</div>
+                        <div class="social-stat-info">
+                            <div class="stat-value" id="statTotalLinks">0</div>
+                            <div class="stat-label">Total Links</div>
+                        </div>
+                    </div>
+                    <div class="social-stat-card">
+                        <div class="social-stat-icon" style="color: #15803d;">✅</div>
+                        <div class="social-stat-info">
+                            <div class="stat-value" id="statActiveLinks" style="color: #15803d;">0</div>
+                            <div class="stat-label">Active / Live</div>
+                        </div>
+                    </div>
+                    <div class="social-stat-card">
+                        <div class="social-stat-icon" style="color: #b45309;">⏸️</div>
+                        <div class="social-stat-info">
+                            <div class="stat-value" id="statInactiveLinks" style="color: #b45309;">0</div>
+                            <div class="stat-label">Disabled / Hidden</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Platform Presets -->
+                <div class="presets-card">
+                    <div class="presets-title">
+                        <span>⚡</span> Click to Add Popular Platform Preset
+                    </div>
+                    <div class="presets-chips-container" id="presetsChipsContainer">
+                        <!-- Populated by JS with quick-preset buttons -->
+                    </div>
+                </div>
+
+                <!-- Toolbar Card -->
+                <div class="toolbar-card">
+                    <div class="filter-group">
+                        <button type="button" class="filter-btn active" data-filter="all" id="filterAll">
+                            All Links (<span id="countAll">0</span>)
+                        </button>
+                        <button type="button" class="filter-btn" data-filter="active" id="filterActive">
+                            Active (<span id="countActive">0</span>)
+                        </button>
+                        <button type="button" class="filter-btn" data-filter="inactive" id="filterInactive">
+                            Hidden (<span id="countInactive">0</span>)
+                        </button>
+                    </div>
+
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" id="searchSocialInput" placeholder="Search by platform name or URL...">
+                    </div>
+                </div>
+
+                <!-- Social Cards Grid -->
+                <div class="social-cards-grid" id="socialCardsGrid">
+                    <!-- Populated dynamically by social.js -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptySocialState" style="display: none; padding: 60px 20px; text-align: center; background: white; border-radius: 14px; border: 1.5px solid var(--border-color);">
+                    <div style="font-size: 42px; margin-bottom: 12px;">🔗</div>
+                    <h3 style="font-size: 18px; color: var(--color-primary-dark); margin-bottom: 6px;" id="emptyTitle">No Social Links Found</h3>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); max-width: 420px; margin: 0 auto;" id="emptySubtitle">
+                        Click "+ Add Social Link" or choose a platform preset above to add your first profile.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Social Modal -->
+    <div class="modal-overlay" id="socialModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Social Link</h3>
+                <button type="button" class="btn-close-modal" id="closeSocialModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="socialForm" novalidate>
+                    <input type="hidden" id="socialId">
+
+                    <div class="form-group">
+                        <label for="platformName">Platform Name *</label>
+                        <input type="text" id="platformName" class="form-control" placeholder="e.g. GitHub, LinkedIn, X, Discord" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="platformUrl">Profile / Channel URL *</label>
+                        <input type="url" id="platformUrl" class="form-control" placeholder="e.g. https://github.com/username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iconSvg">SVG Icon Markup (Recommended)</label>
+                        <textarea id="iconSvg" class="form-control" rows="3" placeholder="Paste &lt;svg ...&gt;...&lt;/svg&gt; XML markup or select a preset"></textarea>
+                        <div class="svg-preview-wrapper">
+                            <div class="svg-preview-box" id="svgPreviewBox">
+                                <span>Preview</span>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.4;">
+                                SVG icons render vector-sharp on all screen resolutions and inherit official portfolio colors.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label for="iconClass">Icon Class / Identifier</label>
+                            <input type="text" id="iconClass" class="form-control" placeholder="e.g. github, linkedin">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="displayOrder">Display Order</label>
+                            <input type="number" id="displayOrder" class="form-control" value="0" min="0" step="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 8px;">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <label class="switch">
+                                <input type="checkbox" id="isActive" checked>
+                                <span class="slider"></span>
+                            </label>
+                            <span style="font-size: 13.5px; font-weight: 700; color: var(--color-primary-dark);">
+                                Active &amp; Visible on Public Website
+                            </span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelSocialBtn">Cancel</button>
+                <button type="button" class="btn-primary-action" id="saveSocialBtn">Save Social Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="deleteSocialModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="modal-header" style="background: var(--danger);">
+                <h3 id="deleteModalTitle">Delete Social Link</h3>
+                <button type="button" class="btn-close-modal" id="closeDeleteModalBtn" aria-label="Close dialog">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 28px 24px;">
+                <div style="font-size: 40px; margin-bottom: 12px;">⚠️</div>
+                <h4 style="font-size: 18px; color: var(--color-primary-dark); margin-bottom: 8px;">Are you sure?</h4>
+                <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.5;">
+                    This will permanently delete the social link for <strong id="deletePlatformName">Platform</strong>. This cannot be undone.
+                </p>
+                <input type="hidden" id="deleteSocialId">
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button type="button" class="btn-danger" id="confirmDeleteBtn">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/social.js?v=2.7"></script>
+</body>
+</html>

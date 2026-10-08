@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Personal Global Website</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .details-header {
+            padding: 50px 0 30px;
+            background: linear-gradient(180deg, var(--color-background) 0%, rgba(196, 224, 225, 0.4) 100%);
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+        .details-title {
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 14px;
+            letter-spacing: -0.8px;
+        }
+        .details-meta-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .details-summary {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 800px;
+        }
+        .details-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        .details-main {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .details-cover {
+            width: 100%;
+            max-height: 480px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+        }
+        .details-content-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            box-shadow: var(--card-shadow);
+            line-height: 1.8;
+            font-size: 15px;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+        }
+        .details-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .sidebar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+        }
+        .sidebar-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        @media (max-width: 860px) {
+            .details-layout {
+                grid-template-columns: 1fr;
+            }
+            .details-title {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Site Navigation -->
+    <header class="site-header">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-link">
+                <img src="logo.png" alt="Personal Global Logo" class="brand-logo-img">
+                <div class="brand-info">
+                    <span class="brand-name">Personal Global</span>
+                    <span class="brand-title">Portfolio &amp; Engineering Platform</span>
+                </div>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-item-link">Home</a></li>
+                    <li><a href="index.html#expertise" class="nav-item-link">Expertise</a></li>
+                    <li><a href="index.html#skills" class="nav-item-link">Skills</a></li>
+                    <li><a href="index.html#certifications" class="nav-item-link">Certifications</a></li>
+                    <li><a href="index.html#experience" class="nav-item-link">Experience</a></li>
+                    <li><a href="index.html#design" class="nav-item-link">Design &amp; UX</a></li>
+                    <li><a href="index.html#blog" class="nav-item-link">Blog</a></li>
+                    <li><a href="projects.html" class="nav-item-link active">All Projects</a></li>
+                    <li><a href="index.html#contact" class="nav-item-link">Contact</a></li>
+                    <li><a href="admin/login.html" class="nav-btn-admin">🔐 Admin Portal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Details Header -->
+    <section class="details-header">
+        <div class="container">
+            <a href="projects.html" class="back-link">&larr; Back to Projects Catalog</a>
+            <div id="projectHeaderContent">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <div id="projectDetailsContainer">
+            <!-- Populated dynamically via project-details.js -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h4>Personal Global Website</h4>
+                    <p>Dynamic projects managed with FastAPI &amp; PostgreSQL.</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">All Projects</a></li>
+                    <li><a href="admin/login.html">Admin CMS</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Personal Global Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/project-details.js"></script>
+</body>
+</html>

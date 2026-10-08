@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certifications Management | Admin CMS</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/certifications.css?v=2.3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <img src="../logo.png" alt="Admin CMS Logo" class="sidebar-brand-logo">
+                    <div class="brand-text">
+                        <span class="brand-title">Admin CMS</span>
+                        <span class="brand-subtitle">Control Center</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">MAIN</div>
+                <a href="dashboard.html" class="nav-link">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="projects.html" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span>Projects</span>
+                </a>
+                <a href="skills.html" class="nav-link">
+                    <span class="nav-icon">⚡</span>
+                    <span>Skills</span>
+                </a>
+                <a href="certifications.html" class="nav-link active">
+                    <span class="nav-icon">📜</span>
+                    <span>Certifications</span>
+                </a>
+                <a href="education.html" class="nav-link">
+                    <span class="nav-icon">🎓</span>
+                    <span>Education</span>
+                </a>
+                <a href="experience.html" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span>Experience</span>
+                </a>
+                <a href="design.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span>Design Portfolio</span>
+                </a>
+                <a href="ux-ui.html" class="nav-link">
+                    <span class="nav-icon">✨</span>
+                    <span>UX/UI Portfolio</span>
+                </a>
+                                <a href="blog.html" class="nav-link">
+                    <span class="nav-icon">✍️</span>
+                    <span>Technical Blog</span>
+                </a>
+                <a href="messages.html" class="nav-link">
+                    <span class="nav-icon">✉️</span>
+                    <span>Messages</span>
+                    <span class="sidebar-unread-badge" id="sidebarUnreadBadge" style="display: none;">0</span>
+                </a>
+                <a href="social.html" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    <span>Social Links</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Website Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button type="button" id="logoutButton" class="logout-btn">
+                    <span class="nav-icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <button type="button" id="mobileMenuButton" class="mobile-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+                <div class="topbar-title">
+                    <h2>Certifications Management</h2>
+                </div>
+                <div class="admin-profile-pill">
+                    <div class="admin-avatar" id="adminAvatar">A</div>
+                    <div class="admin-meta">
+                        <span class="admin-name" id="adminName">Admin</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-text">
+                        <h1>Verified Industry Certifications</h1>
+                        <p>Manage your accredited certifications, issuing organizations, verification links, and digital badges.</p>
+                    </div>
+                    <button type="button" class="btn-action-add" id="openAddCertModalBtn">
+                        <span>+</span>
+                        <span>Add New Certification</span>
+                    </button>
+                </div>
+
+                <!-- Toolbar & Filters -->
+                <div class="toolbar-card">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input
+                            type="text"
+                            id="searchCertInput"
+                            placeholder="Search by certification name, issuer, or ID..."
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="filter-group">
+                        <select id="filterStatus" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="true">Active / Published</option>
+                            <option value="false">Draft / Inactive</option>
+                        </select>
+
+                        <button type="button" class="btn-outline" id="clearFiltersBtn">
+                            Reset Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <table class="certifications-table">
+                        <thead>
+                            <tr>
+                                <th>Certification Name</th>
+                                <th>Issuing Body</th>
+                                <th>Issue Date</th>
+                                <th>Expiration</th>
+                                <th>Credential ID</th>
+                                <th>Verification</th>
+                                <th>Featured</th>
+                                <th>Status</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="certsTableBody">
+                            <tr>
+                                <td colspan="9" class="loading-cell">Loading certifications data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add / Edit Certification Modal -->
+    <div class="modal" id="certModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add Certification</h3>
+                    <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close modal">&times;</button>
+                </div>
+
+                <form id="certForm" class="modal-form">
+                    <div id="formMessage" class="form-message"></div>
+
+                    <div class="form-grid">
+                        <!-- Certification Title -->
+                        <div class="form-field col-span-2">
+                            <label for="certName">Certification Title <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="certName"
+                                placeholder="e.g., AWS Certified Solutions Architect - Associate"
+                                required
+                            >
+                        </div>
+
+                        <!-- Issuing Organization -->
+                        <div class="form-field col-span-2">
+                            <label for="certIssuer">Issuing Organization <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="certIssuer"
+                                placeholder="e.g., Amazon Web Services (AWS), CompTIA, Cisco"
+                                required
+                            >
+                        </div>
+
+                        <!-- Issue Date -->
+                        <div class="form-field">
+                            <label for="certIssueDate">Issue Date</label>
+                            <input
+                                type="text"
+                                id="certIssueDate"
+                                placeholder="e.g., May 2024 or 2024-05-15"
+                            >
+                        </div>
+
+                        <!-- Expiry Date -->
+                        <div class="form-field">
+                            <label for="certExpiryDate">Expiration Date</label>
+                            <input
+                                type="text"
+                                id="certExpiryDate"
+                                placeholder="e.g., May 2027 or No Expiration"
+                            >
+                        </div>
+
+                        <!-- Credential ID -->
+                        <div class="form-field">
+                            <label for="certId">Credential ID / License</label>
+                            <input
+                                type="text"
+                                id="certId"
+                                placeholder="e.g., AWS-SAA-839201"
+                            >
+                        </div>
+
+                        <!-- Display Order -->
+                        <div class="form-field">
+                            <label for="certOrder">Display Order</label>
+                            <input
+                                type="number"
+                                id="certOrder"
+                                value="0"
+                                min="0"
+                            >
+                        </div>
+
+                        <!-- Verification URL -->
+                        <div class="form-field col-span-2">
+                            <label for="certUrl">Verification URL (Credly, Issuer Portal)</label>
+                            <input
+                                type="url"
+                                id="certUrl"
+                                placeholder="https://www.credly.com/badges/..."
+                            >
+                        </div>
+
+                        <!-- Badge Image Upload / URL -->
+                        <div class="form-field col-span-2">
+                            <label for="certImageUrl">Badge / Certificate Image</label>
+                            <div class="image-input-group">
+                                <input
+                                    type="text"
+                                    id="certImageUrl"
+                                    placeholder="/uploads/certifications/badge.png or external URL"
+                                >
+                                <label for="badgeFileInput" class="file-upload-btn">
+                                    📁 Upload
+                                </label>
+                                <input
+                                    type="file"
+                                    id="badgeFileInput"
+                                    accept="image/*"
+                                    style="display: none;"
+                                >
+                            </div>
+                            <span class="field-hint" id="badgeUploadStatus">Upload a digital badge (PNG, WebP, SVG, JPG)</span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-field col-span-2">
+                            <label for="certDescription">Description / Key Competencies</label>
+                            <textarea
+                                id="certDescription"
+                                rows="3"
+                                placeholder="Brief overview of skills and technical domains validated by this credential..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Checkboxes -->
+                        <div class="form-field col-span-2">
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="certFeatured">
+                                    <span>★ Mark as Featured (Highlighted on Home)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="certActive" checked>
+                                    <span>👁️ Active / Visible on Website</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-secondary-modal" id="cancelModalBtn">Cancel</button>
+                        <button type="submit" class="btn-primary-modal" id="saveCertBtn">Save Certification</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toastNotification" class="toast"></div>
+
+    <script src="js/certifications.js?v=2.3"></script>
+</body>
+</html>
