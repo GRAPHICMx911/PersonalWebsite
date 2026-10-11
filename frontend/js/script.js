@@ -1318,6 +1318,8 @@ function renderBlogCatalog() {
             </article>
         `;
     }).join("");
+}
+
 // =========================================================
 // CONTACT FORM SUBMISSION
 // =========================================================
@@ -1407,6 +1409,8 @@ function initializeContactForm() {
             if (submitSpinner) submitSpinner.style.display = "none";
         }
     });
+}
+
 // =========================================================
 // PUBLIC SOCIAL LINKS INITIALIZATION
 // =========================================================

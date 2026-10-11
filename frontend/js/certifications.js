@@ -15,7 +15,7 @@ const API_BASE_URL = window.location.origin.includes(":8000")
     ? window.location.origin 
     : "http://127.0.0.1:8000";
 
-const token = sessionStorage.getItem("access_token");
+const token = sessionStorage.getItem("access_token") || localStorage.getItem("access_token") || localStorage.getItem("token");
 
 // =========================================================
 // AUTHENTICATION CHECK
@@ -516,9 +516,12 @@ if (mobileMenuButton && sidebar) {
     });
 }
 
-// Logout handler
 function logout() {
     sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("admin_user");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("admin_user");
+    localStorage.removeItem("token");
     window.location.href = "login.html";
 }
 

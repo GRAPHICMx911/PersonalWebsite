@@ -2,7 +2,7 @@ const API_BASE_URL = window.location.origin.includes(":8000")
     ? window.location.origin 
     : "http://127.0.0.1:8000";
 
-const token = sessionStorage.getItem("access_token");
+const token = sessionStorage.getItem("access_token") || localStorage.getItem("access_token") || localStorage.getItem("token");
 
 // =========================================================
 // AUTHENTICATION CHECK
@@ -88,18 +88,17 @@ async function loadDashboardData() {
             })
         ]);
 
-        if (projRes.ok) {
-            const projects = await projRes.json();
-            const categories = catRes.ok ? await catRes.json() : [];
-            const skills = skillsRes.ok ? await skillsRes.json() : [];
-            const certs = certsRes.ok ? await certsRes.json() : [];
-            const education = eduRes.ok ? await eduRes.json() : [];
-            const experience = expRes.ok ? await expRes.json() : [];
-            const design = designRes.ok ? await designRes.json() : [];
-            const uxui = uxuiRes.ok ? await uxuiRes.json() : [];
-            const blog = blogRes && blogRes.ok ? await blogRes.json() : [];
-            const msgStats = msgRes && msgRes.ok ? await msgRes.json() : null;
-            const socialLinks = socialRes && socialRes.ok ? await socialRes.json() : [];
+        const projects = projRes.ok ? await projRes.json() : [];
+        const categories = catRes.ok ? await catRes.json() : [];
+        const skills = skillsRes.ok ? await skillsRes.json() : [];
+        const certs = certsRes.ok ? await certsRes.json() : [];
+        const education = eduRes.ok ? await eduRes.json() : [];
+        const experience = expRes.ok ? await expRes.json() : [];
+        const design = designRes.ok ? await designRes.json() : [];
+        const uxui = uxuiRes.ok ? await uxuiRes.json() : [];
+        const blog = blogRes && blogRes.ok ? await blogRes.json() : [];
+        const msgStats = msgRes && msgRes.ok ? await msgRes.json() : null;
+        const socialLinks = socialRes && socialRes.ok ? await socialRes.json() : [];
 
             // Stats
             const total = projects.length;
@@ -175,7 +174,6 @@ async function loadDashboardData() {
                     }).join("");
                 }
             }
-        }
     } catch (err) {
         console.error("Dashboard data load error:", err);
     }
@@ -193,6 +191,9 @@ function escapeHtml(str) {
 function logout() {
     sessionStorage.removeItem("access_token");
     sessionStorage.removeItem("admin_user");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("admin_user");
+    localStorage.removeItem("token");
     window.location.href = "login.html";
 }
 
