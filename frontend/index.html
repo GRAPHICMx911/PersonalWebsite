@@ -32,7 +32,7 @@
                     <li><a href="#projects" class="nav-item-link">Projects</a></li>
                     <li><a href="#blog" class="nav-item-link">Blog</a></li>
                     <li><a href="#contact" class="nav-item-link">Contact</a></li>
-                    <li><a href="admin/login.html" class="nav-btn-admin">🔐 Admin Portal</a></li>
+                    <li><a href="admin/login.html" class="nav-btn-admin">🔐 Admin</a></li>
                 </ul>
             </nav>
         </div>
@@ -78,34 +78,34 @@
         <section class="domains-section" id="expertise">
             <div class="container">
                 <div class="domains-grid">
-                    <div class="domain-card">
+                    <a href="#projects" class="domain-card" title="Explore Software Engineering Projects">
                         <span class="domain-icon">💻</span>
                         <span class="domain-name">Software Engineering</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#projects" class="domain-card" title="Explore Cybersecurity Projects">
                         <span class="domain-icon">🛡️</span>
                         <span class="domain-name">Cybersecurity</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#projects" class="domain-card" title="Explore AWS Cloud Architectures">
                         <span class="domain-icon">☁️</span>
                         <span class="domain-name">AWS Cloud</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#projects" class="domain-card" title="Explore Network Engineering">
                         <span class="domain-icon">🌐</span>
                         <span class="domain-name">Networking</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#design" class="domain-card" title="Explore UX/UI Product Case Studies">
                         <span class="domain-icon">✨</span>
                         <span class="domain-name">UX/UI Design</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#design" class="domain-card" title="Explore Graphic &amp; Visual Design Portfolio">
                         <span class="domain-icon">🎨</span>
                         <span class="domain-name">Graphic Design</span>
-                    </div>
-                    <div class="domain-card">
+                    </a>
+                    <a href="#projects" class="domain-card" title="Explore Project Management &amp; Delivery">
                         <span class="domain-icon">📊</span>
                         <span class="domain-name">Project Management</span>
-                    </div>
+                    </a>
                 </div>
             </div>
         </section>
@@ -204,9 +204,14 @@
                         <h2>Featured Technical Projects</h2>
                         <p>Real-world applications and architectures dynamically loaded from PostgreSQL database.</p>
                     </div>
-                    <a href="projects.html" class="section-action-link">
-                        View Complete Catalog &rarr;
-                    </a>
+                    <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+                        <a href="#design" class="section-action-link" style="color: var(--color-primary-blue);">
+                            🎨 Design &amp; UX Showcase &darr;
+                        </a>
+                        <a href="projects.html" class="section-action-link">
+                            View Complete Catalog &rarr;
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Category Filter Tabs -->
