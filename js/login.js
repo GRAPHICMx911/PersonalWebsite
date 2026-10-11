@@ -11,7 +11,8 @@ const loginMessage = document.getElementById("loginMessage");
 const togglePassword = document.getElementById("togglePassword");
 
 // Redirect if already logged in
-if (sessionStorage.getItem("access_token")) {
+const existingToken = sessionStorage.getItem("access_token") || localStorage.getItem("access_token") || localStorage.getItem("token");
+if (existingToken) {
     window.location.href = "dashboard.html";
 }
 
@@ -67,6 +68,8 @@ loginForm.addEventListener("submit", async (event) => {
 
         sessionStorage.setItem("access_token", data.access_token);
         sessionStorage.setItem("admin_user", JSON.stringify(data.user));
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("admin_user", JSON.stringify(data.user));
 
         showMessage("Login successful! Redirecting...", "success");
 
