@@ -360,6 +360,9 @@ body {
 }
 
 .domain-card {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
     background: #ffffff;
     border: 1px solid var(--color-secondary-light);
     border-radius: var(--radius-md);
@@ -374,9 +377,13 @@ body {
 }
 
 .domain-card:hover {
-    border-color: var(--color-primary-light);
-    transform: translateY(-3px);
-    box-shadow: var(--card-shadow-hover);
+    border-color: var(--color-primary-blue);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(6, 63, 96, 0.12);
+}
+
+.domain-card:hover .domain-name {
+    color: var(--color-primary-blue);
 }
 
 .domain-icon {
