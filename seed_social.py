@@ -20,7 +20,7 @@ LEETCODE_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" wi
 SAMPLE_LINKS = [
     {
         "platform_name": "GitHub",
-        "url": "https://github.com/alexander-dev-lead",
+        "url": "https://github.com/designlyricist",
         "icon_svg": GITHUB_SVG,
         "icon_class": "github",
         "display_order": 1,
@@ -28,7 +28,7 @@ SAMPLE_LINKS = [
     },
     {
         "platform_name": "LinkedIn",
-        "url": "https://linkedin.com/in/alexander-architect",
+        "url": "https://linkedin.com/in/designlyricist",
         "icon_svg": LINKEDIN_SVG,
         "icon_class": "linkedin",
         "display_order": 2,
@@ -36,7 +36,7 @@ SAMPLE_LINKS = [
     },
     {
         "platform_name": "X / Twitter",
-        "url": "https://x.com/alex_engineer",
+        "url": "https://x.com/designlyricist",
         "icon_svg": X_SVG,
         "icon_class": "x-twitter",
         "display_order": 3,
@@ -52,7 +52,7 @@ SAMPLE_LINKS = [
     },
     {
         "platform_name": "Technical Substack",
-        "url": "https://technotes.alexander.dev",
+        "url": "https://technotes.designlyricist.dev",
         "icon_svg": SUBSTACK_SVG,
         "icon_class": "substack",
         "display_order": 5,
@@ -60,7 +60,7 @@ SAMPLE_LINKS = [
     },
     {
         "platform_name": "LeetCode",
-        "url": "https://leetcode.com/u/alexander_codes",
+        "url": "https://leetcode.com/u/designlyricist",
         "icon_svg": LEETCODE_SVG,
         "icon_class": "leetcode",
         "display_order": 6,

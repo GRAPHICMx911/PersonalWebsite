@@ -295,4 +295,5 @@ python test_production_suite.py
 
 ## 📄 License & Attribution
 
-Designed and engineered for **Alexander Mitchell / Design Lyricist** — Personal Global Website & CMS Platform. All rights reserved.
+Designed and engineered for **Design Lyricist** — Personal Global Website & CMS Platform. All rights reserved.
+

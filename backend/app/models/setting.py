@@ -9,7 +9,7 @@ class SiteSetting(Base):
     id = Column(Integer, primary_key=True, index=True)
 
     # General Profile
-    full_name = Column(String(150), default="Alexander Mitchell", nullable=False)
+    full_name = Column(String(150), default="Design Lyricist", nullable=False)
     professional_title = Column(String(250), default="Senior Full-Stack Engineer & Cloud Architect", nullable=False)
     bio_summary = Column(Text, nullable=True)
     avatar_image_url = Column(String(500), nullable=True)
@@ -28,8 +28,8 @@ class SiteSetting(Base):
     hero_secondary_btn_url = Column(String(250), default="/uploads/documents/resume.pdf", nullable=True)
 
     # SEO & Meta
-    meta_title = Column(String(250), default="Alexander Mitchell — Senior Full-Stack Engineer & Cloud Architect", nullable=False)
-    meta_description = Column(Text, default="Portfolio and engineering showcase of Alexander Mitchell: Full-Stack Engineering, Cloud Architecture, Cybersecurity, and UX/UI Design.", nullable=False)
+    meta_title = Column(String(250), default="Design Lyricist — Senior Full-Stack Engineer & Cloud Architect", nullable=False)
+    meta_description = Column(Text, default="Portfolio and engineering showcase of Design Lyricist: Full-Stack Engineering, Cloud Architecture, Cybersecurity, and UX/UI Design.", nullable=False)
     meta_keywords = Column(String(500), default="Full-Stack Engineer, Cloud Architect, FastAPI, PostgreSQL, AWS, Cybersecurity, UX/UI", nullable=True)
     og_image_url = Column(String(500), nullable=True)
 
