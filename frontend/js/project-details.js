@@ -1,5 +1,5 @@
-const API_BASE_URL = window.location.origin.includes(":8000") 
-    ? window.location.origin 
+const API_BASE_URL = window.location.origin.startsWith("http")
+    ? window.location.origin
     : "http://127.0.0.1:8000";
 
 const headerContent = document.getElementById("projectHeaderContent");

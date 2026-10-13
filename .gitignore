@@ -30,3 +30,5 @@ Thumbs.db
 scratch/
 tmp/
 *.log
+tools/
+check_endpoints.py
