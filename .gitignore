@@ -32,4 +32,5 @@ tmp/
 *.log
 tools/
 check_endpoints.py
+database_backup.sql
 frontend_deploy.zip
