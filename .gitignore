@@ -32,3 +32,4 @@ tmp/
 *.log
 tools/
 check_endpoints.py
+frontend_deploy.zip
