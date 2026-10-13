@@ -10,7 +10,7 @@ cd /d "%~dp0"
 echo [1/2] Launching Backend Server on port 8000...
 start "Backend Uvicorn Server" cmd /k "venv\Scripts\python.exe -m uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000"
 
-timeout /t 3 /nobreak >nul
+ping 127.0.0.1 -n 3 >nul
 
 echo [2/2] Launching Cloudflare Tunnel...
 start "Cloudflare Live Tunnel" cmd /k "tools\cloudflared.exe tunnel --url http://127.0.0.1:8000"
