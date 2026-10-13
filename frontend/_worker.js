@@ -6,7 +6,7 @@ export default {
     if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/uploads/')) {
       // Set BACKEND_URL in Cloudflare Pages > Settings > Environment Variables
       // Default fallback points to active live tunnel:
-      const backendBase = (env.BACKEND_URL || "https://tank-perl-uri-hazardous.trycloudflare.com").replace(/\/+$/, "");
+      const backendBase = (env.BACKEND_URL || "https://databases-couple-vintage-coins.trycloudflare.com").replace(/\/+$/, "");
       const targetUrl = new URL(url.pathname + url.search, backendBase);
 
       const modifiedHeaders = new Headers(request.headers);
