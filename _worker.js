@@ -10,6 +10,7 @@ export default {
       const targetUrl = new URL(url.pathname + url.search, backendBase);
 
       const modifiedHeaders = new Headers(request.headers);
+      modifiedHeaders.set("host", targetUrl.host);
       modifiedHeaders.set("X-Forwarded-Host", url.host);
       modifiedHeaders.set("X-Forwarded-Proto", url.protocol.replace(":", ""));
 
