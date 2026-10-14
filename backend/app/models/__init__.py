@@ -10,6 +10,7 @@ from backend.app.models.blog import BlogPost
 from backend.app.models.message import ContactMessage
 from backend.app.models.social import SocialLink
 from backend.app.models.setting import SiteSetting
+from backend.app.models.cv import CVDocument
 
 __all__ = [
     "User",
@@ -26,5 +27,6 @@ __all__ = [
     "ContactMessage",
     "SocialLink",
     "SiteSetting",
+    "CVDocument",
 ]
 

@@ -9,7 +9,7 @@ from sqlalchemy import text
 from dotenv import load_dotenv
 
 from backend.app.database import get_db
-from backend.app.api.routes import auth, admin, projects, skills, certifications, experience, education, design, ux_ui, blog, messages, social, settings
+from backend.app.api.routes import auth, admin, projects, skills, certifications, experience, education, design, ux_ui, blog, messages, social, settings, cvs
 
 load_dotenv()
 
@@ -63,6 +63,7 @@ uploads_dir.mkdir(parents=True, exist_ok=True)
 (uploads_dir / "design").mkdir(parents=True, exist_ok=True)
 (uploads_dir / "ux-ui").mkdir(parents=True, exist_ok=True)
 (uploads_dir / "blog").mkdir(parents=True, exist_ok=True)
+(uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
 
 # Include API Routers FIRST so API routes take precedence
@@ -79,6 +80,7 @@ app.include_router(blog.router)
 app.include_router(messages.router)
 app.include_router(social.router)
 app.include_router(settings.router)
+app.include_router(cvs.router)
 
 
 # System Health Check

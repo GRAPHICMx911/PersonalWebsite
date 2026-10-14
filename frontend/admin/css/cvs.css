@@ -1,0 +1,278 @@
+/* =========================================================
+   ADMIN TAILORED CV MANAGEMENT STYLESHEET
+   ========================================================= */
+
+.cv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 22px;
+    margin-top: 24px;
+}
+
+.admin-cv-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--color-secondary-light);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(6, 63, 96, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-cv-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(8, 125, 216, 0.12);
+    border-color: var(--color-primary-light);
+}
+
+.admin-cv-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.admin-cv-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-cv-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(8, 125, 216, 0.1);
+    border: 1px solid var(--color-secondary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.admin-cv-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin: 0;
+}
+
+.admin-cv-category {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-primary-blue);
+    background: rgba(8, 125, 216, 0.08);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.admin-cv-body {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.admin-cv-desc {
+    font-size: 13.5px;
+    color: #4a6572;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.admin-cv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+}
+
+.admin-cv-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    background: var(--color-background);
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid rgba(196, 224, 225, 0.7);
+}
+
+.admin-cv-file-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 1px dashed var(--color-secondary-light);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.admin-cv-file-box a {
+    color: var(--color-primary-blue);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.admin-cv-file-box a:hover {
+    text-decoration: underline;
+}
+
+.admin-cv-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(196, 224, 225, 0.6);
+    padding-top: 14px;
+    gap: 8px;
+}
+
+.admin-cv-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.status-badge {
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.status-badge.draft {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+.status-badge:hover {
+    opacity: 0.85;
+}
+
+/* Dropzone Styles */
+.dropzone-container {
+    border: 2px dashed var(--color-secondary-light);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    background: #fafcfe;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.dropzone-container:hover,
+.dropzone-container.drag-over {
+    border-color: var(--color-primary-blue);
+    background: #f0f7ff;
+}
+
+.dropzone-icon {
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.dropzone-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.dropzone-subtext {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(6, 63, 96, 0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-secondary-light);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--color-secondary-light);
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--color-primary-dark);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #64748b;
+    padding: 4px;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-secondary-light);
+    background: #f8fafc;
+}
+
+.form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .form-row-2col {
+        grid-template-columns: 1fr;
+    }
+}
