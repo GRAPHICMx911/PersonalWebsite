@@ -1,0 +1,56 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 843 >>
+stream
+BT
+/F1 20 Tf
+50 750 Td
+(Design Lyricist - Cloud Solutions Architect & DevOps CV) Tj
+/F1 12 Tf
+0 -24 Td
+(Specialized in AWS Cloud Infrastructure, VPC, Docker & Infrastructure-as-Code) Tj
+0 -18 Td
+(Contact: muneeb03022309111@gmail.com | Response Time: Within 10 Minutes) Tj
+/F1 14 Tf
+0 -36 Td
+(Core Focus & Competencies:) Tj
+/F1 11 Tf
+0 -20 Td
+(  - Multi-tier secure AWS VPC architecture, subnets, NAT gateways, and IAM least-privilege) Tj
+0 -20 Td
+(  - Container orchestration with Docker, Kubernetes, and automated deployment pipelines) Tj
+0 -20 Td
+(  - Zero-trust network configuration, CloudFront CDN edge caching, and SSL/TLS termination) Tj
+0 -20 Td
+(  - Disaster recovery planning, automated database failover, and metrics observability) Tj
+0 -36 Td
+(/F1 10 Tf)
+(Generated from Design Lyricist Global Platform - All Rights Reserved) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001135 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1205
+%%EOF
