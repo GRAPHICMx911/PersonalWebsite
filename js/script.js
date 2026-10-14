@@ -1545,16 +1545,6 @@ async function initializeSiteSettings() {
             if (data.hero_secondary_btn_url) heroSecondaryBtn.setAttribute("href", data.hero_secondary_btn_url);
         }
 
-        // 7. Resume Download Button
-        const heroResumeBtn = document.getElementById("heroResumeBtn");
-        if (heroResumeBtn && data.resume_download_url) {
-            const resumeUrl = data.resume_download_url.startsWith("http")
-                ? data.resume_download_url
-                : `${API_BASE_URL}${data.resume_download_url}`;
-            heroResumeBtn.setAttribute("href", resumeUrl);
-            heroResumeBtn.style.display = "inline-flex";
-        }
-
         // 8. Brand Name & Footer Brand
         if (data.full_name) {
             const brandName = document.querySelector(".brand-name");
@@ -1669,8 +1659,16 @@ document.addEventListener("DOMContentLoaded", () => {
             if (designModal?.classList.contains("active")) closePublicDesignModal();
             if (csModal?.classList.contains("active")) closePublicCaseStudyModal();
             if (blogModal?.classList.contains("active")) closePublicBlogModal();
+            if (document.getElementById("cvPreviewModal")?.classList.contains("active")) closeCvPreview();
         }
     });
+
+    const cvModalElem = document.getElementById("cvPreviewModal");
+    if (cvModalElem) {
+        cvModalElem.addEventListener("click", (e) => {
+            if (e.target === cvModalElem) closeCvPreview();
+        });
+    }
 
     // Check URL params for direct certificate view link (e.g. ?cert=1)
     const urlParams = new URLSearchParams(window.location.search);
@@ -1689,3 +1687,116 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 600);
     }
 });
+
+// =========================================================
+// TAILORED CV PROFILES & MODAL PREVIEW LOGIC
+// =========================================================
+const CV_PROFILES = {
+    fullstack: {
+        badge: "Software Engineering",
+        title: "Full-Stack Software Engineer CV",
+        role: "Senior Full-Stack Engineer / Backend Architect",
+        desc: "Tailored specifically for full-stack engineering and backend systems roles. Demonstrates production-grade mastery of Python, FastAPI, asynchronous microservices, PostgreSQL database schema modeling, connection pooling, Docker, and frontend integration.",
+        bullets: [
+            "Asynchronous microservice architectures and RESTful OpenAPI design",
+            "PostgreSQL schema normalization, indexing, connection pooling, and SQLAlchemy",
+            "Multi-stage Docker builds, automated CI/CD pipelines, and health observability",
+            "Secure authentication systems using Argon2id, JWT tokens, and RBAC authorization",
+            "Clean Vanilla JavaScript (ES6+) and modern responsive interface integration"
+        ],
+        fileUrl: "/uploads/documents/cv_fullstack_engineer.pdf",
+        fileName: "Design_Lyricist_FullStack_Engineer_CV.pdf"
+    },
+    uiux: {
+        badge: "Product Design",
+        title: "UI / UX & Product Designer CV",
+        role: "Senior UI/UX & Product Experience Designer",
+        desc: "Designed for product design, interaction architecture, and design system leadership roles. Highlights deep competency in human-centered design, interactive prototyping in Figma, design tokens, and user research.",
+        bullets: [
+            "Enterprise design systems, reusable component tokens, and style guidelines",
+            "Wireframing, user persona mapping, and high-fidelity interactive Figma prototypes",
+            "Usability testing, heuristic evaluations, and accessibility compliance (WCAG 2.1)",
+            "Seamless developer handoff with design tokens and responsive CSS integration"
+        ],
+        fileUrl: "/uploads/documents/cv_uiux_designer.pdf",
+        fileName: "Design_Lyricist_UIUX_Designer_CV.pdf"
+    },
+    cloud: {
+        badge: "Cloud & DevOps",
+        title: "Cloud Solutions Architect & DevOps CV",
+        role: "Senior Cloud Architect & DevOps Specialist",
+        desc: "Formatted for cloud architecture, DevOps, and infrastructure engineering positions. Showcases mastery of scalable AWS virtual networks, container orchestration, and zero-trust security.",
+        bullets: [
+            "AWS VPC design, multi-AZ subnets, NAT gateways, and IAM least-privilege policies",
+            "Container orchestration with Docker, Kubernetes, and automated deployment pipelines",
+            "CloudFront CDN edge caching, SSL/TLS termination, and HTTP/2 performance tuning",
+            "Automated infrastructure disaster recovery, database failover, and metrics tracking"
+        ],
+        fileUrl: "/uploads/documents/cv_cloud_architect.pdf",
+        fileName: "Design_Lyricist_Cloud_Architect_CV.pdf"
+    },
+    cyber: {
+        badge: "Security & Defense",
+        title: "Cybersecurity & Network Specialist CV",
+        role: "Cybersecurity Engineer & SOC Specialist",
+        desc: "Tailored for information security, SOC triage, network administration, and vulnerability assessment roles. Focuses on OWASP Top 10 hardening, network packet analysis, and defense-in-depth Linux security.",
+        bullets: [
+            "Vulnerability assessments, security scanning, and CVE exposure remediation",
+            "OWASP Top 10 defense, SQLi/XSS prevention, and strict HTTP security headers",
+            "Deep packet inspection with Wireshark, traffic anomaly detection, and Nmap audits",
+            "Linux server hardening, stateful firewalls (iptables/UFW), and audit logging"
+        ],
+        fileUrl: "/uploads/documents/cv_cybersecurity_specialist.pdf",
+        fileName: "Design_Lyricist_Cybersecurity_CV.pdf"
+    },
+    graphic: {
+        badge: "Graphic & Brand",
+        title: "Graphic Designer & Creative Lead CV",
+        role: "Senior Graphic Designer & Brand Identity Lead",
+        desc: "Curated for creative leadership, visual branding, and digital media design roles. Emphasizes extensive commercial branding, vector artwork, typography, and portfolio showcases on Behance (graphicmx911).",
+        bullets: [
+            "Comprehensive brand identity guidelines, vector marks, and visual system design",
+            "High-precision digital illustration, marketing collateral, and publication layouts",
+            "Extensive commercial portfolio on Behance (graphicmx911)",
+            "Mastery of Adobe Illustrator, Photoshop, and digital vector composition"
+        ],
+        fileUrl: "/uploads/documents/cv_graphic_designer.pdf",
+        fileName: "Design_Lyricist_Graphic_Designer_CV.pdf"
+    }
+};
+
+function openCvPreview(roleKey) {
+    const profile = CV_PROFILES[roleKey];
+    if (!profile) return;
+
+    const modal = document.getElementById("cvPreviewModal");
+    if (!modal) return;
+
+    document.getElementById("cvModalBadge").textContent = profile.badge;
+    document.getElementById("cvModalTitle").textContent = profile.title;
+    document.getElementById("cvModalSubtitle").textContent = profile.role;
+    document.getElementById("cvModalRole").textContent = profile.role;
+    document.getElementById("cvModalDesc").textContent = profile.desc;
+
+    const bulletsList = document.getElementById("cvModalBullets");
+    if (bulletsList) {
+        bulletsList.innerHTML = profile.bullets.map(b => `<li>${b}</li>`).join("");
+    }
+
+    const dlBtn = document.getElementById("cvModalDownloadBtn");
+    if (dlBtn) {
+        dlBtn.href = profile.fileUrl;
+        dlBtn.setAttribute("download", profile.fileName);
+    }
+
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
+
+function closeCvPreview() {
+    const modal = document.getElementById("cvPreviewModal");
+    if (modal) {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+    }
+}

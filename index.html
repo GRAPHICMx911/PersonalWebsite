@@ -60,8 +60,7 @@
                     </p>
                     <div class="hero-actions" id="heroActions">
                         <a href="#projects" class="btn btn-primary" id="heroPrimaryBtn">Explore Featured Projects &darr;</a>
-                        <a href="projects.html" class="btn btn-secondary" id="heroSecondaryBtn">Full Project Catalog &rarr;</a>
-                        <a href="#" class="btn btn-secondary" id="heroResumeBtn" style="display: none;" target="_blank" rel="noopener noreferrer">Download Resume 📄</a>
+                        <a href="#resumes" class="btn btn-secondary" id="heroSecondaryBtn">Tailored CVs by Post &darr;</a>
                     </div>
                     <div class="hero-social-bar">
                         <span class="hero-social-label">Profiles:</span>
@@ -190,6 +189,198 @@
                 <div class="timeline-container" id="educationTimelineContainer" style="display: none;">
                     <div class="timeline-track" id="educationTimelineTrack">
                         <!-- Populated dynamically via script.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tailored CV Downloads by Post Section -->
+        <section class="cv-downloads-section" id="resumes">
+            <div class="container">
+                <div class="section-header text-center" style="max-width: 820px; margin: 0 auto 40px auto; text-align: center;">
+                    <div class="section-pill" style="margin: 0 auto 12px auto; display: inline-flex;">
+                        <span>📄 Specialized Curriculum Vitae</span>
+                    </div>
+                    <h2 class="section-title">Download CV by Role &amp; Position</h2>
+                    <p class="section-subtitle" style="color: var(--text-muted); font-size: 15px; margin-top: 8px;">
+                        Targeted resumes tailored for distinct engineering, architectural, and design opportunities. Select the specific document matching your hiring needs.
+                    </p>
+                </div>
+
+                <div class="cv-cards-grid" id="cvCardsGrid">
+                    <!-- Post 1: Full-Stack Software Engineer -->
+                    <div class="cv-card">
+                        <div class="cv-card-header">
+                            <div class="cv-card-icon-wrap">💻</div>
+                            <div class="cv-card-meta">
+                                <span class="cv-badge">Software Engineering</span>
+                                <h3 class="cv-card-title">Full-Stack Software Engineer</h3>
+                            </div>
+                        </div>
+                        <p class="cv-card-desc">
+                            Tailored for backend engineering, high-concurrency microservices, REST APIs, FastAPI, Python, and PostgreSQL architectures.
+                        </p>
+                        <div class="cv-card-tags">
+                            <span class="cv-tag">FastAPI</span>
+                            <span class="cv-tag">Python</span>
+                            <span class="cv-tag">PostgreSQL</span>
+                            <span class="cv-tag">Docker</span>
+                            <span class="cv-tag">REST APIs</span>
+                        </div>
+                        <div class="cv-card-footer">
+                            <div class="cv-file-info">
+                                <span class="cv-file-format">PDF</span>
+                                <span class="cv-file-detail">Specialized for Senior / Staff Roles</span>
+                            </div>
+                            <div class="cv-card-actions">
+                                <a href="/uploads/documents/cv_fullstack_engineer.pdf" download="Design_Lyricist_FullStack_Engineer_CV.pdf" class="btn btn-primary btn-sm">
+                                    <span class="btn-icon">📥</span> Download CV
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('fullstack')">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 2: UI/UX & Product Designer -->
+                    <div class="cv-card">
+                        <div class="cv-card-header">
+                            <div class="cv-card-icon-wrap">🎨</div>
+                            <div class="cv-card-meta">
+                                <span class="cv-badge">Product Design</span>
+                                <h3 class="cv-card-title">UI / UX &amp; Product Designer</h3>
+                            </div>
+                        </div>
+                        <p class="cv-card-desc">
+                            Focused on design systems in Figma, user research, wireframing, interactive prototypes, and human-centered digital experiences.
+                        </p>
+                        <div class="cv-card-tags">
+                            <span class="cv-tag">Figma</span>
+                            <span class="cv-tag">Design Systems</span>
+                            <span class="cv-tag">Wireframing</span>
+                            <span class="cv-tag">User Journeys</span>
+                            <span class="cv-tag">WCAG 2.1</span>
+                        </div>
+                        <div class="cv-card-footer">
+                            <div class="cv-file-info">
+                                <span class="cv-file-format">PDF</span>
+                                <span class="cv-file-detail">Specialized for Product &amp; UX Roles</span>
+                            </div>
+                            <div class="cv-card-actions">
+                                <a href="/uploads/documents/cv_uiux_designer.pdf" download="Design_Lyricist_UIUX_Designer_CV.pdf" class="btn btn-primary btn-sm">
+                                    <span class="btn-icon">📥</span> Download CV
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('uiux')">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 3: Cloud Architect & DevOps -->
+                    <div class="cv-card">
+                        <div class="cv-card-header">
+                            <div class="cv-card-icon-wrap">☁️</div>
+                            <div class="cv-card-meta">
+                                <span class="cv-badge">Cloud &amp; DevOps</span>
+                                <h3 class="cv-card-title">Cloud Solutions Architect &amp; DevOps</h3>
+                            </div>
+                        </div>
+                        <p class="cv-card-desc">
+                            Specialized in scalable AWS VPC infrastructures, container orchestration, CI/CD automated pipelines, and zero-trust networks.
+                        </p>
+                        <div class="cv-card-tags">
+                            <span class="cv-tag">AWS VPC</span>
+                            <span class="cv-tag">Docker</span>
+                            <span class="cv-tag">CI/CD</span>
+                            <span class="cv-tag">Terraform</span>
+                            <span class="cv-tag">Zero-Trust</span>
+                        </div>
+                        <div class="cv-card-footer">
+                            <div class="cv-file-info">
+                                <span class="cv-file-format">PDF</span>
+                                <span class="cv-file-detail">Specialized for Cloud &amp; DevOps Roles</span>
+                            </div>
+                            <div class="cv-card-actions">
+                                <a href="/uploads/documents/cv_cloud_architect.pdf" download="Design_Lyricist_Cloud_Architect_CV.pdf" class="btn btn-primary btn-sm">
+                                    <span class="btn-icon">📥</span> Download CV
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('cloud')">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 4: Cybersecurity Specialist -->
+                    <div class="cv-card">
+                        <div class="cv-card-header">
+                            <div class="cv-card-icon-wrap">🛡️</div>
+                            <div class="cv-card-meta">
+                                <span class="cv-badge">Security &amp; Defense</span>
+                                <h3 class="cv-card-title">Cybersecurity &amp; Network Specialist</h3>
+                            </div>
+                        </div>
+                        <p class="cv-card-desc">
+                            Concentrated on vulnerability management, OWASP Top 10 hardening, penetration testing, packet analysis, and SOC operations.
+                        </p>
+                        <div class="cv-card-tags">
+                            <span class="cv-tag">Threat Modeling</span>
+                            <span class="cv-tag">OWASP</span>
+                            <span class="cv-tag">Wireshark</span>
+                            <span class="cv-tag">Nmap</span>
+                            <span class="cv-tag">Linux Hardening</span>
+                        </div>
+                        <div class="cv-card-footer">
+                            <div class="cv-file-info">
+                                <span class="cv-file-format">PDF</span>
+                                <span class="cv-file-detail">Specialized for Security &amp; NetSec Roles</span>
+                            </div>
+                            <div class="cv-card-actions">
+                                <a href="/uploads/documents/cv_cybersecurity_specialist.pdf" download="Design_Lyricist_Cybersecurity_CV.pdf" class="btn btn-primary btn-sm">
+                                    <span class="btn-icon">📥</span> Download CV
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('cyber')">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 5: Graphic Designer & Creative Lead -->
+                    <div class="cv-card">
+                        <div class="cv-card-header">
+                            <div class="cv-card-icon-wrap">✨</div>
+                            <div class="cv-card-meta">
+                                <span class="cv-badge">Graphic &amp; Brand</span>
+                                <h3 class="cv-card-title">Graphic Designer &amp; Creative Lead</h3>
+                            </div>
+                        </div>
+                        <p class="cv-card-desc">
+                            Showcases brand identity systems, typography, vector illustration, digital artwork, and creative direction from Behance (graphicmx911).
+                        </p>
+                        <div class="cv-card-tags">
+                            <span class="cv-tag">Brand Identity</span>
+                            <span class="cv-tag">Illustrator</span>
+                            <span class="cv-tag">Photoshop</span>
+                            <span class="cv-tag">Vector Art</span>
+                            <span class="cv-tag">Typography</span>
+                        </div>
+                        <div class="cv-card-footer">
+                            <div class="cv-file-info">
+                                <span class="cv-file-format">PDF</span>
+                                <span class="cv-file-detail">Specialized for Creative &amp; Graphic Roles</span>
+                            </div>
+                            <div class="cv-card-actions">
+                                <a href="/uploads/documents/cv_graphic_designer.pdf" download="Design_Lyricist_Graphic_Designer_CV.pdf" class="btn btn-primary btn-sm">
+                                    <span class="btn-icon">📥</span> Download CV
+                                </a>
+                                <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('graphic')">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -598,6 +789,62 @@
         </div>
     </div>
 
+    <!-- Public CV Document Preview Modal -->
+    <div class="public-modal" id="cvPreviewModal" role="dialog" aria-modal="true" aria-labelledby="cvModalTitle">
+        <div class="public-modal-dialog" style="max-width: 680px;">
+            <div class="public-modal-content">
+                <div class="public-modal-header">
+                    <div class="public-modal-badge-title">
+                        <span class="public-modal-issuer" id="cvModalBadge">Software Engineering</span>
+                        <h2 id="cvModalTitle">Full-Stack Software Engineer CV</h2>
+                        <p id="cvModalSubtitle" style="font-size: 14px; color: var(--color-primary-blue); font-weight: 600; margin-top: 4px;">Tailored Document Overview</p>
+                    </div>
+                    <button type="button" class="public-modal-close" onclick="closeCvPreview()" aria-label="Close dialog">&times;</button>
+                </div>
+                <div class="public-modal-body">
+                    <div class="public-cs-meta-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 20px;">
+                        <div>
+                            <span class="meta-label">Target Role:</span>
+                            <div id="cvModalRole" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">Senior Engineer</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Format / Quality:</span>
+                            <div style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">Standard PDF (A4 / Print-Ready)</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Direct Contact:</span>
+                            <div style="font-weight: 700; color: var(--color-primary-blue); font-size: 13.5px;">muneeb03022309111@gmail.com</div>
+                        </div>
+                        <div>
+                            <span class="meta-label">Response Time:</span>
+                            <div style="font-weight: 700; color: #2e7d32; font-size: 13.5px;">⚡ Within 10 Minutes</div>
+                        </div>
+                    </div>
+
+                    <div class="public-cs-block">
+                        <h4>📄 Tailored Profile Summary</h4>
+                        <div id="cvModalDesc" class="public-cs-block-content" style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+                            Comprehensive architectural overview, technical contributions, and impact metrics.
+                        </div>
+                    </div>
+
+                    <div class="public-cs-block" style="margin-top: 18px;">
+                        <h4>🎯 Key Areas Highlighted in This CV</h4>
+                        <ul id="cvModalBullets" style="margin-left: 20px; color: var(--color-primary-dark); font-size: 13.5px; line-height: 1.8;">
+                        </ul>
+                    </div>
+
+                    <div class="public-modal-actions" style="margin-top: 26px; display: flex; justify-content: flex-end; gap: 12px;">
+                        <button type="button" class="btn btn-secondary" onclick="closeCvPreview()">Close</button>
+                        <a href="#" id="cvModalDownloadBtn" download class="btn btn-primary">
+                            <span class="btn-icon">📥</span> Download This CV (PDF)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
@@ -630,6 +877,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js?v=4.0"></script>
+    <script src="js/script.js?v=4.5"></script>
 </body>
 </html>
