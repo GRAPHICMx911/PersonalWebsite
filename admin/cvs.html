@@ -6,7 +6,7 @@
     <title>Curriculum Vitae (CV) Management | Admin CMS</title>
     <link rel="icon" type="image/png" href="../logo.png">
     <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/cvs.css?v=1.0">
+    <link rel="stylesheet" href="css/cvs.css?v=2.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -116,32 +116,51 @@
                 <div class="page-header">
                     <div class="page-header-text">
                         <h1>Tailored CVs by Position</h1>
-                        <p>Manage, upload, update, and preview specialized resumes tailored for different engineering and design roles.</p>
+                        <p>Manage, upload, update, and preview specialized resumes tailored for distinct engineering and design positions.</p>
                     </div>
                     <button type="button" class="btn-action-add" id="openAddCvModalBtn">
-                        <span>+</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
                         <span>Add New CV</span>
                     </button>
                 </div>
 
                 <!-- Statistics Grid -->
-                <section class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 24px;">
+                <section class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon icon-blue">📄</div>
+                        <div class="stat-icon icon-blue">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                            </svg>
+                        </div>
                         <div class="stat-info">
                             <span class="stat-value" id="statTotalCvs">0</span>
                             <span class="stat-label">Total CV Documents</span>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon icon-green">✅</div>
+                        <div class="stat-icon icon-green">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
                         <div class="stat-info">
                             <span class="stat-value" id="statActiveCvs">0</span>
                             <span class="stat-label">Active on Public Site</span>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon icon-amber">📁</div>
+                        <div class="stat-icon icon-amber">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
                         <div class="stat-info">
                             <span class="stat-value" id="statCategories">0</span>
                             <span class="stat-label">Disciplines / Roles</span>
@@ -156,20 +175,23 @@
                         <input
                             type="text"
                             id="searchCvInput"
-                            placeholder="Search CV by position title, category, or tags..."
+                            placeholder="Search CV by position title, category, target role, or tags..."
                             autocomplete="off"
                         >
                     </div>
 
                     <div class="filter-group">
-                        <select id="categoryFilter" class="form-control" style="width: auto;">
+                        <select id="categoryFilter" class="filter-select">
                             <option value="">All Categories</option>
                         </select>
-                        <select id="statusFilter" class="form-control" style="width: auto;">
+                        <select id="statusFilter" class="filter-select">
                             <option value="">All Statuses</option>
                             <option value="active">Active Only</option>
                             <option value="draft">Draft Only</option>
                         </select>
+                        <button type="button" class="btn-outline" id="clearFiltersBtn">
+                            Reset Filters
+                        </button>
                     </div>
                 </div>
 
@@ -306,6 +328,6 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer" style="position: fixed; bottom: 24px; right: 24px; z-index: 99999; display: flex; flex-direction: column; gap: 8px;"></div>
 
-    <script src="js/cvs.js?v=2.0"></script>
+    <script src="js/cvs.js?v=3.0"></script>
 </body>
 </html>
