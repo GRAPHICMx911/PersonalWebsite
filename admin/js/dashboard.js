@@ -54,7 +54,7 @@ async function loadAdminProfile() {
 // =========================================================
 async function loadDashboardData() {
     try {
-        const [projRes, catRes, skillsRes, certsRes, eduRes, expRes, designRes, uxuiRes, blogRes, msgRes, socialRes] = await Promise.all([
+        const [projRes, catRes, skillsRes, certsRes, eduRes, expRes, designRes, uxuiRes, blogRes, msgRes, socialRes, cvRes] = await Promise.all([
             fetch(`${API_BASE_URL}/api/projects`, {
                 headers: { "Authorization": `Bearer ${token}` }
             }),
@@ -85,6 +85,9 @@ async function loadDashboardData() {
             }),
             fetch(`${API_BASE_URL}/api/social`, {
                 headers: { "Authorization": `Bearer ${token}` }
+            }),
+            fetch(`${API_BASE_URL}/api/cvs/`, {
+                headers: { "Authorization": `Bearer ${token}` }
             })
         ]);
 
@@ -99,6 +102,7 @@ async function loadDashboardData() {
         const blog = blogRes && blogRes.ok ? await blogRes.json() : [];
         const msgStats = msgRes && msgRes.ok ? await msgRes.json() : null;
         const socialLinks = socialRes && socialRes.ok ? await socialRes.json() : [];
+        const cvs = cvRes && cvRes.ok ? await cvRes.json() : [];
 
             // Stats
             const total = projects.length;
@@ -119,6 +123,7 @@ async function loadDashboardData() {
             const msgTotalEl = document.getElementById("dashTotalMessages");
             const msgUnreadEl = document.getElementById("dashUnreadMessages");
             const socialEl = document.getElementById("dashTotalSocial");
+            const cvsEl = document.getElementById("dashTotalCvs");
             const sidebarBadge = document.getElementById("sidebarUnreadBadge");
 
             if (totalEl) totalEl.textContent = total;
@@ -133,6 +138,7 @@ async function loadDashboardData() {
             if (uxuiEl) uxuiEl.textContent = uxui.length;
             if (blogEl) blogEl.textContent = blog.length;
             if (socialEl) socialEl.textContent = socialLinks.length;
+            if (cvsEl) cvsEl.textContent = cvs.length;
 
             if (msgStats) {
                 if (msgTotalEl) msgTotalEl.textContent = msgStats.total || 0;
@@ -221,131 +227,3 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 // Initialize
 loadAdminProfile();
 loadDashboardData();
-loadAdminCvList();
-
-// =========================================================
-// TAILORED CV MANAGEMENT LOGIC
-// =========================================================
-async function loadAdminCvList() {
-    const tbody = document.getElementById("adminCvTableBody");
-    if (!tbody) return;
-
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/settings/cvs`);
-        if (!res.ok) throw new Error("Could not load CVs list");
-
-        const cvs = await res.json();
-        const totalCvEl = document.getElementById("dashTotalCVs");
-        if (totalCvEl) totalCvEl.textContent = cvs.length;
-
-        if (!cvs || cvs.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted">No CV posts configured.</td></tr>`;
-            return;
-        }
-
-        tbody.innerHTML = cvs.map(cv => {
-            const sizeKb = cv.exists ? (cv.size_bytes / 1024).toFixed(1) + " KB" : "Not uploaded";
-            const statusBadge = cv.exists 
-                ? `<span class="badge badge-published">Active (Live)</span>`
-                : `<span class="badge badge-draft">Missing</span>`;
-
-            return `
-                <tr>
-                    <td>
-                        <strong>${escapeHtml(cv.title)}</strong>
-                    </td>
-                    <td>
-                        <span class="badge badge-cat">${escapeHtml(cv.category)}</span>
-                    </td>
-                    <td>
-                        <code>${escapeHtml(cv.filename)}</code>
-                    </td>
-                    <td>
-                        <small style="color: var(--text-muted);">${sizeKb}</small>
-                    </td>
-                    <td>
-                        ${statusBadge}
-                    </td>
-                    <td style="text-align: right; white-space: nowrap;">
-                        <a href="${cv.url}" target="_blank" class="panel-action" style="margin-right: 10px;">
-                            📥 View PDF
-                        </a>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="triggerCvUpload('${cv.role_key}')" style="font-size: 11.5px; padding: 4px 10px;">
-                            ⬆️ Replace PDF
-                        </button>
-                    </td>
-                </tr>
-            `;
-        }).join("");
-
-    } catch (err) {
-        console.error("Load CVs error:", err);
-        if (tbody) {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Failed to load CVs list.</td></tr>`;
-        }
-    }
-}
-
-function triggerCvUpload(roleKey) {
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = ".pdf";
-    fileInput.style.display = "none";
-
-    fileInput.addEventListener("change", async () => {
-        if (!fileInput.files || fileInput.files.length === 0) return;
-        const file = fileInput.files[0];
-
-        if (!file.name.toLowerCase().endsWith(".pdf")) {
-            alert("Only PDF documents (.pdf) are permitted.");
-            return;
-        }
-
-        const statusMsg = document.getElementById("cvUploadStatusMsg");
-        if (statusMsg) {
-            statusMsg.textContent = `Uploading ${file.name}...`;
-            statusMsg.style.color = "var(--color-primary-blue)";
-            statusMsg.style.display = "inline-block";
-        }
-
-        const formData = new FormData();
-        formData.append("file", file);
-
-        try {
-            const res = await fetch(`${API_BASE_URL}/api/settings/upload-cv/${roleKey}`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                body: formData
-            });
-
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.detail || "Failed to upload CV document");
-            }
-
-            const data = await res.json();
-            if (statusMsg) {
-                statusMsg.textContent = `✓ ${data.message || "CV updated successfully!"}`;
-                statusMsg.style.color = "#2e7d32";
-                setTimeout(() => { if (statusMsg) statusMsg.style.display = "none"; }, 4000);
-            }
-
-            await loadAdminCvList();
-
-        } catch (uploadErr) {
-            console.error("Upload CV error:", uploadErr);
-            alert("Error uploading CV: " + uploadErr.message);
-            if (statusMsg) statusMsg.style.display = "none";
-        }
-    });
-
-    document.body.appendChild(fileInput);
-    fileInput.click();
-    setTimeout(() => {
-        if (document.body.contains(fileInput)) {
-            document.body.removeChild(fileInput);
-        }
-    }, 1000);
-}

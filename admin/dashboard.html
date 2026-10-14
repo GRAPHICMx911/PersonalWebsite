@@ -35,6 +35,10 @@
                     <span class="nav-icon">💼</span>
                     <span>Projects</span>
                 </a>
+                <a href="cvs.html" class="nav-link">
+                    <span class="nav-icon">📄</span>
+                    <span>CV Documents</span>
+                </a>
                 <a href="skills.html" class="nav-link">
                     <span class="nav-icon">⚡</span>
                     <span>Skills</span>
@@ -71,10 +75,6 @@
                 <a href="social.html" class="nav-link">
                     <span class="nav-icon">🔗</span>
                     <span>Social Links</span>
-                </a>
-                <a href="#adminCvSection" class="nav-link">
-                    <span class="nav-icon">📄</span>
-                    <span>Tailored CVs</span>
                 </a>
                 <a href="settings.html" class="nav-link">
                     <span class="nav-icon">⚙️</span>
@@ -174,6 +174,14 @@
                     </div>
 
                     <div class="stat-card">
+                        <div class="stat-icon icon-blue">📄</div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="dashTotalCvs">0</span>
+                            <span class="stat-label">Tailored CVs</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
                         <div class="stat-icon icon-blue">🎓</div>
                         <div class="stat-info">
                             <span class="stat-value" id="dashTotalEducation">0</span>
@@ -236,14 +244,6 @@
                             <span class="stat-label">Social Profiles</span>
                         </div>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon icon-blue">📄</div>
-                        <div class="stat-info">
-                            <span class="stat-value" id="dashTotalCVs">5</span>
-                            <span class="stat-label">Tailored CV Posts</span>
-                        </div>
-                    </div>
                 </section>
 
                 <!-- Quick Actions & Recent Projects Grid -->
@@ -296,6 +296,13 @@
                                         <small>Edit, publish, or delete existing work</small>
                                     </div>
                                 </a>
+                                <a href="cvs.html" class="quick-action-item">
+                                    <div class="qa-icon">📄</div>
+                                    <div class="qa-details">
+                                        <strong>Manage Tailored CVs</strong>
+                                        <small>Add, update, or upload role-specific CVs</small>
+                                    </div>
+                                </a>
                                 <a href="skills.html" class="quick-action-item">
                                     <div class="qa-icon">⚡</div>
                                     <div class="qa-details">
@@ -346,14 +353,6 @@
                                     </div>
                                 </a>
 
-                                <a href="#adminCvSection" class="quick-action-item">
-                                    <div class="qa-icon">📄</div>
-                                    <div class="qa-details">
-                                        <strong>Manage Tailored CVs</strong>
-                                        <small>Replace &amp; upload CVs for each post</small>
-                                    </div>
-                                </a>
-
                                 <a href="../index.html" target="_blank" class="quick-action-item">
                                     <div class="qa-icon">🌐</div>
                                     <div class="qa-details">
@@ -365,44 +364,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Tailored CVs Management Section -->
-                <section class="panel-card" id="adminCvSection" style="margin-top: 24px;">
-                    <div class="panel-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <div class="stat-icon icon-blue" style="font-size: 22px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(8, 125, 216, 0.12); border-radius: 10px;">📄</div>
-                            <div>
-                                <h3 style="margin: 0; font-size: 17px; color: var(--color-primary-dark);">Tailored Curriculum Vitae (CV) Management by Post</h3>
-                                <small style="color: var(--text-muted);">Manage, view, and replace downloadable PDF CV documents for each specialized post</small>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span id="cvUploadStatusMsg" style="font-size: 13px; font-weight: 600; color: #2e7d32; display: none;"></span>
-                            <a href="../index.html#resumes" target="_blank" class="panel-action">View Public CV Section &rarr;</a>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="mini-table">
-                                <thead>
-                                    <tr>
-                                        <th>Role / Post Title</th>
-                                        <th>Target Category</th>
-                                        <th>PDF Document</th>
-                                        <th>File Size</th>
-                                        <th>Status</th>
-                                        <th style="text-align: right;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminCvTableBody">
-                                    <tr>
-                                        <td colspan="6" class="text-center text-muted">Loading CV documents...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>

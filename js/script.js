@@ -1586,6 +1586,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeBlogCatalog();
     initializeContactForm();
     initializeSocialLinks();
+    initializePublicCVs();
 
     // Certificate Modal handlers
     const closeCertBtn = document.getElementById("closePublicCertModalBtn");
@@ -1765,25 +1766,149 @@ const CV_PROFILES = {
     }
 };
 
-function openCvPreview(roleKey) {
-    const profile = CV_PROFILES[roleKey];
+let publicCVsList = [];
+
+async function initializePublicCVs() {
+    const grid = document.getElementById("cvCardsGrid");
+    if (!grid) return;
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/cvs/public`);
+        if (!response.ok) throw new Error("Failed to fetch public CVs");
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+            publicCVsList = data;
+            renderPublicCVCards(data);
+        }
+    } catch (err) {
+        console.warn("Public CV fetch failed, fallback to static cards:", err);
+    }
+}
+
+function renderPublicCVCards(cvs) {
+    const grid = document.getElementById("cvCardsGrid");
+    if (!grid) return;
+
+    grid.innerHTML = cvs.map(cv => {
+        let tagsArr = [];
+        if (Array.isArray(cv.tags)) {
+            tagsArr = cv.tags;
+        } else if (typeof cv.tags === "string" && cv.tags.trim()) {
+            try {
+                const parsed = JSON.parse(cv.tags);
+                if (Array.isArray(parsed)) tagsArr = parsed;
+                else tagsArr = cv.tags.split(",").map(t => t.trim()).filter(Boolean);
+            } catch {
+                tagsArr = cv.tags.split(",").map(t => t.trim()).filter(Boolean);
+            }
+        }
+
+        const tagsHtml = tagsArr.map(tag => `<span class="cv-tag">${escapeHtml(tag)}</span>`).join("");
+        const icon = cv.icon || "📄";
+        const fileUrl = cv.file_url || "#";
+        const fileName = cv.file_name || `${(cv.role_key || "CV")}.pdf`;
+        const roleDetail = cv.target_role ? escapeHtml(cv.target_role) : "Specialized Document";
+        const formatBadge = (cv.file_format || "PDF").toUpperCase();
+
+        return `
+            <div class="cv-card" data-cv-id="${cv.id}">
+                <div class="cv-card-header">
+                    <div class="cv-card-icon-wrap">${escapeHtml(icon)}</div>
+                    <div class="cv-card-meta">
+                        <span class="cv-badge">${escapeHtml(cv.category || "Professional")}</span>
+                        <h3 class="cv-card-title">${escapeHtml(cv.title)}</h3>
+                    </div>
+                </div>
+                <p class="cv-card-desc">
+                    ${escapeHtml(cv.description || "")}
+                </p>
+                <div class="cv-card-tags">
+                    ${tagsHtml}
+                </div>
+                <div class="cv-card-footer">
+                    <div class="cv-file-info">
+                        <span class="cv-file-format">${escapeHtml(formatBadge)}</span>
+                        <span class="cv-file-detail">${roleDetail}</span>
+                    </div>
+                    <div class="cv-card-actions">
+                        <a href="${encodeURI(fileUrl)}" download="${escapeHtml(fileName)}" class="btn btn-primary btn-sm">
+                            <span class="btn-icon">📥</span> Download CV
+                        </a>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('${cv.id}')">
+                            Preview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+function openCvPreview(idOrKey) {
+    let profile = null;
+
+    // Check dynamic CV list first
+    if (publicCVsList && publicCVsList.length > 0) {
+        const found = publicCVsList.find(c => String(c.id) === String(idOrKey) || c.role_key === idOrKey);
+        if (found) {
+            let bullets = [];
+            if (Array.isArray(found.key_highlights)) {
+                bullets = found.key_highlights;
+            } else if (typeof found.key_highlights === "string" && found.key_highlights.trim()) {
+                try {
+                    const parsed = JSON.parse(found.key_highlights);
+                    if (Array.isArray(parsed)) bullets = parsed;
+                    else bullets = found.key_highlights.split("\n").map(b => b.trim()).filter(Boolean);
+                } catch {
+                    bullets = found.key_highlights.split("\n").map(b => b.trim()).filter(Boolean);
+                }
+            }
+
+            profile = {
+                badge: found.category || "Professional",
+                title: found.title,
+                role: found.target_role || found.title,
+                desc: found.description || "",
+                bullets: bullets.length > 0 ? bullets : [
+                    "Specialized curriculum vitae engineered for target role evaluation",
+                    "Includes production projects, verified credentials, and tech stack proficiencies",
+                    "Comprehensive achievement metrics and architectural leadership"
+                ],
+                fileUrl: found.file_url || "#",
+                fileName: found.file_name || `${(found.role_key || "CV")}.pdf`
+            };
+        }
+    }
+
+    // Fallback to static CV_PROFILES
+    if (!profile && CV_PROFILES[idOrKey]) {
+        profile = CV_PROFILES[idOrKey];
+    }
+
     if (!profile) return;
 
     const modal = document.getElementById("cvPreviewModal");
     if (!modal) return;
 
-    document.getElementById("cvModalBadge").textContent = profile.badge;
-    document.getElementById("cvModalTitle").textContent = profile.title;
-    document.getElementById("cvModalSubtitle").textContent = profile.role;
-    document.getElementById("cvModalRole").textContent = profile.role;
-    document.getElementById("cvModalDesc").textContent = profile.desc;
-
+    const badgeEl = document.getElementById("cvModalBadge");
+    const titleEl = document.getElementById("cvModalTitle");
+    const subtitleEl = document.getElementById("cvModalSubtitle");
+    const roleEl = document.getElementById("cvModalRole");
+    const descEl = document.getElementById("cvModalDesc");
     const bulletsList = document.getElementById("cvModalBullets");
+    const dlBtn = document.getElementById("cvModalDownloadBtn");
+
+    if (badgeEl) badgeEl.textContent = profile.badge;
+    if (titleEl) titleEl.textContent = profile.title;
+    if (subtitleEl) subtitleEl.textContent = profile.role;
+    if (roleEl) roleEl.textContent = profile.role;
+    if (descEl) descEl.textContent = profile.desc;
+
     if (bulletsList) {
-        bulletsList.innerHTML = profile.bullets.map(b => `<li>${b}</li>`).join("");
+        bulletsList.innerHTML = profile.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("");
     }
 
-    const dlBtn = document.getElementById("cvModalDownloadBtn");
     if (dlBtn) {
         dlBtn.href = profile.fileUrl;
         dlBtn.setAttribute("download", profile.fileName);
