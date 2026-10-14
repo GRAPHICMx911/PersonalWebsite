@@ -179,6 +179,91 @@ async def admin_upload_resume(
     }
 
 
+ROLE_FILE_MAP = {
+    "fullstack": "cv_fullstack_engineer.pdf",
+    "uiux": "cv_uiux_designer.pdf",
+    "cloud": "cv_cloud_architect.pdf",
+    "cyber": "cv_cybersecurity_specialist.pdf",
+    "graphic": "cv_graphic_designer.pdf",
+}
+
+ROLE_INFO_MAP = {
+    "fullstack": {"title": "Full-Stack Software Engineer", "category": "Software Engineering & APIs"},
+    "uiux": {"title": "UI / UX & Product Designer", "category": "Product Design & Prototyping"},
+    "cloud": {"title": "Cloud Solutions Architect & DevOps", "category": "Cloud Infrastructure & DevOps"},
+    "cyber": {"title": "Cybersecurity & Network Specialist", "category": "Security & Network Defense"},
+    "graphic": {"title": "Graphic Designer & Creative Lead", "category": "Graphic Design & Brand Identity"},
+}
+
+
+@router.get(
+    "/cvs",
+    summary="Get List of Tailored CV Documents by Post",
+)
+def get_tailored_cvs():
+    """Returns list of tailored CV documents by post."""
+    DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    cv_list = []
+    for key, filename in ROLE_FILE_MAP.items():
+        filepath = DOCS_UPLOAD_DIR / filename
+        info = ROLE_INFO_MAP.get(key, {})
+        cv_list.append({
+            "role_key": key,
+            "title": info.get("title", key.title()),
+            "category": info.get("category", "General"),
+            "filename": filename,
+            "url": f"/uploads/documents/{filename}",
+            "exists": filepath.exists(),
+            "size_bytes": filepath.stat().st_size if filepath.exists() else 0,
+        })
+    return cv_list
+
+
+@router.post(
+    "/upload-cv/{role_key}",
+    summary="Admin Upload / Replace CV by Specific Post",
+)
+async def admin_upload_cv_by_role(
+    role_key: str,
+    file: UploadFile = File(...),
+    current_admin: User = Depends(get_current_admin),
+):
+    """Upload or replace a tailored PDF CV for a specific job post."""
+    role_key = role_key.lower().strip()
+    if role_key not in ROLE_FILE_MAP:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid role key '{role_key}'. Allowed roles: {', '.join(ROLE_FILE_MAP.keys())}",
+        )
+
+    ext = os.path.splitext(file.filename)[1].lower()
+    if ext != ".pdf":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid file type '{ext}'. Only PDF documents (.pdf) are permitted for CVs.",
+        )
+
+    target_filename = ROLE_FILE_MAP[role_key]
+    filepath = DOCS_UPLOAD_DIR / target_filename
+    DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+    with open(filepath, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    relative_url = f"/uploads/documents/{target_filename}"
+    file_size = filepath.stat().st_size
+
+    return {
+        "status": "success",
+        "message": f"Successfully updated CV for {ROLE_INFO_MAP[role_key]['title']}.",
+        "role_key": role_key,
+        "filename": target_filename,
+        "url": relative_url,
+        "size_bytes": file_size,
+    }
+
+
+
 @router.post(
     "/upload-avatar",
     summary="Admin Upload Profile Avatar Image",
