@@ -75,7 +75,7 @@ const PLATFORM_PRESETS = [
     {
         name: "Email",
         iconClass: "email",
-        defaultUrl: "mailto:admin@example.com",
+        defaultUrl: "mailto:muneeb03022309111@gmail.com",
         svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 4.714v-9.428l4.623 4.714zm1.441 1.467l3.936 4.015 3.936-4.015 6.064 6.604h-20l6.064-6.604zm9.313-1.467l4.623-4.714v9.428l-4.623-4.714zm-5.377-1.396l-9.972-7.533h19.944l-9.972 7.533z"/></svg>`
     },
     {

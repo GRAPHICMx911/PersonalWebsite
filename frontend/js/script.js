@@ -1402,7 +1402,7 @@ function initializeContactForm() {
 
         } catch (err) {
             console.error("Contact submission error:", err);
-            showAlert(err.message || "Failed to deliver message. Please reach out via admin@example.com.", false);
+            showAlert(err.message || "Failed to deliver message. Please reach out via muneeb03022309111@gmail.com.", false);
         } finally {
             if (submitBtn) submitBtn.disabled = false;
             if (submitText) submitText.style.display = "inline";
@@ -1565,6 +1565,15 @@ async function initializeSiteSettings() {
         if (data.professional_title) {
             const brandTitle = document.querySelector(".brand-title");
             if (brandTitle) brandTitle.textContent = data.professional_title;
+        }
+
+        // 9. Contact Email Link
+        if (data.contact_email) {
+            const contactEmailLink = document.getElementById("contactEmailLink");
+            if (contactEmailLink) {
+                contactEmailLink.href = `mailto:${data.contact_email}`;
+                contactEmailLink.textContent = data.contact_email;
+            }
         }
 
     } catch (err) {
