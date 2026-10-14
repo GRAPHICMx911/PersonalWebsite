@@ -1587,6 +1587,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeContactForm();
     initializeSocialLinks();
     initializePublicCVs();
+    initializeMobileNavigation();
 
     // Certificate Modal handlers
     const closeCertBtn = document.getElementById("closePublicCertModalBtn");
@@ -1924,4 +1925,43 @@ function closeCvPreview() {
         modal.classList.remove("active");
         document.body.style.overflow = "";
     }
+}
+
+// =========================================================
+// MOBILE NAVIGATION CONTROLLER
+// =========================================================
+function initializeMobileNavigation() {
+    const toggleBtn = document.getElementById("mobileMenuToggle");
+    const navMenu = document.getElementById("publicNavMenu") || document.querySelector(".nav-menu");
+    if (!toggleBtn || !navMenu) return;
+
+    toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle("open");
+        const isOpen = navMenu.classList.contains("open");
+        toggleBtn.setAttribute("aria-expanded", isOpen);
+        toggleBtn.innerHTML = isOpen
+            ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
+            : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+    });
+
+    // Close mobile menu when clicking any nav item link
+    navMenu.querySelectorAll(".nav-item-link").forEach(link => {
+        link.addEventListener("click", () => {
+            if (navMenu.classList.contains("open")) {
+                navMenu.classList.remove("open");
+                toggleBtn.setAttribute("aria-expanded", "false");
+                toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+            }
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (navMenu.classList.contains("open") && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+            navMenu.classList.remove("open");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+        }
+    });
 }
