@@ -1,6 +1,15 @@
 /**
- * Admin Curriculum Vitae (CV) Management
+ * =========================================================
+ * PERSONAL GLOBAL WEBSITE — ADMIN CV DOCUMENTS CONTROLLER
+ * =========================================================
  * Complete CRUD logic, file upload, search, filters & public sync
+ * Official 5-Color Palette:
+ * --color-primary-dark:    #063F60
+ * --color-primary-blue:    #087DD8
+ * --color-primary-light:   #6FB7E1
+ * --color-secondary-light: #C4E0E1
+ * --color-background:      #E8EEEE
+ * =========================================================
  */
 
 const API_BASE_URL = window.location.origin.startsWith("http")
@@ -10,37 +19,85 @@ const API_BASE_URL = window.location.origin.startsWith("http")
 let cvList = [];
 let deleteTargetId = null;
 
-// Auth Check
-const token = localStorage.getItem("admin_token");
+// =========================================================
+// AUTHENTICATION CHECK
+// =========================================================
+function getAuthToken() {
+    return sessionStorage.getItem("access_token") ||
+           localStorage.getItem("access_token") ||
+           localStorage.getItem("token") ||
+           localStorage.getItem("admin_token") ||
+           "";
+}
+
+const token = getAuthToken();
 if (!token) {
     window.location.href = "login.html";
 }
 
-const authHeaders = () => ({
-    "Authorization": `Bearer ${localStorage.getItem("admin_token")}`,
-    "Content-Type": "application/json"
-});
+function authHeaders(isJson = true) {
+    const activeToken = getAuthToken();
+    const headers = {
+        "Authorization": `Bearer ${activeToken}`,
+    };
+    if (isJson) {
+        headers["Content-Type"] = "application/json";
+    }
+    return headers;
+}
 
+function logout() {
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("admin_user");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("admin_user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin_token");
+    window.location.href = "login.html";
+}
+
+// =========================================================
+// INITIALIZATION ON DOM READY
+// =========================================================
 document.addEventListener("DOMContentLoaded", () => {
-    initAuthProfile();
+    loadAdminProfile();
     initMobileMenu();
     initLogout();
+    loadSidebarBadge();
     loadCVs();
     initSearchAndFilters();
     initModalEvents();
     initFileUpload();
 });
 
-// User profile pill
-function initAuthProfile() {
-    const adminUserStr = localStorage.getItem("admin_user");
+// Load Admin Profile
+async function loadAdminProfile() {
+    const adminName = document.getElementById("adminName");
+    const adminAvatar = document.getElementById("adminAvatar");
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/admin/me`, {
+            headers: authHeaders(false)
+        });
+        if (res.ok) {
+            const data = await res.json();
+            const user = data.user;
+            const displayName = user.full_name || user.username || "Admin";
+            if (adminName) adminName.textContent = displayName;
+            if (adminAvatar) adminAvatar.textContent = displayName.charAt(0).toUpperCase();
+            return;
+        }
+    } catch (e) {
+        console.warn("Could not fetch /api/admin/me:", e);
+    }
+
+    const adminUserStr = sessionStorage.getItem("admin_user") || localStorage.getItem("admin_user");
     if (adminUserStr) {
         try {
             const user = JSON.parse(adminUserStr);
-            const nameEl = document.getElementById("adminName");
-            const avatarEl = document.getElementById("adminAvatar");
-            if (nameEl && user.full_name) nameEl.textContent = user.full_name;
-            if (avatarEl && user.full_name) avatarEl.textContent = user.full_name.charAt(0).toUpperCase();
+            const displayName = user.full_name || user.username || "Admin";
+            if (adminName) adminName.textContent = displayName;
+            if (adminAvatar) adminAvatar.textContent = displayName.charAt(0).toUpperCase();
         } catch (e) {
             console.error(e);
         }
@@ -58,11 +115,32 @@ function initMobileMenu() {
 function initLogout() {
     const logoutBtn = document.getElementById("logoutButton");
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-            localStorage.removeItem("admin_token");
-            localStorage.removeItem("admin_user");
-            window.location.href = "login.html";
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            logout();
         });
+    }
+}
+
+async function loadSidebarBadge() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/messages/stats`, {
+            headers: authHeaders(false)
+        });
+        if (res.ok) {
+            const stats = await res.json();
+            const badge = document.getElementById("sidebarUnreadBadge");
+            if (badge) {
+                if (stats.unread > 0) {
+                    badge.textContent = stats.unread;
+                    badge.style.display = "inline-block";
+                } else {
+                    badge.style.display = "none";
+                }
+            }
+        }
+    } catch (e) {
+        // Non-blocking
     }
 }
 
@@ -72,17 +150,16 @@ function initLogout() {
 
 async function loadCVs() {
     const grid = document.getElementById("cvGrid");
+    if (!grid) return;
     grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #64748b;">Loading tailored CVs...</div>`;
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/cvs/`, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("admin_token")}`
-            }
+            headers: authHeaders(false)
         });
 
         if (res.status === 401) {
-            window.location.href = "login.html";
+            logout();
             return;
         }
 
@@ -101,11 +178,15 @@ async function loadCVs() {
 }
 
 function updateStats() {
-    document.getElementById("statTotalCvs").textContent = cvList.length;
-    document.getElementById("statActiveCvs").textContent = cvList.filter(c => c.is_active).length;
+    const totalEl = document.getElementById("statTotalCvs");
+    const activeEl = document.getElementById("statActiveCvs");
+    const catEl = document.getElementById("statCategories");
+
+    if (totalEl) totalEl.textContent = cvList.length;
+    if (activeEl) activeEl.textContent = cvList.filter(c => c.is_active).length;
     
     const cats = new Set(cvList.map(c => c.category).filter(Boolean));
-    document.getElementById("statCategories").textContent = cats.size;
+    if (catEl) catEl.textContent = cats.size;
 }
 
 function populateCategoryFilter() {
@@ -123,16 +204,23 @@ function populateCategoryFilter() {
 
 function renderCVs() {
     const grid = document.getElementById("cvGrid");
-    const searchVal = document.getElementById("searchCvInput").value.trim().toLowerCase();
-    const catVal = document.getElementById("categoryFilter").value;
-    const statusVal = document.getElementById("statusFilter").value;
+    if (!grid) return;
+
+    const searchInput = document.getElementById("searchCvInput");
+    const catSelect = document.getElementById("categoryFilter");
+    const statusSelect = document.getElementById("statusFilter");
+
+    const searchVal = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    const catVal = catSelect ? catSelect.value : "";
+    const statusVal = statusSelect ? statusSelect.value : "";
 
     const filtered = cvList.filter(cv => {
         if (searchVal) {
             const matchTitle = (cv.title || "").toLowerCase().includes(searchVal);
             const matchCat = (cv.category || "").toLowerCase().includes(searchVal);
+            const matchRole = (cv.target_role || "").toLowerCase().includes(searchVal);
             const matchTags = (cv.tags || "").toLowerCase().includes(searchVal);
-            if (!matchTitle && !matchCat && !matchTags) return false;
+            if (!matchTitle && !matchCat && !matchRole && !matchTags) return false;
         }
         if (catVal && cv.category !== catVal) return false;
         if (statusVal === "active" && !cv.is_active) return false;
@@ -152,14 +240,14 @@ function renderCVs() {
     }
 
     grid.innerHTML = filtered.map(cv => {
-        const fileUrl = cv.file_url.startsWith("http") ? cv.file_url : `${API_BASE_URL}${cv.file_url}`;
+        const fileUrl = cv.file_url ? (cv.file_url.startsWith("http") ? cv.file_url : `${API_BASE_URL}${cv.file_url}`) : "#";
         const tagsArr = (cv.tags || "").split(",").map(t => t.trim()).filter(Boolean);
 
         return `
             <div class="admin-cv-card" data-id="${cv.id}">
                 <div class="admin-cv-header">
                     <div class="admin-cv-title-wrap">
-                        <div class="admin-cv-icon">${cv.icon || "💻"}</div>
+                        <div class="admin-cv-icon">${cv.icon || "📄"}</div>
                         <div>
                             <h3 class="admin-cv-title">${escapeHtml(cv.title)}</h3>
                             <span class="admin-cv-category">${escapeHtml(cv.category)}</span>
@@ -175,6 +263,12 @@ function renderCVs() {
                 </div>
 
                 <div class="admin-cv-body">
+                    ${cv.target_role ? `
+                        <div style="font-size: 12px; color: var(--color-primary-blue); font-weight: 600; margin-bottom: 8px;">
+                            🎯 ${escapeHtml(cv.target_role)}
+                        </div>
+                    ` : ''}
+
                     <p class="admin-cv-desc">${escapeHtml(cv.description)}</p>
                     
                     ${tagsArr.length > 0 ? `
@@ -211,9 +305,13 @@ function renderCVs() {
 }
 
 function initSearchAndFilters() {
-    document.getElementById("searchCvInput").addEventListener("input", renderCVs);
-    document.getElementById("categoryFilter").addEventListener("change", renderCVs);
-    document.getElementById("statusFilter").addEventListener("change", renderCVs);
+    const searchInput = document.getElementById("searchCvInput");
+    const catSelect = document.getElementById("categoryFilter");
+    const statusSelect = document.getElementById("statusFilter");
+
+    if (searchInput) searchInput.addEventListener("input", renderCVs);
+    if (catSelect) catSelect.addEventListener("change", renderCVs);
+    if (statusSelect) statusSelect.addEventListener("change", renderCVs);
 }
 
 // =========================================================
@@ -227,32 +325,45 @@ function initModalEvents() {
     const cancelBtn = document.getElementById("cancelCvModalBtn");
     const form = document.getElementById("cvForm");
 
-    openBtn.addEventListener("click", () => openAddModal());
-    closeBtn.addEventListener("click", () => closeModal());
-    cancelBtn.addEventListener("click", () => closeModal());
+    if (openBtn) openBtn.addEventListener("click", () => openAddModal());
+    if (closeBtn) closeBtn.addEventListener("click", () => closeModal());
+    if (cancelBtn) cancelBtn.addEventListener("click", () => closeModal());
 
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
+    if (modal) {
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
+    }
 
-    form.addEventListener("submit", handleFormSubmit);
+    if (form) form.addEventListener("submit", handleFormSubmit);
 
     // Delete modal events
     const deleteModal = document.getElementById("deleteModal");
-    document.getElementById("closeDeleteModalBtn").addEventListener("click", () => closeDeleteModal());
-    document.getElementById("cancelDeleteBtn").addEventListener("click", () => closeDeleteModal());
-    document.getElementById("confirmDeleteBtn").addEventListener("click", handleConfirmDelete);
-    deleteModal.addEventListener("click", (e) => {
-        if (e.target === deleteModal) closeDeleteModal();
-    });
+    const closeDeleteBtn = document.getElementById("closeDeleteModalBtn");
+    const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+    const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+
+    if (closeDeleteBtn) closeDeleteBtn.addEventListener("click", () => closeDeleteModal());
+    if (cancelDeleteBtn) cancelDeleteBtn.addEventListener("click", () => closeDeleteModal());
+    if (confirmDeleteBtn) confirmDeleteBtn.addEventListener("click", handleConfirmDelete);
+    if (deleteModal) {
+        deleteModal.addEventListener("click", (e) => {
+            if (e.target === deleteModal) closeDeleteModal();
+        });
+    }
 
     // View modal events
     const viewModal = document.getElementById("viewModal");
-    document.getElementById("closeViewModalBtn").addEventListener("click", () => closeViewModal());
-    document.getElementById("dismissViewModalBtn").addEventListener("click", () => closeViewModal());
-    viewModal.addEventListener("click", (e) => {
-        if (e.target === viewModal) closeViewModal();
-    });
+    const closeViewBtn = document.getElementById("closeViewModalBtn");
+    const dismissViewBtn = document.getElementById("dismissViewModalBtn");
+
+    if (closeViewBtn) closeViewBtn.addEventListener("click", () => closeViewModal());
+    if (dismissViewBtn) dismissViewBtn.addEventListener("click", () => closeViewModal());
+    if (viewModal) {
+        viewModal.addEventListener("click", (e) => {
+            if (e.target === viewModal) closeViewModal();
+        });
+    }
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
@@ -265,7 +376,7 @@ function initModalEvents() {
 
 function openAddModal() {
     const form = document.getElementById("cvForm");
-    form.reset();
+    if (form) form.reset();
     document.getElementById("cvId").value = "";
     document.getElementById("cvModalHeading").textContent = "Add New Tailored CV";
     document.getElementById("cvIcon").value = "💻";
@@ -275,7 +386,7 @@ function openAddModal() {
     document.getElementById("dropzoneText").textContent = "Click or drag & drop to upload PDF document";
 
     const modal = document.getElementById("cvModal");
-    modal.classList.add("active");
+    if (modal) modal.classList.add("active");
 }
 
 function editCv(id) {
@@ -296,13 +407,18 @@ function editCv(id) {
     document.getElementById("cvDisplayOrder").value = cv.display_order ?? 0;
     document.getElementById("cvIsActive").checked = !!cv.is_active;
 
-    document.getElementById("dropzoneText").innerHTML = `Current: <strong>${escapeHtml(cv.file_name || 'Attached PDF')}</strong> (Click to replace)`;
+    const dropzoneText = document.getElementById("dropzoneText");
+    if (dropzoneText) {
+        dropzoneText.innerHTML = `Current: <strong>${escapeHtml(cv.file_name || 'Attached PDF')}</strong> (Click to replace)`;
+    }
 
-    document.getElementById("cvModal").classList.add("active");
+    const modal = document.getElementById("cvModal");
+    if (modal) modal.classList.add("active");
 }
 
 function closeModal() {
-    document.getElementById("cvModal").classList.remove("active");
+    const modal = document.getElementById("cvModal");
+    if (modal) modal.classList.remove("active");
 }
 
 async function handleFormSubmit(e) {
@@ -341,8 +457,10 @@ async function handleFormSubmit(e) {
     };
 
     const saveBtn = document.getElementById("saveCvBtn");
-    saveBtn.disabled = true;
-    saveBtn.textContent = "Saving...";
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Saving...";
+    }
 
     try {
         const url = cvId ? `${API_BASE_URL}/api/cvs/${cvId}` : `${API_BASE_URL}/api/cvs/`;
@@ -350,9 +468,14 @@ async function handleFormSubmit(e) {
 
         const res = await fetch(url, {
             method,
-            headers: authHeaders(),
+            headers: authHeaders(true),
             body: JSON.stringify(payload)
         });
+
+        if (res.status === 401) {
+            logout();
+            return;
+        }
 
         if (!res.ok) {
             const errData = await res.json().catch(() => ({}));
@@ -367,8 +490,10 @@ async function handleFormSubmit(e) {
         console.error(err);
         showToast(err.message, "error");
     } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Save CV Document";
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.textContent = "Save CV Document";
+        }
     }
 }
 
@@ -379,7 +504,8 @@ async function handleFormSubmit(e) {
 function initFileUpload() {
     const dropzone = document.getElementById("cvDropzone");
     const fileInput = document.getElementById("cvFileInput");
-    const dropzoneText = document.getElementById("dropzoneText");
+
+    if (!dropzone || !fileInput) return;
 
     dropzone.addEventListener("click", () => fileInput.click());
 
@@ -409,7 +535,7 @@ function initFileUpload() {
 
 async function uploadFile(file) {
     const dropzoneText = document.getElementById("dropzoneText");
-    dropzoneText.textContent = `Uploading ${file.name}...`;
+    if (dropzoneText) dropzoneText.textContent = `Uploading ${file.name}...`;
 
     const formData = new FormData();
     formData.append("file", file);
@@ -418,10 +544,15 @@ async function uploadFile(file) {
         const res = await fetch(`${API_BASE_URL}/api/cvs/upload`, {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("admin_token")}`
+                "Authorization": `Bearer ${getAuthToken()}`
             },
             body: formData
         });
+
+        if (res.status === 401) {
+            logout();
+            return;
+        }
 
         if (!res.ok) {
             const errData = await res.json().catch(() => ({}));
@@ -431,12 +562,14 @@ async function uploadFile(file) {
         const data = await res.json();
         document.getElementById("cvFileUrl").value = data.url;
         document.getElementById("cvFileName").value = data.filename;
-        dropzoneText.innerHTML = `Uploaded: <strong>${escapeHtml(file.name)}</strong> (Ready to save)`;
+        if (dropzoneText) {
+            dropzoneText.innerHTML = `Uploaded: <strong>${escapeHtml(file.name)}</strong> (Ready to save)`;
+        }
         showToast("PDF document uploaded successfully!", "success");
 
     } catch (err) {
         console.error(err);
-        dropzoneText.textContent = "Upload failed. Click to try again.";
+        if (dropzoneText) dropzoneText.textContent = "Upload failed. Click to try again.";
         showToast("Upload error: " + err.message, "error");
     }
 }
@@ -449,8 +582,13 @@ async function toggleCvActive(id) {
     try {
         const res = await fetch(`${API_BASE_URL}/api/cvs/${id}/toggle`, {
             method: "PATCH",
-            headers: authHeaders()
+            headers: authHeaders(true)
         });
+
+        if (res.status === 401) {
+            logout();
+            return;
+        }
 
         if (!res.ok) throw new Error("Could not toggle status");
 
@@ -477,60 +615,65 @@ function viewCv(id) {
     const title = document.getElementById("viewModalTitle");
     const dlBtn = document.getElementById("viewModalDownloadBtn");
 
-    title.textContent = cv.title;
+    if (title) title.textContent = cv.title;
     
-    const fileUrl = cv.file_url.startsWith("http") ? cv.file_url : `${API_BASE_URL}${cv.file_url}`;
-    dlBtn.href = fileUrl;
-    dlBtn.setAttribute("download", cv.file_name || "cv.pdf");
+    const fileUrl = cv.file_url ? (cv.file_url.startsWith("http") ? cv.file_url : `${API_BASE_URL}${cv.file_url}`) : "#";
+    if (dlBtn) {
+        dlBtn.href = fileUrl;
+        dlBtn.setAttribute("download", cv.file_name || "cv.pdf");
+    }
 
     const bulletsArr = (cv.bullets || "").split("\n").map(b => b.trim()).filter(Boolean);
     const tagsArr = (cv.tags || "").split(",").map(t => t.trim()).filter(Boolean);
 
-    body.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <div class="admin-cv-icon">${cv.icon || '💻'}</div>
-            <div>
-                <h4 style="margin: 0; color: var(--color-primary-dark); font-size: 16px;">${escapeHtml(cv.title)}</h4>
-                <span class="admin-cv-category">${escapeHtml(cv.category)}</span>
+    if (body) {
+        body.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                <div class="admin-cv-icon">${cv.icon || '📄'}</div>
+                <div>
+                    <h4 style="margin: 0; color: var(--color-primary-dark); font-size: 16px;">${escapeHtml(cv.title)}</h4>
+                    <span class="admin-cv-category">${escapeHtml(cv.category)}</span>
+                </div>
             </div>
-        </div>
 
-        ${cv.target_role ? `
-            <div style="font-size: 13px; color: var(--color-primary-blue); font-weight: 600; margin-bottom: 12px;">
-                Target Position: ${escapeHtml(cv.target_role)}
+            ${cv.target_role ? `
+                <div style="font-size: 13px; color: var(--color-primary-blue); font-weight: 600; margin-bottom: 12px;">
+                    🎯 Target Role: ${escapeHtml(cv.target_role)}
+                </div>
+            ` : ''}
+
+            <p style="font-size: 14px; color: #4a6572; line-height: 1.6; margin-bottom: 16px;">
+                ${escapeHtml(cv.description)}
+            </p>
+
+            ${bulletsArr.length > 0 ? `
+                <div style="margin-bottom: 16px;">
+                    <strong style="font-size: 13px; color: var(--color-primary-dark);">Tailored Focus Points:</strong>
+                    <ul style="margin: 6px 0 0 20px; font-size: 13px; color: #334155; line-height: 1.7;">
+                        ${bulletsArr.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+                    </ul>
+                </div>
+            ` : ''}
+
+            ${tagsArr.length > 0 ? `
+                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;">
+                    ${tagsArr.map(t => `<span class="admin-cv-tag">${escapeHtml(t)}</span>`).join("")}
+                </div>
+            ` : ''}
+
+            <div class="admin-cv-file-box">
+                <span>📄 ${escapeHtml(cv.file_name || 'Document Attached')}</span>
+                <a href="${fileUrl}" target="_blank" rel="noopener noreferrer">Open Document ↗</a>
             </div>
-        ` : ''}
+        `;
+    }
 
-        <p style="font-size: 14px; color: #4a6572; line-height: 1.6; margin-bottom: 16px;">
-            ${escapeHtml(cv.description)}
-        </p>
-
-        ${bulletsArr.length > 0 ? `
-            <div style="margin-bottom: 16px;">
-                <strong style="font-size: 13px; color: var(--color-primary-dark);">Tailored Focus Points:</strong>
-                <ul style="margin: 6px 0 0 20px; font-size: 13px; color: #334155; line-height: 1.7;">
-                    ${bulletsArr.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
-                </ul>
-            </div>
-        ` : ''}
-
-        ${tagsArr.length > 0 ? `
-            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;">
-                ${tagsArr.map(t => `<span class="admin-cv-tag">${escapeHtml(t)}</span>`).join("")}
-            </div>
-        ` : ''}
-
-        <div class="admin-cv-file-box">
-            <span>📄 ${escapeHtml(cv.file_name)}</span>
-            <a href="${fileUrl}" target="_blank" rel="noopener noreferrer">Open Document ↗</a>
-        </div>
-    `;
-
-    modal.classList.add("active");
+    if (modal) modal.classList.add("active");
 }
 
 function closeViewModal() {
-    document.getElementById("viewModal").classList.remove("active");
+    const modal = document.getElementById("viewModal");
+    if (modal) modal.classList.remove("active");
 }
 
 function openDeleteModal(id) {
@@ -538,27 +681,38 @@ function openDeleteModal(id) {
     if (!cv) return;
 
     deleteTargetId = id;
-    document.getElementById("deleteCvTitle").textContent = `"${cv.title}"`;
-    document.getElementById("deleteModal").classList.add("active");
+    const titleEl = document.getElementById("deleteCvTitle");
+    if (titleEl) titleEl.textContent = `"${cv.title}"`;
+
+    const modal = document.getElementById("deleteModal");
+    if (modal) modal.classList.add("active");
 }
 
 function closeDeleteModal() {
     deleteTargetId = null;
-    document.getElementById("deleteModal").classList.remove("active");
+    const modal = document.getElementById("deleteModal");
+    if (modal) modal.classList.remove("active");
 }
 
 async function handleConfirmDelete() {
     if (!deleteTargetId) return;
 
     const btn = document.getElementById("confirmDeleteBtn");
-    btn.disabled = true;
-    btn.textContent = "Deleting...";
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Deleting...";
+    }
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/cvs/${deleteTargetId}`, {
             method: "DELETE",
-            headers: authHeaders()
+            headers: authHeaders(true)
         });
+
+        if (res.status === 401) {
+            logout();
+            return;
+        }
 
         if (!res.ok) throw new Error("Could not delete CV document");
 
@@ -570,8 +724,10 @@ async function handleConfirmDelete() {
         console.error(err);
         showToast(err.message, "error");
     } finally {
-        btn.disabled = false;
-        btn.textContent = "Yes, Delete CV";
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = "Yes, Delete CV";
+        }
     }
 }
 
