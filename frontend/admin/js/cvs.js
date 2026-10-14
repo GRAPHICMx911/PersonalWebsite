@@ -264,8 +264,12 @@ function renderCVs() {
 
                 <div class="admin-cv-body">
                     ${cv.target_role ? `
-                        <div style="font-size: 12px; color: var(--color-primary-blue); font-weight: 600; margin-bottom: 8px;">
-                            🎯 ${escapeHtml(cv.target_role)}
+                        <div class="admin-cv-target-banner">
+                            <span class="target-icon">🎯</span>
+                            <div class="target-text">
+                                <span class="target-label">Target Role Level</span>
+                                <strong class="target-role-val">${escapeHtml(cv.target_role)}</strong>
+                            </div>
                         </div>
                     ` : ''}
 
@@ -278,24 +282,34 @@ function renderCVs() {
                     ` : ''}
 
                     <div class="admin-cv-file-box">
-                        <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px;">
-                            📎 ${escapeHtml(cv.file_name || 'Attached PDF')}
-                        </span>
-                        <a href="${fileUrl}" target="_blank" rel="noopener noreferrer">View PDF &rarr;</a>
+                        <div class="file-box-left">
+                            <span class="file-badge-pdf">PDF</span>
+                            <span class="file-name-text" title="${escapeHtml(cv.file_name || 'Attached PDF Document')}">
+                                ${escapeHtml(cv.file_name || 'Attached PDF Document')}
+                            </span>
+                        </div>
+                        <a href="${fileUrl}" target="_blank" rel="noopener noreferrer" class="file-view-link">
+                            <span>View PDF</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
                     </div>
                 </div>
 
                 <div class="admin-cv-footer">
-                    <span style="font-size: 11.5px; color: #64748b;">Order: #${cv.display_order}</span>
+                    <span class="order-badge">Order #${cv.display_order}</span>
                     <div class="admin-cv-actions">
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="viewCv(${cv.id})" title="View Details">
-                            👁️ View
+                        <button type="button" class="cv-btn-view" onclick="viewCv(${cv.id})" title="View Details">
+                            <span>👁️</span> <span>View</span>
                         </button>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="editCv(${cv.id})" title="Edit CV">
-                            ✏️ Edit
+                        <button type="button" class="cv-btn-edit" onclick="editCv(${cv.id})" title="Edit CV">
+                            <span>✏️</span> <span>Edit</span>
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="openDeleteModal(${cv.id})" style="background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; padding: 5px 10px; border-radius: 6px; cursor: pointer;" title="Delete CV">
-                            🗑️ Delete
+                        <button type="button" class="cv-btn-delete" onclick="openDeleteModal(${cv.id})" title="Delete CV">
+                            <span>🗑️</span> <span>Delete</span>
                         </button>
                     </div>
                 </div>
@@ -308,10 +322,20 @@ function initSearchAndFilters() {
     const searchInput = document.getElementById("searchCvInput");
     const catSelect = document.getElementById("categoryFilter");
     const statusSelect = document.getElementById("statusFilter");
+    const clearBtn = document.getElementById("clearFiltersBtn");
 
     if (searchInput) searchInput.addEventListener("input", renderCVs);
     if (catSelect) catSelect.addEventListener("change", renderCVs);
     if (statusSelect) statusSelect.addEventListener("change", renderCVs);
+
+    if (clearBtn) {
+        clearBtn.addEventListener("click", () => {
+            if (searchInput) searchInput.value = "";
+            if (catSelect) catSelect.value = "";
+            if (statusSelect) statusSelect.value = "";
+            renderCVs();
+        });
+    }
 }
 
 // =========================================================
@@ -628,42 +652,65 @@ function viewCv(id) {
 
     if (body) {
         body.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                <div class="admin-cv-icon">${cv.icon || '📄'}</div>
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1.5px solid var(--border-color);">
+                <div class="admin-cv-icon" style="width: 52px; height: 52px; font-size: 26px;">${cv.icon || '📄'}</div>
                 <div>
-                    <h4 style="margin: 0; color: var(--color-primary-dark); font-size: 16px;">${escapeHtml(cv.title)}</h4>
-                    <span class="admin-cv-category">${escapeHtml(cv.category)}</span>
+                    <h4 style="margin: 0; color: var(--color-primary-dark); font-size: 18px; font-weight: 800;">${escapeHtml(cv.title)}</h4>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-top: 5px;">
+                        <span class="admin-cv-category">${escapeHtml(cv.category)}</span>
+                        <span class="status-badge ${cv.is_active ? 'active' : 'draft'}">${cv.is_active ? 'Active on Site' : 'Draft / Hidden'}</span>
+                    </div>
                 </div>
             </div>
 
             ${cv.target_role ? `
-                <div style="font-size: 13px; color: var(--color-primary-blue); font-weight: 600; margin-bottom: 12px;">
-                    🎯 Target Role: ${escapeHtml(cv.target_role)}
+                <div class="admin-cv-target-banner" style="margin-bottom: 16px;">
+                    <span class="target-icon">🎯</span>
+                    <div class="target-text">
+                        <span class="target-label">Target Role Level</span>
+                        <strong class="target-role-val">${escapeHtml(cv.target_role)}</strong>
+                    </div>
                 </div>
             ` : ''}
 
-            <p style="font-size: 14px; color: #4a6572; line-height: 1.6; margin-bottom: 16px;">
-                ${escapeHtml(cv.description)}
-            </p>
+            <div style="margin-bottom: 16px;">
+                <label style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-primary-dark); display: block; margin-bottom: 6px;">Profile Summary</label>
+                <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; background: #fafcfe; border: 1px solid var(--border-color); padding: 12px 14px; border-radius: 9px;">
+                    ${escapeHtml(cv.description)}
+                </p>
+            </div>
 
             ${bulletsArr.length > 0 ? `
                 <div style="margin-bottom: 16px;">
-                    <strong style="font-size: 13px; color: var(--color-primary-dark);">Tailored Focus Points:</strong>
-                    <ul style="margin: 6px 0 0 20px; font-size: 13px; color: #334155; line-height: 1.7;">
+                    <label style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-primary-dark); display: block; margin-bottom: 6px;">Key Focus Points &amp; Competencies</label>
+                    <ul style="margin: 0; padding-left: 20px; font-size: 13.5px; color: #334155; line-height: 1.8;">
                         ${bulletsArr.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
                     </ul>
                 </div>
             ` : ''}
 
             ${tagsArr.length > 0 ? `
-                <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px;">
-                    ${tagsArr.map(t => `<span class="admin-cv-tag">${escapeHtml(t)}</span>`).join("")}
+                <div style="margin-bottom: 18px;">
+                    <label style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-primary-dark); display: block; margin-bottom: 6px;">Technologies &amp; Domain Tags</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        ${tagsArr.map(t => `<span class="admin-cv-tag">${escapeHtml(t)}</span>`).join("")}
+                    </div>
                 </div>
             ` : ''}
 
             <div class="admin-cv-file-box">
-                <span>📄 ${escapeHtml(cv.file_name || 'Document Attached')}</span>
-                <a href="${fileUrl}" target="_blank" rel="noopener noreferrer">Open Document ↗</a>
+                <div class="file-box-left">
+                    <span class="file-badge-pdf">PDF</span>
+                    <span class="file-name-text">${escapeHtml(cv.file_name || 'Attached PDF Document')}</span>
+                </div>
+                <a href="${fileUrl}" target="_blank" rel="noopener noreferrer" class="file-view-link">
+                    <span>Open Full Document</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </a>
             </div>
         `;
     }
