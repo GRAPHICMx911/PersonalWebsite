@@ -11,7 +11,13 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
-    raise ValueError(f"DATABASE_URL is not set in {BASE_DIR / '.env'}")
+    raise ValueError(f"DATABASE_URL is not set in {BASE_DIR / '.env'} or environment variables")
+
+# Normalize cloud PostgreSQL URLs (Render, Neon, Supabase, Heroku often use postgres:// or postgresql://)
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg://", 1)
+elif DATABASE_URL.startswith("postgresql://") and not DATABASE_URL.startswith("postgresql+"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg://", 1)
 
 engine = create_engine(
     DATABASE_URL,

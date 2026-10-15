@@ -11,7 +11,21 @@ from dotenv import load_dotenv
 from backend.app.database import get_db
 from backend.app.api.routes import auth, admin, projects, skills, certifications, experience, education, design, ux_ui, blog, messages, social, settings, cvs
 
+from contextlib import asynccontextmanager
+from backend.app.init_db import init_database_and_seed
+
 load_dotenv()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: ensure all tables and initial seed data exist
+    try:
+        init_database_and_seed()
+    except Exception as e:
+        print(f"Warning: Database startup initialization encountered: {e}")
+    yield
+
 
 app = FastAPI(
     title="Personal Global Portfolio & CMS API",
@@ -19,6 +33,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # CORS setup
@@ -28,7 +43,7 @@ origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins if origins else ["*"],
-    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com)",
+    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.onrender\.com|\.railway\.app|\.vercel\.app)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

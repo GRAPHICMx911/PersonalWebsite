@@ -1,0 +1,475 @@
+{
+  "skill_categories": [
+    {
+      "id": 1,
+      "name": "Software Engineering",
+      "slug": "software-engineering",
+      "description": "Full-stack development, distributed systems, algorithms, APIs.",
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "name": "Graphic Design",
+      "slug": "graphic-design",
+      "description": "Brand identity, vector art, visual layout, typography.",
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "name": "UX/UI Design",
+      "slug": "ux-ui-design",
+      "description": "User research, wireframing, interactive prototyping, design systems.",
+      "display_order": 3
+    },
+    {
+      "id": 4,
+      "name": "Cybersecurity",
+      "slug": "cybersecurity",
+      "description": "Penetration testing, network defense, threat modeling, OWASP practices.",
+      "display_order": 4
+    },
+    {
+      "id": 5,
+      "name": "AWS Cloud",
+      "slug": "aws-cloud",
+      "description": "Cloud architectures, serverless, AWS infrastructure and DevOps.",
+      "display_order": 5
+    },
+    {
+      "id": 6,
+      "name": "Networking",
+      "slug": "networking",
+      "description": "TCP/IP, network topology, routing, firewall configurations.",
+      "display_order": 6
+    },
+    {
+      "id": 7,
+      "name": "Project Management",
+      "slug": "project-management",
+      "description": "Agile/Scrum, product planning, roadmaps, technical execution.",
+      "display_order": 7
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "category_slug": "software-engineering",
+      "proficiency": 95,
+      "proficiency_level": "Expert",
+      "icon": "🐍",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "FastAPI & REST APIs",
+      "category_slug": "software-engineering",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "⚡",
+      "is_featured": true,
+      "display_order": 2
+    },
+    {
+      "name": "PostgreSQL & SQLAlchemy",
+      "category_slug": "software-engineering",
+      "proficiency": 90,
+      "proficiency_level": "Advanced",
+      "icon": "🐘",
+      "is_featured": true,
+      "display_order": 3
+    },
+    {
+      "name": "Vanilla JavaScript (ES6+)",
+      "category_slug": "software-engineering",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "📜",
+      "is_featured": true,
+      "display_order": 4
+    },
+    {
+      "name": "Docker & Containerization",
+      "category_slug": "software-engineering",
+      "proficiency": 85,
+      "proficiency_level": "Advanced",
+      "icon": "🐳",
+      "is_featured": false,
+      "display_order": 5
+    },
+    {
+      "name": "Git & GitHub CI/CD",
+      "category_slug": "software-engineering",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "🐙",
+      "is_featured": false,
+      "display_order": 6
+    },
+    {
+      "name": "Vulnerability Assessment",
+      "category_slug": "cybersecurity",
+      "proficiency": 90,
+      "proficiency_level": "Advanced",
+      "icon": "🛡️",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "OWASP Top 10 Hardening",
+      "category_slug": "cybersecurity",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "🔒",
+      "is_featured": true,
+      "display_order": 2
+    },
+    {
+      "name": "Nmap & Reconnaissance",
+      "category_slug": "cybersecurity",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "📡",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "Wireshark Packet Analysis",
+      "category_slug": "cybersecurity",
+      "proficiency": 86,
+      "proficiency_level": "Advanced",
+      "icon": "🦈",
+      "is_featured": false,
+      "display_order": 4
+    },
+    {
+      "name": "Burp Suite Web Testing",
+      "category_slug": "cybersecurity",
+      "proficiency": 84,
+      "proficiency_level": "Proficient",
+      "icon": "🔍",
+      "is_featured": false,
+      "display_order": 5
+    },
+    {
+      "name": "AWS EC2 & VPC Architecture",
+      "category_slug": "aws-cloud",
+      "proficiency": 90,
+      "proficiency_level": "Advanced",
+      "icon": "☁️",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "AWS S3 & CloudFront CDN",
+      "category_slug": "aws-cloud",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "📦",
+      "is_featured": true,
+      "display_order": 2
+    },
+    {
+      "name": "AWS Lambda Serverless",
+      "category_slug": "aws-cloud",
+      "proficiency": 85,
+      "proficiency_level": "Advanced",
+      "icon": "λ",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "IAM & Security Policies",
+      "category_slug": "aws-cloud",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "🔑",
+      "is_featured": false,
+      "display_order": 4
+    },
+    {
+      "name": "TCP/IP & OSI Protocols",
+      "category_slug": "networking",
+      "proficiency": 94,
+      "proficiency_level": "Expert",
+      "icon": "🌐",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "IP Subnetting & CIDR",
+      "category_slug": "networking",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "🔢",
+      "is_featured": false,
+      "display_order": 2
+    },
+    {
+      "name": "VPNs & Secure Tunneling",
+      "category_slug": "networking",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "🚇",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "Firewalls & Routing",
+      "category_slug": "networking",
+      "proficiency": 86,
+      "proficiency_level": "Advanced",
+      "icon": "🧱",
+      "is_featured": false,
+      "display_order": 4
+    },
+    {
+      "name": "Figma Interface Design",
+      "category_slug": "ux-ui-design",
+      "proficiency": 92,
+      "proficiency_level": "Expert",
+      "icon": "🎨",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "Design Systems & Tokens",
+      "category_slug": "ux-ui-design",
+      "proficiency": 90,
+      "proficiency_level": "Advanced",
+      "icon": "📐",
+      "is_featured": false,
+      "display_order": 2
+    },
+    {
+      "name": "Wireframing & User Flows",
+      "category_slug": "ux-ui-design",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "🗺️",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "Brand Identity & Logo Design",
+      "category_slug": "graphic-design",
+      "proficiency": 95,
+      "proficiency_level": "Expert",
+      "icon": "💎",
+      "is_featured": true,
+      "display_order": 1
+    },
+    {
+      "name": "Vector Graphics & Illustration",
+      "category_slug": "graphic-design",
+      "proficiency": 90,
+      "proficiency_level": "Advanced",
+      "icon": "✒️",
+      "is_featured": false,
+      "display_order": 2
+    },
+    {
+      "name": "Typography & Editorial Layout",
+      "category_slug": "graphic-design",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "🔤",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "Technical Documentation",
+      "category_slug": "project-management",
+      "proficiency": 95,
+      "proficiency_level": "Expert",
+      "icon": "📝",
+      "is_featured": false,
+      "display_order": 2
+    },
+    {
+      "name": "Jira & Task Tracking",
+      "category_slug": "project-management",
+      "proficiency": 88,
+      "proficiency_level": "Advanced",
+      "icon": "📋",
+      "is_featured": false,
+      "display_order": 3
+    },
+    {
+      "name": "Risk Assessment & Mitigation",
+      "category_slug": "project-management",
+      "proficiency": 86,
+      "proficiency_level": "Advanced",
+      "icon": "⚖️",
+      "is_featured": false,
+      "display_order": 4
+    }
+  ],
+  "project_categories": [
+    {
+      "id": 1,
+      "name": "Software Engineering",
+      "slug": "software-engineering",
+      "description": "Full-stack development, distributed systems, algorithms, APIs.",
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "name": "Graphic Design",
+      "slug": "graphic-design",
+      "description": "Brand identity, vector art, visual layout, typography.",
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "name": "UX/UI Design",
+      "slug": "ux-ui-design",
+      "description": "User research, wireframing, interactive prototyping, design systems.",
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "name": "Cybersecurity",
+      "slug": "cybersecurity",
+      "description": "Penetration testing, network defense, threat modeling, OWASP practices.",
+      "is_active": true
+    },
+    {
+      "id": 5,
+      "name": "AWS Cloud",
+      "slug": "aws-cloud",
+      "description": "Cloud architectures, serverless, AWS infrastructure and DevOps.",
+      "is_active": true
+    },
+    {
+      "id": 6,
+      "name": "Networking",
+      "slug": "networking",
+      "description": "TCP/IP, network topology, routing, firewall configurations.",
+      "is_active": true
+    },
+    {
+      "id": 7,
+      "name": "Project Management",
+      "slug": "project-management",
+      "description": "Agile/Scrum, product planning, roadmaps, technical execution.",
+      "is_active": true
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AWS Certified Solutions Architect - Associate",
+      "issuing_organization": "Amazon Web Services (AWS)",
+      "issue_date": "May 2024",
+      "expiry_date": "May 2027",
+      "credential_id": "AWS-SAA-839201",
+      "credential_url": "https://aws.amazon.com/verification",
+      "certificate_image_url": null,
+      "description": "Validation of comprehensive cloud architecture design, security, scalability, and high-availability systems on AWS.",
+      "is_featured": true,
+      "display_order": 1
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science (B.S.)",
+      "institution": "State University of Engineering & Technology",
+      "field_of_study": "Computer Science & Software Engineering",
+      "start_year": "2015",
+      "end_year": "2019",
+      "grade": "First Class Honours (Summa Cum Laude)",
+      "description": "Comprehensive foundation in computer architecture, data structures, algorithms, relational database theory, network protocols, and human-computer interaction.",
+      "institution_url": "https://example.com/state-university",
+      "institution_logo_url": "/uploads/education/state-univ.png",
+      "display_order": 2
+    }
+  ],
+  "social_links": [
+    {
+      "platform_name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/muneeb-ahmad-11973226a",
+      "icon_class": "linkedin",
+      "display_order": 1,
+      "is_active": true
+    },
+    {
+      "platform_name": "Behance",
+      "url": "https://www.behance.net/graphicmx911",
+      "icon_class": "behance",
+      "display_order": 2,
+      "is_active": true
+    },
+    {
+      "platform_name": "GitHub",
+      "url": "https://github.com/GRAPHICMx911",
+      "icon_class": "github",
+      "display_order": 3,
+      "is_active": true
+    }
+  ],
+  "cv_documents": [
+    {
+      "role_key": "uiux",
+      "title": "UI / UX & Product Designer",
+      "category": "Product Design",
+      "target_role": "Senior UI/UX & Product Experience Designer",
+      "description": "Focused on design systems in Figma, user research, wireframing, interactive prototypes, and human-centered digital experiences.",
+      "bullets": "Enterprise design systems, reusable component tokens, and style guidelines\nWireframing, user persona mapping, and high-fidelity interactive Figma prototypes\nUsability testing, heuristic evaluations, and accessibility compliance (WCAG 2.1)\nSeamless developer handoff with design tokens and responsive CSS integration",
+      "tags": "Figma, Design Systems, Wireframing, User Journeys, WCAG 2.1",
+      "file_name": "Design_Lyricist_UIUX_Designer_CV.pdf",
+      "file_url": "/uploads/documents/cv_uiux_designer.pdf",
+      "icon": "🎨",
+      "is_active": true,
+      "display_order": 2
+    },
+    {
+      "role_key": "cyber",
+      "title": "Cybersecurity & Network Specialist",
+      "category": "Security & Defense",
+      "target_role": "Cybersecurity Engineer & SOC Specialist",
+      "description": "Concentrated on vulnerability management, OWASP Top 10 hardening, penetration testing, packet analysis, and SOC operations.",
+      "bullets": "Vulnerability assessments, security scanning, and CVE exposure remediation\nOWASP Top 10 defense, SQLi/XSS prevention, and strict HTTP security headers\nDeep packet inspection with Wireshark, traffic anomaly detection, and Nmap audits\nLinux server hardening, stateful firewalls (iptables/UFW), and audit logging",
+      "tags": "Threat Modeling, OWASP, Wireshark, Nmap, Linux Hardening",
+      "file_name": "Design_Lyricist_Cybersecurity_CV.pdf",
+      "file_url": "/uploads/documents/cv_cybersecurity_specialist.pdf",
+      "icon": "🛡️",
+      "is_active": true,
+      "display_order": 4
+    },
+    {
+      "role_key": "graphic",
+      "title": "Graphic Designer & Creative Lead",
+      "category": "Graphic & Brand",
+      "target_role": "Senior Graphic Designer & Brand Identity Lead",
+      "description": "Showcases brand identity systems, typography, vector illustration, digital artwork, and creative direction from Behance (graphicmx911).",
+      "bullets": "Comprehensive brand identity guidelines, vector marks, and visual system design\nHigh-precision digital illustration, marketing collateral, and publication layouts\nExtensive commercial portfolio on Behance (graphicmx911)\nMastery of Adobe Illustrator, Photoshop, and digital vector composition",
+      "tags": "Brand Identity, Illustrator, Photoshop, Vector Art, Typography",
+      "file_name": "Design_Lyricist_Graphic_Designer_CV.pdf",
+      "file_url": "/uploads/documents/cv_graphic_designer.pdf",
+      "icon": "✨",
+      "is_active": true,
+      "display_order": 5
+    }
+  ],
+  "site_settings": {
+    "full_name": "Design Lyricist",
+    "professional_title": "Senior Full-Stack Engineer & Cloud Architect",
+    "bio_summary": null,
+    "contact_email": "muneeb03022309111@gmail.com",
+    "location": "San Francisco, CA / Remote",
+    "hero_pill_text": "🚀 Production Ready Solutions & Engineering",
+    "hero_title_prefix": "Building Scalable Systems, Robust Security &",
+    "hero_title_highlight": "Modern Digital Experiences",
+    "hero_description": "Senior Full-Stack Engineer, Cybersecurity Specialist, Cloud Architect & Designer. Delivering end-to-end digital excellence across Software Engineering, AWS Cloud, Networks, and UX/UI Design.",
+    "hero_primary_btn_text": "Explore Featured Projects ↓",
+    "hero_primary_btn_url": "#projects",
+    "meta_title": "Design Lyricist - Senior Full-Stack Engineer & Cloud Architect",
+    "meta_description": "Portfolio and engineering showcase of Design Lyricist: Full-Stack Engineering, Cloud Architecture, Cybersecurity, and UX/UI Design.",
+    "is_hiring_available": true,
+    "availability_badge_text": "Open for Senior / Staff / Lead Roles"
+  },
+  "admin_user": {
+    "username": "admin",
+    "email": "muneeb03022309111@gmail.com",
+    "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$iLzCcGv8xCSRq1tvSdzjyw$UdlB36UUlPAetlEo3tIeugTelCjArNEinx4DbdzMSfo"
+  }
+}
