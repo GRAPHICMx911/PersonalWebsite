@@ -24,7 +24,10 @@ router = APIRouter(
 
 # Upload directory
 CERT_UPLOAD_DIR = Path("frontend/uploads/certifications")
-CERT_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    CERT_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 # =========================================================

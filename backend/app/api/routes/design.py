@@ -23,7 +23,10 @@ router = APIRouter(
 
 # Upload directory
 DESIGN_UPLOAD_DIR = Path("frontend/uploads/design")
-DESIGN_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    DESIGN_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 # =========================================================

@@ -24,7 +24,10 @@ router = APIRouter(
 
 # Upload directory for blog assets
 BLOG_UPLOAD_DIR = Path("frontend/uploads/blog")
-BLOG_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    BLOG_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 def slugify(text: str) -> str:

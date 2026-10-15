@@ -69,22 +69,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 frontend_dir = BASE_DIR / "frontend"
 uploads_dir = frontend_dir / "uploads"
 
-# Mount Uploads directory
-try:
-    uploads_dir.mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "projects").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "certifications").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "experience").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "education").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "design").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "ux-ui").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "blog").mkdir(parents=True, exist_ok=True)
-    (uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
-except OSError:
-    pass
+# Mount Uploads directory (only create directories in local development, not on read-only serverless)
+if not os.getenv("VERCEL"):
+    try:
+        uploads_dir.mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "projects").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "certifications").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "experience").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "education").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "design").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "ux-ui").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "blog").mkdir(parents=True, exist_ok=True)
+        (uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass
 
 if uploads_dir.exists():
-    app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
+    try:
+        app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
+    except Exception:
+        pass
 
 # Include API Routers FIRST so API routes take precedence
 app.include_router(auth.router)
@@ -122,15 +126,27 @@ def health_check(db: Session = Depends(get_db)):
         }
 
 
-# Public Static Assets & Pages Mounts
-(frontend_dir / "css").mkdir(parents=True, exist_ok=True)
-app.mount("/css", StaticFiles(directory=str(frontend_dir / "css")), name="css")
+# Public Static Assets & Pages Mounts (Only needed for local standalone server)
+if not os.getenv("VERCEL"):
+    try:
+        (frontend_dir / "css").mkdir(parents=True, exist_ok=True)
+        if (frontend_dir / "css").exists():
+            app.mount("/css", StaticFiles(directory=str(frontend_dir / "css")), name="css")
+    except Exception:
+        pass
 
-(frontend_dir / "js").mkdir(parents=True, exist_ok=True)
-app.mount("/js", StaticFiles(directory=str(frontend_dir / "js")), name="js")
+    try:
+        (frontend_dir / "js").mkdir(parents=True, exist_ok=True)
+        if (frontend_dir / "js").exists():
+            app.mount("/js", StaticFiles(directory=str(frontend_dir / "js")), name="js")
+    except Exception:
+        pass
 
-if (frontend_dir / "admin").exists():
-    app.mount("/admin", StaticFiles(directory=str(frontend_dir / "admin"), html=True), name="admin")
+    try:
+        if (frontend_dir / "admin").exists():
+            app.mount("/admin", StaticFiles(directory=str(frontend_dir / "admin"), html=True), name="admin")
+    except Exception:
+        pass
 
 
 # Public HTML Pages Handlers

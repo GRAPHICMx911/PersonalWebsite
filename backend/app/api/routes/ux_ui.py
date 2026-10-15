@@ -23,7 +23,10 @@ router = APIRouter(
 
 # Upload directory
 UXUI_UPLOAD_DIR = Path("frontend/uploads/ux-ui")
-UXUI_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    UXUI_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 # =========================================================

@@ -24,8 +24,11 @@ router = APIRouter(
 
 DOCS_UPLOAD_DIR = Path("frontend/uploads/documents")
 AVATARS_UPLOAD_DIR = Path("frontend/uploads/avatars")
-DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-AVATARS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    AVATARS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 def get_or_create_settings(db: Session) -> SiteSetting:

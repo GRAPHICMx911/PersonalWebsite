@@ -23,7 +23,10 @@ router = APIRouter(
 
 # Upload directory
 EDU_UPLOAD_DIR = Path("frontend/uploads/education")
-EDU_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    EDU_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 # =========================================================
