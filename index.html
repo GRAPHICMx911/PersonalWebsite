@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=frontend/index.html">
+    <title>Design Lyricist | Personal Portfolio & CV Showcase</title>
+    <script>
+        const hash = window.location.hash || "";
+        window.location.replace("frontend/index.html" + hash);
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #E8EEEE;
+            color: #063F60;
+        }
+        .redirect-box {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(6, 63, 96, 0.1);
+        }
+        a {
+            color: #087DD8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-box">
+        <h2>Loading Personal Portfolio...</h2>
+        <p>If not redirected automatically, <a href="frontend/index.html">click here to enter</a>.</p>
+    </div>
+</body>
+</html>
