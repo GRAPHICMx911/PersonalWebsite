@@ -2,6 +2,34 @@ const API_BASE_URL = window.location.origin.startsWith("http")
     ? window.location.origin
     : "http://127.0.0.1:8000";
 
+let staticDataCache = null;
+async function getStaticSiteData() {
+    if (staticDataCache) return staticDataCache;
+    try {
+        const res = await fetch("data/site_data.json");
+        if (res.ok) {
+            staticDataCache = await res.json();
+            return staticDataCache;
+        }
+    } catch (e) {
+        try {
+            const res2 = await fetch("../data/site_data.json");
+            if (res2.ok) {
+                staticDataCache = await res2.json();
+                return staticDataCache;
+            }
+        } catch (e2) {}
+    }
+    return null;
+}
+
+function resolveAssetUrl(url) {
+    if (!url) return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) return url;
+    if (url.startsWith("/")) return url.slice(1);
+    return url;
+}
+
 let publishedProjects = [];
 let categoriesList = [];
 let activeCategoryFilter = "all";
@@ -217,7 +245,16 @@ async function initializeSkills() {
         renderSkills();
 
     } catch (err) {
-        console.error("Public skills load error:", err);
+        console.warn("Public skills load error, trying static site data:", err);
+        const staticData = await getStaticSiteData();
+        if (staticData && Array.isArray(staticData.skills) && staticData.skills.length > 0) {
+            publicSkills = staticData.skills;
+            skillCategoriesList = staticData.skill_categories || [];
+            renderSkillCategoryTabs();
+            renderSkills();
+            return;
+        }
+
         skillsGrid.innerHTML = `
             <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                 <h3>Unable to load skills</h3>
@@ -336,9 +373,17 @@ async function initializeCertifications() {
 
         publicCertifications = await res.json();
         renderPublicCertifications();
+        return;
 
     } catch (err) {
-        console.error("Public certifications load error:", err);
+        console.warn("Public certifications load error, trying static site data:", err);
+        const staticData = await getStaticSiteData();
+        if (staticData && Array.isArray(staticData.certifications) && staticData.certifications.length > 0) {
+            publicCertifications = staticData.certifications;
+            renderPublicCertifications();
+            return;
+        }
+
         certificationsGrid.innerHTML = `
             <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
                 <h3>Unable to load certifications</h3>
@@ -605,8 +650,16 @@ async function initializeEducation() {
         if (!res.ok) throw new Error("Could not fetch education qualifications.");
         publicEducation = await res.json();
         renderEducationTimeline();
+        return;
     } catch (err) {
-        console.error("Public education load error:", err);
+        console.warn("Public education load error, trying static site data:", err);
+        const staticData = await getStaticSiteData();
+        if (staticData && Array.isArray(staticData.education) && staticData.education.length > 0) {
+            publicEducation = staticData.education;
+            renderEducationTimeline();
+            return;
+        }
+
         track.innerHTML = `
             <div class="empty-box" style="padding: 24px;">
                 <p style="color: #dc2626; font-weight: 600;">Unable to load education qualifications.</p>
@@ -1420,45 +1473,65 @@ async function initializeSocialLinks() {
 
     if (!heroSocialLinks && !footerSocialIcons) return;
 
+    let links = null;
     try {
         const res = await fetch(`${API_BASE_URL}/api/social/public`);
-        if (!res.ok) throw new Error("Could not load public social links");
-
-        const links = await res.json();
-        if (!links || links.length === 0) return;
-
-        // Render in Hero
-        if (heroSocialLinks) {
-            heroSocialLinks.innerHTML = links.map(link => {
-                const icon = link.icon_svg && link.icon_svg.trim().startsWith("<svg")
-                    ? link.icon_svg
-                    : "<span>🔗</span>";
-                return `
-                    <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" 
-                       class="public-social-btn" title="${escapeHtml(link.platform_name)}" aria-label="${escapeHtml(link.platform_name)}">
-                        ${icon}
-                    </a>
-                `;
-            }).join("");
+        if (res.ok) {
+            links = await res.json();
         }
-
-        // Render in Footer
-        if (footerSocialIcons) {
-            footerSocialIcons.innerHTML = links.map(link => {
-                const icon = link.icon_svg && link.icon_svg.trim().startsWith("<svg")
-                    ? link.icon_svg
-                    : "<span>🔗</span>";
-                return `
-                    <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" 
-                       class="footer-social-btn" title="${escapeHtml(link.platform_name)}" aria-label="${escapeHtml(link.platform_name)}">
-                        ${icon}
-                    </a>
-                `;
-            }).join("");
-        }
-
     } catch (err) {
-        console.error("Public social links error:", err);
+        console.warn("Public social links fetch failed, fallback to static site data:", err);
+    }
+
+    if (!links || links.length === 0) {
+        const staticData = await getStaticSiteData();
+        if (staticData && Array.isArray(staticData.social_links) && staticData.social_links.length > 0) {
+            links = staticData.social_links;
+        }
+    }
+
+    if (!links || links.length === 0) return;
+
+    // Helper for social icons
+    function getSocialIconSvg(platform, iconSvg) {
+        if (iconSvg && iconSvg.trim().startsWith("<svg")) return iconSvg;
+        const p = (platform || "").toLowerCase();
+        if (p.includes("linkedin")) {
+            return `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37z"/></svg>`;
+        }
+        if (p.includes("behance")) {
+            return `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-4.981 3-3.642 0-5.745-2.588-5.745-5.909 0-3.684 2.502-6.091 5.922-6.091 3.513 0 5.408 2.378 5.408 5.679 0 .584-.075 1.218-.17 1.664h-8.087c.101 1.774 1.353 2.766 2.915 2.766 1.455 0 2.316-.689 2.683-1.609l2.055.5zm-5.076-5.466c-.053-1.282-.871-2.034-2.147-2.034-1.298 0-2.181.821-2.312 2.034h4.459zm-13.65-6.534h4.945c2.193 0 3.738.995 3.738 2.825 0 1.229-.693 2.146-1.785 2.545 1.401.378 2.292 1.488 2.292 2.946 0 2.222-1.802 3.684-4.298 3.684h-4.892v-12zm3.018 4.743h1.794c.942 0 1.543-.456 1.543-1.214 0-.749-.578-1.189-1.503-1.189h-1.834v2.403zm0 4.887h1.992c1.084 0 1.776-.516 1.776-1.37 0-.895-.733-1.402-1.826-1.402h-1.942v2.772z"/></svg>`;
+        }
+        if (p.includes("github")) {
+            return `<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>`;
+        }
+        return `<span>🔗</span>`;
+    }
+
+    // Render in Hero
+    if (heroSocialLinks) {
+        heroSocialLinks.innerHTML = links.map(link => {
+            const icon = getSocialIconSvg(link.platform_name, link.icon_svg);
+            return `
+                <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" 
+                   class="public-social-btn" title="${escapeHtml(link.platform_name)}" aria-label="${escapeHtml(link.platform_name)}">
+                    ${icon}
+                </a>
+            `;
+        }).join("");
+    }
+
+    // Render in Footer
+    if (footerSocialIcons) {
+        footerSocialIcons.innerHTML = links.map(link => {
+            const icon = getSocialIconSvg(link.platform_name, link.icon_svg);
+            return `
+                <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" 
+                   class="footer-social-btn" title="${escapeHtml(link.platform_name)}" aria-label="${escapeHtml(link.platform_name)}">
+                    ${icon}
+                </a>
+            `;
+        }).join("");
     }
 }
 
@@ -1466,12 +1539,24 @@ async function initializeSocialLinks() {
 // PUBLIC SITE SETTINGS & METADATA INITIALIZATION
 // =========================================================
 async function initializeSiteSettings() {
+    let data = null;
     try {
         const res = await fetch(`${API_BASE_URL}/api/settings/public`);
-        if (!res.ok) throw new Error("Could not load public settings");
+        if (res.ok) {
+            data = await res.json();
+        }
+    } catch (err) {
+        console.warn("Public settings fetch failed, fallback to static site data:", err);
+    }
 
-        const data = await res.json();
-        if (!data) return;
+    if (!data) {
+        const staticData = await getStaticSiteData();
+        if (staticData && staticData.site_settings) {
+            data = staticData.site_settings;
+        }
+    }
+
+    if (!data) return;
 
         // 1. Meta / SEO Tags
         if (data.meta_title) {
@@ -1781,9 +1866,17 @@ async function initializePublicCVs() {
         if (Array.isArray(data) && data.length > 0) {
             publicCVsList = data;
             renderPublicCVCards(data);
+            return;
         }
     } catch (err) {
-        console.warn("Public CV fetch failed, fallback to static cards:", err);
+        console.warn("Public CV fetch failed, fallback to static site data:", err);
+    }
+
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.cv_documents) && staticData.cv_documents.length > 0) {
+        publicCVsList = staticData.cv_documents;
+        renderPublicCVCards(publicCVsList);
     }
 }
 
@@ -1807,13 +1900,13 @@ function renderPublicCVCards(cvs) {
 
         const tagsHtml = tagsArr.map(tag => `<span class="cv-tag">${escapeHtml(tag)}</span>`).join("");
         const icon = cv.icon || "📄";
-        const fileUrl = cv.file_url || "#";
+        const fileUrl = resolveAssetUrl(cv.file_url) || "#";
         const fileName = cv.file_name || `${(cv.role_key || "CV")}.pdf`;
         const roleDetail = cv.target_role ? escapeHtml(cv.target_role) : "Specialized Document";
         const formatBadge = (cv.file_format || "PDF").toUpperCase();
 
         return `
-            <div class="cv-card" data-cv-id="${cv.id}">
+            <div class="cv-card" data-cv-id="${cv.id || cv.role_key}">
                 <div class="cv-card-header">
                     <div class="cv-card-icon-wrap">${escapeHtml(icon)}</div>
                     <div class="cv-card-meta">
@@ -1836,7 +1929,7 @@ function renderPublicCVCards(cvs) {
                         <a href="${encodeURI(fileUrl)}" download="${escapeHtml(fileName)}" class="btn btn-primary btn-sm">
                             <span class="btn-icon">📥</span> Download CV
                         </a>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('${cv.id}')">
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="openCvPreview('${cv.id || cv.role_key}')">
                             Preview
                         </button>
                     </div>
@@ -1853,16 +1946,17 @@ function openCvPreview(idOrKey) {
     if (publicCVsList && publicCVsList.length > 0) {
         const found = publicCVsList.find(c => String(c.id) === String(idOrKey) || c.role_key === idOrKey);
         if (found) {
+            let rawBullets = found.bullets || found.key_highlights || [];
             let bullets = [];
-            if (Array.isArray(found.key_highlights)) {
-                bullets = found.key_highlights;
-            } else if (typeof found.key_highlights === "string" && found.key_highlights.trim()) {
+            if (Array.isArray(rawBullets)) {
+                bullets = rawBullets;
+            } else if (typeof rawBullets === "string" && rawBullets.trim()) {
                 try {
-                    const parsed = JSON.parse(found.key_highlights);
+                    const parsed = JSON.parse(rawBullets);
                     if (Array.isArray(parsed)) bullets = parsed;
-                    else bullets = found.key_highlights.split("\n").map(b => b.trim()).filter(Boolean);
+                    else bullets = rawBullets.split("\n").map(b => b.trim()).filter(Boolean);
                 } catch {
-                    bullets = found.key_highlights.split("\n").map(b => b.trim()).filter(Boolean);
+                    bullets = rawBullets.split("\n").map(b => b.trim()).filter(Boolean);
                 }
             }
 
@@ -1876,7 +1970,7 @@ function openCvPreview(idOrKey) {
                     "Includes production projects, verified credentials, and tech stack proficiencies",
                     "Comprehensive achievement metrics and architectural leadership"
                 ],
-                fileUrl: found.file_url || "#",
+                fileUrl: resolveAssetUrl(found.file_url) || "#",
                 fileName: found.file_name || `${(found.role_key || "CV")}.pdf`
             };
         }
