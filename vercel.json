@@ -6,12 +6,12 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/admin/(.*)",
-      "destination": "/frontend/admin/$1"
+      "source": "/admin",
+      "destination": "/frontend/admin/dashboard.html"
     },
     {
-      "source": "/admin",
-      "destination": "/frontend/admin/index.html"
+      "source": "/admin/(.*)",
+      "destination": "/frontend/admin/$1"
     },
     {
       "source": "/css/(.*)",
@@ -32,6 +32,14 @@
     {
       "source": "/assets/(.*)",
       "destination": "/frontend/assets/$1"
+    },
+    {
+      "source": "/logo.png",
+      "destination": "/frontend/logo.png"
+    },
+    {
+      "source": "/",
+      "destination": "/frontend/index.html"
     },
     {
       "source": "/(.*)",

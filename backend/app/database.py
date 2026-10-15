@@ -12,7 +12,10 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
     # Zero-config fallback to SQLite so deployment works out-of-the-box on any cloud platform
-    sqlite_path = BASE_DIR / "personal_website.db"
+    if os.getenv("VERCEL"):
+        sqlite_path = Path("/tmp/personal_website.db")
+    else:
+        sqlite_path = BASE_DIR / "personal_website.db"
     DATABASE_URL = f"sqlite:///{sqlite_path}"
 
 if DATABASE_URL.startswith("sqlite"):

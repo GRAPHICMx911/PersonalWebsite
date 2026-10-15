@@ -43,7 +43,7 @@ origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins if origins else ["*"],
-    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.onrender\.com|\.railway\.app|\.vercel\.app)",
+    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.railway\.app|\.vercel\.app|\.hf\.space|\.github\.io)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -70,16 +70,21 @@ frontend_dir = BASE_DIR / "frontend"
 uploads_dir = frontend_dir / "uploads"
 
 # Mount Uploads directory
-uploads_dir.mkdir(parents=True, exist_ok=True)
-(uploads_dir / "projects").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "certifications").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "experience").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "education").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "design").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "ux-ui").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "blog").mkdir(parents=True, exist_ok=True)
-(uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
-app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
+try:
+    uploads_dir.mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "projects").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "certifications").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "experience").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "education").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "design").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "ux-ui").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "blog").mkdir(parents=True, exist_ok=True)
+    (uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
+
+if uploads_dir.exists():
+    app.mount("/uploads", StaticFiles(directory=str(uploads_dir)), name="uploads")
 
 # Include API Routers FIRST so API routes take precedence
 app.include_router(auth.router)

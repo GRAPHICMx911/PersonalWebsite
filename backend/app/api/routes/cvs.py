@@ -24,7 +24,10 @@ router = APIRouter(
 )
 
 DOCS_UPLOAD_DIR = Path("frontend/uploads/documents")
-DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    DOCS_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 # =========================================================
