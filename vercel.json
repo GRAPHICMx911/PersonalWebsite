@@ -1,49 +1,63 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/app.py"
+      "src": "app.py",
+      "use": "@vercel/python"
     },
     {
-      "source": "/admin",
-      "destination": "/frontend/admin/dashboard.html"
+      "src": "frontend/**",
+      "use": "@vercel/static"
     },
     {
-      "source": "/admin/(.*)",
-      "destination": "/frontend/admin/$1"
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "app.py"
     },
     {
-      "source": "/css/(.*)",
-      "destination": "/frontend/css/$1"
+      "src": "/admin",
+      "dest": "frontend/admin/dashboard.html"
     },
     {
-      "source": "/js/(.*)",
-      "destination": "/frontend/js/$1"
+      "src": "/admin/(.*)",
+      "dest": "frontend/admin/$1"
     },
     {
-      "source": "/uploads/(.*)",
-      "destination": "/frontend/uploads/$1"
+      "src": "/css/(.*)",
+      "dest": "frontend/css/$1"
     },
     {
-      "source": "/data/(.*)",
-      "destination": "/frontend/data/$1"
+      "src": "/js/(.*)",
+      "dest": "frontend/js/$1"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/frontend/assets/$1"
+      "src": "/uploads/(.*)",
+      "dest": "frontend/uploads/$1"
     },
     {
-      "source": "/logo.png",
-      "destination": "/frontend/logo.png"
+      "src": "/data/(.*)",
+      "dest": "frontend/data/$1"
     },
     {
-      "source": "/",
-      "destination": "/frontend/index.html"
+      "src": "/assets/(.*)",
+      "dest": "frontend/assets/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
+      "src": "/logo.png",
+      "dest": "frontend/logo.png"
+    },
+    {
+      "src": "/",
+      "dest": "frontend/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1"
     }
   ]
 }
