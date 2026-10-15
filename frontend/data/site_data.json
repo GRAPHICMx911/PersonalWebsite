@@ -451,7 +451,7 @@
     }
   ],
   "site_settings": {
-    "full_name": "Design Lyricist",
+    "full_name": "Muneeb Ahmad",
     "professional_title": "Senior Full-Stack Engineer & Cloud Architect",
     "bio_summary": null,
     "contact_email": "muneeb03022309111@gmail.com",
@@ -462,8 +462,8 @@
     "hero_description": "Senior Full-Stack Engineer, Cybersecurity Specialist, Cloud Architect & Designer. Delivering end-to-end digital excellence across Software Engineering, AWS Cloud, Networks, and UX/UI Design.",
     "hero_primary_btn_text": "Explore Featured Projects ↓",
     "hero_primary_btn_url": "#projects",
-    "meta_title": "Design Lyricist - Senior Full-Stack Engineer & Cloud Architect",
-    "meta_description": "Portfolio and engineering showcase of Design Lyricist: Full-Stack Engineering, Cloud Architecture, Cybersecurity, and UX/UI Design.",
+    "meta_title": "Muneeb Ahmad - Senior Full-Stack Engineer & Designer",
+    "meta_description": "Portfolio and engineering showcase of Muneeb Ahmad: Full-Stack Engineering, Cloud Architecture, Cybersecurity, and UX/UI Design.",
     "is_hiring_available": true,
     "availability_badge_text": "Open for Senior / Staff / Lead Roles"
   },
@@ -471,5 +471,184 @@
     "username": "admin",
     "email": "muneeb03022309111@gmail.com",
     "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$iLzCcGv8xCSRq1tvSdzjyw$UdlB36UUlPAetlEo3tIeugTelCjArNEinx4DbdzMSfo"
-  }
+  },
+  "projects": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "title": "Enterprise Full-Stack Cloud Platform & CMS",
+      "slug": "enterprise-cloud-platform",
+      "description": "High-performance asynchronous architecture built with FastAPI, PostgreSQL, SQLAlchemy ORM, and responsive vanilla frontend. Features secure JWT role-based authentication, dynamic content management, and multi-tier caching.",
+      "content": "Comprehensive full-stack system engineered for rapid scaling and low latency. Incorporates automated database migrations, strict defense-in-depth HTTP security headers, and an administrative control panel.",
+      "image_url": "uploads/projects/sample-portfolio.png",
+      "demo_url": "https://github.com/GRAPHICMx911/PersonalWebsite",
+      "repo_url": "https://github.com/GRAPHICMx911/PersonalWebsite",
+      "technologies": "Python, FastAPI, PostgreSQL, SQLAlchemy, Docker, JavaScript",
+      "featured": true,
+      "is_published": true,
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "category_id": 4,
+      "title": "Automated Vulnerability & Network Reconnaissance Engine",
+      "slug": "vulnerability-scanner-engine",
+      "description": "Security assessment and audit suite utilizing automated port scanning, OWASP Top 10 vulnerability detection, deep packet inspection heuristics, and CVE risk scoring.",
+      "content": "Engineered to assist DevSecOps pipelines in identifying infrastructure misconfigurations, insecure headers, unpatched services, and direct access risks across hybrid cloud environments.",
+      "image_url": "uploads/projects/sample-scanner.png",
+      "demo_url": "https://github.com/GRAPHICMx911",
+      "repo_url": "https://github.com/GRAPHICMx911",
+      "technologies": "Python, Nmap, Wireshark, OWASP, Linux, Bash",
+      "featured": true,
+      "is_published": true,
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "category_id": 3,
+      "title": "Next-Gen FinTech Design System & Mobile App",
+      "slug": "fintech-design-system",
+      "description": "End-to-end human-centered UX research, wireframing, component tokenization, and interactive Figma prototyping for an international wealth management and micro-investment mobile application.",
+      "content": "Includes 120+ atomic design components, WCAG 2.1 AAA accessibility validation, interactive micro-animations, user testing benchmarks, and token-based CSS developer handoff.",
+      "image_url": "uploads/projects/sample-ui.png",
+      "demo_url": "https://www.behance.net/graphicmx911",
+      "repo_url": "https://www.behance.net/graphicmx911",
+      "technologies": "Figma, Design Tokens, UX Research, Prototyping, CSS Variables",
+      "featured": true,
+      "is_published": true,
+      "display_order": 3
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role_title": "Senior Full-Stack Engineer & Cloud Architect",
+      "company": "Enterprise Technology Solutions",
+      "location": "Remote",
+      "employment_type": "Full-time",
+      "start_date": "Jan 2023",
+      "end_date": null,
+      "is_current": true,
+      "description": "Architecting distributed microservices, secure REST APIs, and automated CI/CD deployment pipelines on AWS. Overseeing backend reliability, database indexing, and frontend optimization.",
+      "achievements": "Architected low-latency FastAPI microservices serving thousands of requests/sec\nImplemented zero-trust cloud security baselines and OWASP hardening\nDirected full-stack refactoring improving page performance and mobile scores by 40%",
+      "skills_used": "Python, FastAPI, AWS, PostgreSQL, Docker, Microservices",
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "role_title": "Cybersecurity & Systems Specialist",
+      "company": "Cyber Defense & Network Systems",
+      "location": "Remote / Hybrid",
+      "employment_type": "Full-time",
+      "start_date": "Mar 2021",
+      "end_date": "Dec 2022",
+      "is_current": false,
+      "description": "Conducted vulnerability assessments, network defense monitoring, penetration tests, and security hardening across Linux servers and cloud infrastructure.",
+      "achievements": "Conducted regular penetration tests and mitigated 50+ critical CVE exposures\nHardened production servers with stateful firewalls, intrusion detection, and audit logging\nEngineered automated security monitoring scripts in Python and Bash",
+      "skills_used": "OWASP, Wireshark, Nmap, Linux Hardening, Python, UFW",
+      "display_order": 2
+    },
+    {
+      "id": 3,
+      "role_title": "Creative Lead & UX/UI Designer",
+      "company": "GraphicMX Creative Studio",
+      "location": "Freelance",
+      "employment_type": "Contract",
+      "start_date": "Jan 2019",
+      "end_date": "Feb 2021",
+      "is_current": false,
+      "description": "Delivered brand identity systems, typography, vector illustration, and digital product designs for global clients featured on Behance.",
+      "achievements": "Crafted 40+ brand identity packages and design systems on Behance (graphicmx911)\nDesigned accessible, responsive web and mobile interfaces in Figma\nCreated high-precision vector assets and visual marketing collateral",
+      "skills_used": "Figma, Adobe Illustrator, Adobe Photoshop, Brand Identity, UI/UX",
+      "display_order": 3
+    }
+  ],
+  "design_items": [
+    {
+      "id": 1,
+      "title": "Brand Identity & Visual System - Apex Global",
+      "category": "Brand Identity",
+      "client": "Apex Innovations",
+      "year": "2024",
+      "description": "Comprehensive corporate brand identity featuring custom typography, geometric vector marks, color harmonies, and guidelines.",
+      "image_url": "uploads/projects/sample-ui.png",
+      "thumbnail_url": "uploads/projects/sample-ui.png",
+      "tools_used": "Illustrator, Photoshop, Vector Art",
+      "aspect_ratio": "16:9",
+      "display_order": 1
+    },
+    {
+      "id": 2,
+      "title": "Creative Digital Vector Illustration Showcase",
+      "category": "Vector Art",
+      "client": "Creative Studio",
+      "year": "2024",
+      "description": "High-precision digital vector artwork, commercial iconography, and visual storytelling published on Behance.",
+      "image_url": "uploads/projects/sample-portfolio.png",
+      "thumbnail_url": "uploads/projects/sample-portfolio.png",
+      "tools_used": "Adobe Illustrator, Digital Painting",
+      "aspect_ratio": "16:9",
+      "display_order": 2
+    }
+  ],
+  "ux_ui_case_studies": [
+    {
+      "id": 1,
+      "title": "Fintech Wealth Management Mobile App",
+      "slug": "fintech-wealth-app",
+      "subtitle": "Zero-Friction Investment & Portfolio Tracking",
+      "category": "Mobile & Fintech",
+      "client": "FinTech Ventures",
+      "timeline": "4 Months",
+      "role": "Lead UX/UI Designer & Researcher",
+      "cover_image_url": "uploads/ux-ui/uxui_5f294ea5b6a4.png",
+      "overview": "A comprehensive mobile financial application designed to simplify wealth tracking, fractional asset investment, and biometric authentication for retail investors.",
+      "problem_statement": "Retail investors found traditional investment dashboards overwhelming, cluttered with technical jargon, and poorly optimized for mobile touchscreens.",
+      "solution_summary": "Engineered a minimalist, modular card-based UI with interactive charts, clear hierarchy, dark-mode native contrast, and frictionless 3-tap transactions.",
+      "tools_used": "Figma, FigJam, Miro, Principle",
+      "tags": "Fintech, Mobile App, Design System, WCAG AAA",
+      "prototype_url": "https://www.behance.net/graphicmx911",
+      "behance_url": "https://www.behance.net/graphicmx911",
+      "is_featured": true,
+      "display_order": 1
+    }
+  ],
+  "blog_posts": [
+    {
+      "id": 1,
+      "title": "Architecting High-Throughput Asynchronous APIs with FastAPI & PostgreSQL",
+      "slug": "fastapi-async-architecture",
+      "summary": "A practical deep-dive into async database connection pooling, SQLAlchemy 2.0 query patterns, and horizontal scalability.",
+      "cover_image_url": "uploads/blog/fastapi_async_architecture.png",
+      "reading_time": "6 min read",
+      "published_at": "October 2026",
+      "category": "Software Engineering",
+      "tags": "FastAPI, Python, PostgreSQL, AsyncIO",
+      "is_published": true
+    },
+    {
+      "id": 2,
+      "title": "Zero-Trust Architecture on AWS: Securing Cloud Workloads",
+      "slug": "zero-trust-aws",
+      "summary": "Implementing least-privilege IAM policies, VPC flow log monitoring, private endpoints, and automated security guardrails.",
+      "cover_image_url": "uploads/blog/zero_trust_aws.png",
+      "reading_time": "8 min read",
+      "published_at": "September 2026",
+      "category": "Cybersecurity & Cloud",
+      "tags": "AWS, Security, IAM, Cloud Architecture",
+      "is_published": true
+    },
+    {
+      "id": 3,
+      "title": "Enterprise Design Systems: Bridging the Figma to Code Gap",
+      "slug": "enterprise-design-systems",
+      "summary": "How design tokens, atomic components, and modern CSS variables enable engineering teams to ship pixel-perfect UIs with speed.",
+      "cover_image_url": "uploads/blog/design_systems_enterprise.png",
+      "reading_time": "5 min read",
+      "published_at": "August 2026",
+      "category": "UX/UI & Design",
+      "tags": "Design Systems, Figma, CSS, Tokens",
+      "is_published": true
+    }
+  ]
 }

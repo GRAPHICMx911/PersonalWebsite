@@ -58,23 +58,33 @@ async function initializeProjects() {
             fetch(`${API_BASE_URL}/api/projects/categories`)
         ]);
 
-        if (!projRes.ok) throw new Error("Could not fetch published projects.");
+        if (projRes.ok) {
+            publishedProjects = await projRes.json();
+            categoriesList = catRes.ok ? await catRes.json() : [];
+            renderCategoryTabs();
+            renderProjects();
+            return;
+        }
+    } catch (err) {
+        console.warn("Public projects API fetch failed, trying static site data:", err);
+    }
 
-        publishedProjects = await projRes.json();
-        categoriesList = catRes.ok ? await catRes.json() : [];
-
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.projects) && staticData.projects.length > 0) {
+        publishedProjects = staticData.projects;
+        categoriesList = staticData.project_categories || [];
         renderCategoryTabs();
         renderProjects();
-
-    } catch (err) {
-        console.error("Public projects load error:", err);
-        projectsGrid.innerHTML = `
-            <div class="empty-box">
-                <h3>Failed to load projects</h3>
-                <p>Ensure the FastAPI server is running at <code>${API_BASE_URL}</code>.</p>
-            </div>
-        `;
+        return;
     }
+
+    projectsGrid.innerHTML = `
+        <div class="empty-box">
+            <h3>Featured Projects</h3>
+            <p>Showcase projects will be loaded shortly.</p>
+        </div>
+    `;
 }
 
 // =========================================================
@@ -546,18 +556,28 @@ async function initializeExperience() {
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/experience/public`);
-        if (!res.ok) throw new Error("Could not fetch career experience data.");
-        publicExperiences = await res.json();
-        renderExperienceTimeline();
+        if (res.ok) {
+            publicExperiences = await res.json();
+            renderExperienceTimeline();
+            return;
+        }
     } catch (err) {
-        console.error("Public experience load error:", err);
-        track.innerHTML = `
-            <div class="empty-box" style="padding: 24px;">
-                <p style="color: #dc2626; font-weight: 600;">Unable to load experience milestones.</p>
-                <p style="font-size: 13px; color: var(--text-secondary);">${escapeHtml(err.message)}</p>
-            </div>
-        `;
+        console.warn("Public experience API fetch failed, trying static site data:", err);
     }
+
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.experience) && staticData.experience.length > 0) {
+        publicExperiences = staticData.experience;
+        renderExperienceTimeline();
+        return;
+    }
+
+    track.innerHTML = `
+        <div class="empty-box" style="padding: 24px;">
+            <p style="font-weight: 600; color: var(--color-primary-dark);">Career milestones and experience record.</p>
+        </div>
+    `;
 }
 
 function renderExperienceTimeline() {
@@ -779,18 +799,24 @@ async function initializeDesign() {
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/design/public`);
-        if (!res.ok) throw new Error("Could not fetch public design portfolio.");
-        publicDesignItems = await res.json();
-        renderDesignItems();
+        if (res.ok) {
+            publicDesignItems = await res.json();
+            renderDesignItems();
+            return;
+        }
     } catch (err) {
-        console.error("Public design load error:", err);
-        designGrid.innerHTML = `
-            <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                <h3 style="color: var(--color-primary-dark);">Visual portfolio currently unavailable</h3>
-                <p style="color: var(--text-secondary);">Unable to load graphic design items right now.</p>
-            </div>
-        `;
+        console.warn("Public design API fetch failed, trying static site data:", err);
     }
+
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.design_items) && staticData.design_items.length > 0) {
+        publicDesignItems = staticData.design_items;
+        renderDesignItems();
+        return;
+    }
+
+    renderDesignItems();
 }
 
 function renderDesignItems() {
@@ -855,18 +881,24 @@ async function initializeUXUI() {
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/ux-ui/public`);
-        if (!res.ok) throw new Error("Could not fetch public UX/UI case studies.");
-        publicCaseStudies = await res.json();
-        renderCaseStudies();
+        if (res.ok) {
+            publicCaseStudies = await res.json();
+            renderCaseStudies();
+            return;
+        }
     } catch (err) {
-        console.error("Public UX/UI load error:", err);
-        uxuiGrid.innerHTML = `
-            <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                <h3 style="color: var(--color-primary-dark);">UX/UI case studies currently unavailable</h3>
-                <p style="color: var(--text-secondary);">Unable to load case studies right now.</p>
-            </div>
-        `;
+        console.warn("Public UX/UI API fetch failed, trying static site data:", err);
     }
+
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.ux_ui_case_studies) && staticData.ux_ui_case_studies.length > 0) {
+        publicCaseStudies = staticData.ux_ui_case_studies;
+        renderCaseStudies();
+        return;
+    }
+
+    renderCaseStudies();
 }
 
 function renderCaseStudies() {
@@ -1081,18 +1113,24 @@ async function initializeBlog() {
 
     try {
         const res = await fetch(`${API_BASE_URL}/api/blog/public`);
-        if (!res.ok) throw new Error("Could not fetch published blog articles.");
-        publicBlogPosts = await res.json();
-        renderBlogPosts();
+        if (res.ok) {
+            publicBlogPosts = await res.json();
+            renderBlogPosts();
+            return;
+        }
     } catch (err) {
-        console.error("Public blog load error:", err);
-        blogGrid.innerHTML = `
-            <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                <h3 style="color: var(--color-primary-dark);">Technical articles currently unavailable</h3>
-                <p style="color: var(--text-secondary);">Unable to load articles right now. Please check back soon.</p>
-            </div>
-        `;
+        console.warn("Public blog API fetch failed, trying static site data:", err);
     }
+
+    // Static fallback for GitHub Pages & offline mode
+    const staticData = await getStaticSiteData();
+    if (staticData && Array.isArray(staticData.blog_posts) && staticData.blog_posts.length > 0) {
+        publicBlogPosts = staticData.blog_posts;
+        renderBlogPosts();
+        return;
+    }
+
+    renderBlogPosts();
 }
 
 function renderBlogPosts() {
