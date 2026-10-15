@@ -1,5 +1,4 @@
 import sys
-import traceback
 from pathlib import Path
 
 # Add project root directory to Python path
@@ -10,6 +9,7 @@ if str(ROOT_DIR) not in sys.path:
 try:
     from backend.app.main import app
 except Exception as e:
+    import traceback
     tb = traceback.format_exc()
     from fastapi import FastAPI
     from fastapi.responses import JSONResponse
@@ -21,8 +21,9 @@ except Exception as e:
         return JSONResponse(
             status_code=500,
             content={
-                "error": "FastAPI Serverless Startup Exception",
+                "error": "Serverless Startup Exception",
                 "detail": str(e),
                 "traceback": tb.splitlines(),
             },
         )
+
