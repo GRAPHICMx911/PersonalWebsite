@@ -6,7 +6,7 @@
     <meta name="description" content="Personal Global Website and Professional Portfolio — Software Engineering, Cybersecurity, AWS Cloud, Networking, UX/UI Design, and Project Management.">
     <title>Personal Global Website | Professional Portfolio</title>
     <link rel="icon" type="image/png" href="logo.png">
-    <link rel="stylesheet" href="css/style.css?v=11.0">
+    <link rel="stylesheet" href="css/style.css?v=6.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,21 +19,15 @@
             <a href="index.html" class="brand-link">
                 <img src="logo.png" alt="Personal Global Logo" class="brand-logo-img">
                 <div class="brand-info">
-                    <span class="brand-name">Design Lyricist </span>
+                    <span class="brand-name">Design Lyricist</span>
+                    <span class="brand-title">Full-Stack &amp; Cloud Architect</span>
                 </div>
             </a>
 
-            <button type="button" class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
-
-            <nav class="nav-wrapper">
+            <nav class="nav-desktop">
                 <ul class="nav-menu" id="publicNavMenu">
                     <li><a href="#home" class="nav-item-link active">Home</a></li>
+                    <li><a href="#expertise" class="nav-item-link">Disciplines</a></li>
                     <li><a href="#skills" class="nav-item-link">Skills</a></li>
                     <li><a href="#certifications" class="nav-item-link">Certifications</a></li>
                     <li><a href="#experience" class="nav-item-link">Experience</a></li>
@@ -41,30 +35,40 @@
                     <li><a href="#projects" class="nav-item-link">Projects</a></li>
                     <li><a href="#design" class="nav-item-link">Design &amp; UX</a></li>
                     <li><a href="#blog" class="nav-item-link">Blog</a></li>
-                    <li><a href="#contact" class="nav-item-link">Contact</a></li>
                 </ul>
             </nav>
 
-            <a href="#contact" class="nav-cta-btn">
-                <span>Let's Talk</span>
-                <span class="nav-cta-arrow">&rarr;</span>
-            </a>
+            <div class="nav-actions">
+                <a href="#contact" class="nav-cta-btn">
+                    <span>Let's Talk</span>
+                    <span class="nav-cta-arrow">&rarr;</span>
+                </a>
+                <button type="button" class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
     <main id="home">
-        <!-- Hero Section -->
+        <!-- Hero Section (Media-Harbour Signature Ambient Drift & Convergence Canvas) -->
         <section class="hero-section">
-            <div class="hero-ambient-glow" aria-hidden="true"></div>
+            <div class="hero-ambient-glow"></div>
+            <canvas id="heroFxCanvas" class="hero-fx-canvas" aria-hidden="true"></canvas>
+
             <div class="container hero-container-rel">
                 <div class="hero-content">
-                    <div class="hero-chips-wrap">
-                        <div class="hero-pill" id="heroPill">
+                    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 24px;">
+                        <div class="hero-pill" id="heroPill" style="margin-bottom: 0;">
                             <span id="heroPillText">🚀 Production Ready Solutions &amp; Engineering</span>
                         </div>
-                        <div class="hero-availability-badge" id="heroAvailabilityBadge" style="display: none;">
+                        <div class="hero-availability-badge" id="heroAvailabilityBadge" style="display: none; margin-bottom: 0;">
                             <span class="pulse-dot"></span>
-                            <span id="heroAvailabilityText">Available for Opportunities</span>
+                            <span id="heroAvailabilityText">Open for Senior / Staff / Lead Roles</span>
                         </div>
                     </div>
                     <h1 class="hero-title" id="heroTitle">
@@ -77,7 +81,11 @@
                     <div class="hero-actions" id="heroActions">
                         <a href="#projects" class="btn btn-primary" id="heroPrimaryBtn">
                             <span>Explore Featured Projects</span>
-                            <span class="btn-arrow">&darr;</span>
+                            <span class="btn-icon">&darr;</span>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span>Get in Touch</span>
+                            <span class="btn-icon">&rarr;</span>
                         </a>
                     </div>
                     <div class="hero-social-bar">
@@ -90,37 +98,83 @@
             </div>
         </section>
 
-        <!-- Core Disciplines / Expertise -->
+        <!-- Core Disciplines / Expertise (Media-Harbour Inspired Services Grid) -->
         <section class="domains-section" id="expertise">
             <div class="container">
+                <div class="section-header center-header" style="margin-bottom: 40px;">
+                    <div class="section-pill">
+                        <span>⚡ Core Disciplines &amp; Architecture</span>
+                    </div>
+                    <h2 class="section-title">
+                        What I Architect &amp; <span class="hero-highlight">Deliver</span>
+                    </h2>
+                    <p class="section-subtitle">
+                        Bridging high-concurrency software engineering, defensive cybersecurity, cloud infrastructure, and human-centered design into resilient, production-ready platforms.
+                    </p>
+                </div>
+
                 <div class="domains-grid">
                     <a href="#projects" class="domain-card" title="Explore Software Engineering Projects">
-                        <span class="domain-icon">💻</span>
-                        <span class="domain-name">Software Engineering</span>
+                        <div class="domain-card-icon-wrap">💻</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">Software Engineering</h3>
+                            <p class="domain-desc">Scalable full-stack systems, high-concurrency microservices, REST APIs, FastAPI &amp; PostgreSQL architectures.</p>
+                            <span class="domain-card-link">Explore Projects <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#projects" class="domain-card" title="Explore Cybersecurity Projects">
-                        <span class="domain-icon">🛡️</span>
-                        <span class="domain-name">Cybersecurity</span>
+                        <div class="domain-card-icon-wrap">🛡️</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">Cybersecurity &amp; Defense</h3>
+                            <p class="domain-desc">Zero-trust network defense, vulnerability assessments, OWASP hardening, and proactive compliance.</p>
+                            <span class="domain-card-link">Explore Security <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#projects" class="domain-card" title="Explore AWS Cloud Architectures">
-                        <span class="domain-icon">☁️</span>
-                        <span class="domain-name">AWS Cloud</span>
+                        <div class="domain-card-icon-wrap">☁️</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">AWS Cloud Architecture</h3>
+                            <p class="domain-desc">High-availability VPC topologies, automated CI/CD deployment pipelines, Docker &amp; serverless systems.</p>
+                            <span class="domain-card-link">Explore Cloud <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#projects" class="domain-card" title="Explore Network Engineering">
-                        <span class="domain-icon">🌐</span>
-                        <span class="domain-name">Networking</span>
+                        <div class="domain-card-icon-wrap">🌐</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">Network Engineering</h3>
+                            <p class="domain-desc">Subnetting, packet inspection, encrypted VPN tunnels, edge proxies, and secure perimeter topologies.</p>
+                            <span class="domain-card-link">Explore Networks <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#design" class="domain-card" title="Explore UX/UI Product Case Studies">
-                        <span class="domain-icon">✨</span>
-                        <span class="domain-name">UX/UI Design</span>
+                        <div class="domain-card-icon-wrap">✨</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">UX / UI Product Design</h3>
+                            <p class="domain-desc">Figma design systems, interactive prototypes, WCAG accessibility, and human-centered user research.</p>
+                            <span class="domain-card-link">Explore UX/UI <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#design" class="domain-card" title="Explore Graphic &amp; Visual Design Portfolio">
-                        <span class="domain-icon">🎨</span>
-                        <span class="domain-name">Graphic Design</span>
+                        <div class="domain-card-icon-wrap">🎨</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">Graphic &amp; Brand Design</h3>
+                            <p class="domain-desc">Distinctive visual brand identities, vector illustration, digital artwork, and creative direction.</p>
+                            <span class="domain-card-link">Explore Design <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
+
                     <a href="#projects" class="domain-card" title="Explore Project Management &amp; Delivery">
-                        <span class="domain-icon">📊</span>
-                        <span class="domain-name">Project Management</span>
+                        <div class="domain-card-icon-wrap">📊</div>
+                        <div class="domain-card-body">
+                            <h3 class="domain-name">Project Management</h3>
+                            <p class="domain-desc">Agile Scrum delivery, milestone governance, technical documentation, and cross-functional leadership.</p>
+                            <span class="domain-card-link">Explore Delivery <span class="arrow">&rarr;</span></span>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -129,12 +183,14 @@
         <!-- Skills & Competencies Section -->
         <section class="skills-section" id="skills">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
                         <span>⚡ Core Technical Competencies</span>
                     </div>
-                    <h2>Technical Skills &amp; Proficiencies</h2>
-                    <p>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Technical Skills &amp; Proficiencies
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
                         Specialized capabilities across modern software engineering, defensive cybersecurity, cloud infrastructure, network topology, and design systems.
                     </p>
                 </div>
@@ -150,12 +206,14 @@
         <!-- Accredited Industry Certifications Section -->
         <section class="certifications-section" id="certifications">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
                         <span>📜 Verified Industry Credentials</span>
                     </div>
-                    <h2>Accredited Certifications</h2>
-                    <p>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Accredited Certifications
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
                         Globally recognized vendor credentials validating domain mastery across AWS Cloud Architecture, Cybersecurity Defense, Network Engineering, and Agile Delivery.
                     </p>
                 </div>
@@ -170,12 +228,14 @@
         <!-- Career Experience & Education History Section -->
         <section class="career-section" id="experience">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
                         <span>🏢 Career Milestones &amp; Academic Heritage</span>
                     </div>
-                    <h2>Experience &amp; Education</h2>
-                    <p>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Experience &amp; Education
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
                         A documented track record of high-impact engineering leadership, enterprise cybersecurity implementations, and rigorous academic foundations.
                     </p>
                 </div>
@@ -406,16 +466,15 @@
         </section>
 
         <!-- Projects Showcase Section -->
-        <section class="projects-section" id="projects">
+        <section class="projects-section" id="projects" style="padding: 40px 0 80px;">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
-                        <span>📁 Production Architectures</span>
+                <div class="section-header">
+                    <div class="section-title-wrap">
+                        <h2>Featured Technical Projects</h2>
+                        <p>Real-world applications and architectures dynamically loaded from PostgreSQL database.</p>
                     </div>
-                    <h2>Featured Technical Projects</h2>
-                    <p>Real-world applications and architectures dynamically loaded from PostgreSQL database.</p>
-                    <div class="section-actions-row">
-                        <a href="#design" class="section-action-link">
+                    <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
+                        <a href="#design" class="section-action-link" style="color: var(--color-primary-blue);">
                             🎨 Design &amp; UX Showcase &darr;
                         </a>
                         <a href="projects.html" class="section-action-link">
@@ -437,12 +496,14 @@
         <!-- Design Portfolio & UX/UI Showcase Section -->
         <section class="design-uxui-section" id="design">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
                         <span>🎨 Visual Identity &amp; Product Design</span>
                     </div>
-                    <h2>Design Portfolio &amp; UX/UI Case Studies</h2>
-                    <p>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Design Portfolio &amp; UX/UI Case Studies
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
                         Branding guidelines, vector iconography, and deep-dive product design case studies engineered for clarity, cognitive ergonomics, and enterprise impact.
                     </p>
                 </div>
@@ -476,12 +537,14 @@
         <!-- Technical Blog & Engineering Articles Section -->
         <section class="blog-section" id="blog">
             <div class="container">
-                <div class="section-header center-header">
-                    <div class="section-pill">
+                <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 36px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="hero-pill" style="margin-bottom: 14px;">
                         <span>✍️ Insights &amp; Architecture Writeups</span>
                     </div>
-                    <h2>Technical Blog &amp; Engineering Articles</h2>
-                    <p>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Technical Blog &amp; Engineering Articles
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
                         In-depth articles covering zero-trust cloud architecture, defensive cybersecurity, asynchronous backend systems, and modern UX design systems.
                     </p>
                 </div>
@@ -501,8 +564,7 @@
 
         <!-- Contact CTA & Inquiries Section -->
         <section class="contact-cta-section" id="contact">
-            <div class="contact-ambient-glow" aria-hidden="true"></div>
-            <div class="container contact-container-rel">
+            <div class="container">
                 <div class="contact-wrapper">
                     <!-- Left Column: Contact Details & Value Prop -->
                     <div class="contact-info-col">
@@ -894,6 +956,7 @@
         </div>
     </footer>
 
-    <script src="js/script.js?v=11.0"></script>
+    <script src="js/hero-canvas.js?v=1.0" defer></script>
+    <script src="js/script.js?v=10.0"></script>
 </body>
 </html>

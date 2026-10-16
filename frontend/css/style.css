@@ -181,11 +181,6 @@ body {
     font-weight: 600;
 }
 
-.nav-wrapper {
-    display: flex;
-    align-items: center;
-}
-
 /* Nav Menu Items */
 .nav-menu {
     display: flex;
@@ -328,27 +323,22 @@ body {
     100% { transform: translate(70px, -50px) scale(1.2); }
 }
 
-.hero-container-rel {
-    position: relative;
+.hero-fx-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
     z-index: 2;
 }
 
-.hero-content {
-    max-width: 940px;
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.hero-container-rel {
+    position: relative;
+    z-index: 3;
 }
 
-.hero-chips-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 24px;
+.hero-content {
+    max-width: 860px;
 }
 
 /* Media-Harbour AI Chips / Pills */
@@ -410,13 +400,12 @@ body {
 
 /* Media-Harbour Bold Clamp Headline */
 .hero-title {
-    font-size: clamp(2.4rem, 4.8vw, 4.25rem);
+    font-size: clamp(2.4rem, 5.2vw, 4.3rem);
     font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.035em;
-    line-height: 1.15;
-    margin: 0 0 22px;
-    text-align: center;
+    line-height: 1.12;
+    margin: 24px 0 22px;
 }
 
 .hero-highlight {
@@ -429,19 +418,17 @@ body {
 }
 
 .hero-description {
-    font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+    font-size: clamp(1.05rem, 1.22vw, 1.25rem);
     color: rgba(232, 238, 238, 0.9);
-    line-height: 1.7;
-    margin-bottom: 36px;
-    max-width: 800px;
-    text-align: center;
+    line-height: 1.68;
+    margin-bottom: 38px;
+    max-width: 780px;
     font-weight: 400;
 }
 
 .hero-actions {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 34px;
@@ -544,7 +531,6 @@ body {
 .hero-social-bar {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 14px;
     margin-top: 10px;
 }
@@ -592,19 +578,20 @@ body {
 }
 
 /* =========================================================
-   MEDIA-HARBOUR FLOATING DISCIPLINE TILES (Overlapping Strip)
+   MEDIA-HARBOUR SERVICES & CORE DISCIPLINES GRID
    ========================================================= */
 .domains-section {
-    padding: 0 0 clamp(60px, 7vw, 90px);
-    margin-top: -50px;
+    padding: clamp(75px, 8.5vw, 110px) 0;
+    background: #ffffff;
     position: relative;
-    z-index: 30;
+    z-index: 10;
+    border-bottom: 1px solid rgba(196, 224, 225, 0.7);
 }
 
 .domains-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 26px;
 }
 
 .domain-card {
@@ -613,19 +600,17 @@ body {
     cursor: pointer;
     background: #ffffff;
     border: 1.5px solid rgba(196, 224, 225, 0.75);
-    border-radius: var(--radius-md);
-    padding: 24px 14px 20px;
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 12px;
+    align-items: flex-start;
+    text-align: left;
+    gap: 16px;
     transition: var(--transition);
-    box-shadow: 0 12px 32px -4px rgba(6, 63, 96, 0.08), 0 4px 10px -2px rgba(6, 63, 96, 0.04);
+    box-shadow: var(--card-shadow);
     position: relative;
     overflow: hidden;
-    min-height: 126px;
 }
 
 .domain-card::before {
@@ -635,47 +620,54 @@ body {
     left: 0;
     right: 0;
     height: 3.5px;
-    background: var(--color-primary-blue);
+    background: linear-gradient(90deg, var(--color-primary-blue), var(--color-primary-light));
     opacity: 0;
-    transform: scaleX(0.4);
     transition: var(--transition);
 }
 
 .domain-card:hover {
     border-color: var(--color-primary-blue);
-    transform: translateY(-7px);
-    box-shadow: 0 20px 42px -6px rgba(6, 63, 96, 0.14), 0 6px 14px rgba(8, 125, 216, 0.12);
+    transform: translateY(-6px);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .domain-card:hover::before {
     opacity: 1;
-    transform: scaleX(1);
 }
 
-.domain-icon {
-    font-size: 24px;
-    line-height: 1;
-    display: inline-flex;
+.domain-card-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(8, 125, 216, 0.08);
+    border: 1.5px solid rgba(8, 125, 216, 0.16);
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(8, 125, 216, 0.08);
-    border: 1px solid rgba(8, 125, 216, 0.15);
+    font-size: 26px;
+    flex-shrink: 0;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
 }
 
-.domain-card:hover .domain-icon {
-    transform: scale(1.12) translateY(-2px);
-    background: rgba(8, 125, 216, 0.15);
+.domain-card:hover .domain-card-icon-wrap {
+    transform: scale(1.1) translateY(-2px);
+    background: rgba(8, 125, 216, 0.14);
+}
+
+.domain-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
 }
 
 .domain-name {
-    font-size: 13.5px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 800;
     color: var(--color-primary-dark);
-    line-height: 1.35;
+    line-height: 1.25;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
     transition: color 0.25s ease;
 }
 
@@ -683,49 +675,55 @@ body {
     color: var(--color-primary-blue);
 }
 
+.domain-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.domain-card-link {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-primary-blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    transition: var(--transition);
+}
+
+.domain-card-link .arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.domain-card:hover .domain-card-link .arrow {
+    transform: translateX(4px);
+}
+
 /* =========================================================
    MEDIA-HARBOUR SECTION HEADERS (Crisp Overlines & Hierarchy)
    ========================================================= */
 .section-header {
-    margin-bottom: clamp(34px, 4.5vw, 54px);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: clamp(34px, 4vw, 50px);
+    flex-wrap: wrap;
+    gap: 18px;
 }
 
 /* Standalone / Center Header */
 .section-header.center-header,
 .cv-section-header {
     text-align: center;
-    max-width: 780px;
+    max-width: 760px;
     margin: 0 auto clamp(36px, 4.5vw, 54px);
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.section-header h2,
-.cv-section-title {
-    font-size: clamp(2rem, 3.4vw, 2.85rem);
-    font-weight: 800;
-    color: var(--color-primary-dark);
-    letter-spacing: -0.025em;
-    line-height: 1.2;
-    margin-bottom: 12px;
-}
-
-.section-header p,
-.cv-section-subtitle {
-    font-size: clamp(0.98rem, 1.1vw, 1.12rem);
-    color: var(--text-secondary);
-    line-height: 1.68;
-    max-width: 720px;
-}
-
-.section-actions-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 20px;
 }
 
 /* Media-Harbour Overline Badge */
@@ -748,7 +746,8 @@ body {
     box-shadow: 0 2px 8px rgba(8, 125, 216, 0.06);
 }
 
-.section-title-wrap h2 {
+.section-title-wrap h2,
+.cv-section-title {
     font-size: clamp(1.9rem, 3.2vw, 2.75rem);
     font-weight: 800;
     color: var(--color-primary-dark);
@@ -756,7 +755,8 @@ body {
     line-height: 1.2;
 }
 
-.section-title-wrap p {
+.section-title-wrap p,
+.cv-section-subtitle {
     font-size: clamp(0.98rem, 1.1vw, 1.1rem);
     color: var(--text-secondary);
     margin-top: 10px;
@@ -1252,11 +1252,10 @@ body {
 }
 
 .cv-cards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 26px;
-    margin-top: 14px;
+    margin-top: 10px;
 }
 
 .cv-card {
@@ -1269,9 +1268,6 @@ body {
     position: relative;
     box-shadow: var(--card-shadow);
     transition: var(--transition);
-    flex: 1 1 340px;
-    max-width: 380px;
-    min-width: 300px;
 }
 
 .cv-card:hover {
@@ -2339,7 +2335,7 @@ body {
    ========================================================= */
 @media (max-width: 1100px) {
     .domains-grid {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -2349,7 +2345,7 @@ body {
     }
     
     .nav-wrapper {
-        display: contents;
+        display: none;
     }
     
     .mobile-toggle {
@@ -2390,27 +2386,8 @@ body {
 }
 
 @media (max-width: 768px) {
-    .domains-section {
-        margin-top: -30px;
-    }
-    
     .domains-grid {
-        display: flex;
-        overflow-x: auto;
-        padding-bottom: 12px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        gap: 12px;
-        scrollbar-width: none;
-    }
-    
-    .domains-grid::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .domain-card {
-        flex: 0 0 160px;
-        scroll-snap-align: start;
+        grid-template-columns: 1fr;
     }
     
     .projects-grid,
