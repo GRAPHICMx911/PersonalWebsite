@@ -1596,6 +1596,7 @@ async function initializeSiteSettings() {
 
     if (!data) return;
 
+    try {
         // 1. Meta / SEO Tags
         if (data.meta_title) {
             document.title = data.meta_title;

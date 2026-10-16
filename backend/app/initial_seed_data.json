@@ -470,7 +470,7 @@
   "admin_user": {
     "username": "admin",
     "email": "muneeb03022309111@gmail.com",
-    "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$sUYKhE4yK4knwsekOmMn+Q$s4uRGcBaH4ywAupj43PnIOk2g1dDiUgCTiLTrwL18xk"
+    "hashed_password": "$argon2id$v=19$m=65536,t=3,p=4$iLzCcGv8xCSRq1tvSdzjyw$UdlB36UUlPAetlEo3tIeugTelCjArNEinx4DbdzMSfo"
   },
   "projects": [
     {
