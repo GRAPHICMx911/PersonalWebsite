@@ -186,13 +186,13 @@ body {
     display: flex;
     list-style: none;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     margin: 0;
     padding: 0;
 }
 
 .nav-item-link {
-    color: rgba(232, 238, 238, 0.85);
+    color: rgba(232, 238, 238, 0.88);
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
@@ -201,6 +201,9 @@ body {
     transition: var(--transition);
     position: relative;
     letter-spacing: -0.1px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
 }
 
 .nav-item-link:hover {
