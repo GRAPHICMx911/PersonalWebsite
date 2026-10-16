@@ -1664,9 +1664,8 @@ async function initializeSiteSettings() {
         }
 
         const heroSecondaryBtn = document.getElementById("heroSecondaryBtn");
-        if (heroSecondaryBtn && data.hero_secondary_btn_text) {
-            heroSecondaryBtn.textContent = data.hero_secondary_btn_text;
-            if (data.hero_secondary_btn_url) heroSecondaryBtn.setAttribute("href", data.hero_secondary_btn_url);
+        if (heroSecondaryBtn) {
+            heroSecondaryBtn.remove();
         }
 
         // 8. Brand Name & Footer Brand

@@ -43,6 +43,13 @@ def init_database_and_seed():
             setting = models.SiteSetting(**settings_data)
             db.add(setting)
             logger.info("Site settings seeded.")
+        else:
+            current_setting = db.query(models.SiteSetting).first()
+            if current_setting:
+                current_setting.hero_secondary_btn_text = ""
+                current_setting.hero_secondary_btn_url = ""
+                current_setting.resume_download_url = None
+                db.flush()
 
         # Social Links
         if db.query(models.SocialLink).count() == 0:
