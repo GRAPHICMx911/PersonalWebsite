@@ -6,7 +6,7 @@
     <meta name="description" content="Personal Global Website and Professional Portfolio — Software Engineering, Cybersecurity, AWS Cloud, Networking, UX/UI Design, and Project Management.">
     <title>Personal Global Website | Professional Portfolio</title>
     <link rel="icon" type="image/png" href="logo.png?v=2.0">
-    <link rel="stylesheet" href="css/style.css?v=8.0">
+    <link rel="stylesheet" href="css/style.css?v=9.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -31,6 +31,7 @@
                     <li><a href="#skills" class="nav-item-link">Skills</a></li>
                     <li><a href="#certifications" class="nav-item-link">Certifications</a></li>
                     <li><a href="#experience" class="nav-item-link">Experience</a></li>
+                    <li><a href="#education" class="nav-item-link">Education</a></li>
                     <li><a href="#projects" class="nav-item-link">Projects</a></li>
                     <li><a href="#blog" class="nav-item-link">Blog</a></li>
                 </ul>
@@ -223,29 +224,19 @@
             </div>
         </section>
 
-        <!-- Career Experience & Education History Section -->
+        <!-- Career Work Experience Section -->
         <section class="career-section" id="experience">
             <div class="container">
                 <div class="section-header center-header" style="margin-bottom: 36px;">
                     <div class="section-pill">
-                        <span>🏢 Career Milestones &amp; Academic Heritage</span>
+                        <span>🏢 Professional Milestones</span>
                     </div>
                     <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
-                        Experience &amp; Education
+                        Work Experience
                     </h2>
                     <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
-                        A documented track record of high-impact engineering leadership, enterprise cybersecurity implementations, and rigorous academic foundations.
+                        A documented track record of high-impact engineering leadership, enterprise cybersecurity implementations, and software architecture.
                     </p>
-                </div>
-
-                <!-- Career / Education Tab Switcher -->
-                <div class="career-tabs" id="careerTabs">
-                    <button type="button" class="career-tab-btn active" data-tab="experience" id="tabExperienceBtn">
-                        🏢 Work Experience
-                    </button>
-                    <button type="button" class="career-tab-btn" data-tab="education" id="tabEducationBtn">
-                        🎓 Education &amp; Degrees
-                    </button>
                 </div>
 
                 <!-- Experience Timeline Container -->
@@ -254,9 +245,26 @@
                         <!-- Populated dynamically via script.js -->
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Academic Education History Section -->
+        <section class="career-section education-section" id="education" style="background: linear-gradient(180deg, #f8fafc 0%, var(--color-background) 100%);">
+            <div class="container">
+                <div class="section-header center-header" style="margin-bottom: 36px;">
+                    <div class="section-pill">
+                        <span>🎓 Academic Heritage &amp; Qualifications</span>
+                    </div>
+                    <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
+                        Education &amp; Academic Degrees
+                    </h2>
+                    <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
+                        Formal degree qualifications, computer science fundamentals, honors, and rigorous engineering foundations.
+                    </p>
+                </div>
 
                 <!-- Education Timeline Container -->
-                <div class="timeline-container" id="educationTimelineContainer" style="display: none;">
+                <div class="timeline-container active" id="educationTimelineContainer">
                     <div class="timeline-track" id="educationTimelineTrack">
                         <!-- Populated dynamically via script.js -->
                     </div>
@@ -936,6 +944,7 @@
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#certifications">Certifications</a></li>
                     <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#design">Design &amp; UX</a></li>
                     <li><a href="#blog">Blog</a></li>

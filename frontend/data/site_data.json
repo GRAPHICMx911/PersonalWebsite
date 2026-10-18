@@ -380,7 +380,8 @@
       "description": "Comprehensive foundation in computer architecture, data structures, algorithms, relational database theory, network protocols, and human-computer interaction.",
       "institution_url": "https://example.com/state-university",
       "institution_logo_url": "/uploads/education/state-univ.png",
-      "display_order": 2
+      "display_order": 2,
+      "activities": "Dean's Honor Roll (2016-2019), Open Source Contributor Group Lead, Hackathon 1st Place Winner"
     }
   ],
   "social_links": [

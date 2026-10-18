@@ -1249,6 +1249,30 @@ body {
     border: 1px solid rgba(196, 224, 225, 0.6);
 }
 
+.timeline-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 14px;
+}
+
+.timeline-meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary-dark);
+}
+
+.education-section {
+    border-top: none;
+}
+
 /* =========================================================
    MEDIA-HARBOUR TAILORED CV DOWNLOADS BY POST
    ========================================================= */
