@@ -1675,9 +1675,13 @@ async function initializeSiteSettings() {
             const footerBrandTitle = document.querySelector(".footer-brand h4");
             if (footerBrandTitle) footerBrandTitle.textContent = `${data.full_name} Portfolio`;
         }
-        if (data.professional_title) {
-            const brandTitle = document.querySelector(".brand-title");
-            if (brandTitle) brandTitle.textContent = data.professional_title;
+        const brandTitle = document.querySelector(".brand-title");
+        if (brandTitle) {
+            if (data.professional_title && data.professional_title.trim()) {
+                brandTitle.textContent = data.professional_title;
+            } else {
+                brandTitle.remove();
+            }
         }
 
         // 9. Contact Email Link
