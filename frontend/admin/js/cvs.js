@@ -559,7 +559,23 @@ function initFileUpload() {
 
 async function uploadFile(file) {
     const dropzoneText = document.getElementById("dropzoneText");
-    if (dropzoneText) dropzoneText.textContent = `Uploading ${file.name}...`;
+
+    // Client-side validation
+    const allowedExts = [".pdf", ".docx", ".doc"];
+    const ext = "." + (file.name.split(".").pop() || "").toLowerCase();
+    if (!allowedExts.includes(ext)) {
+        showToast(`Invalid file type '${ext}'. Please select a PDF or Word document (.pdf, .docx).`, "error");
+        if (dropzoneText) dropzoneText.textContent = "Invalid file type. Select a PDF (.pdf).";
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        showToast("File is larger than 10MB limit. Please choose a smaller document.", "error");
+        if (dropzoneText) dropzoneText.textContent = "File exceeds 10MB. Click to choose another.";
+        return;
+    }
+
+    if (dropzoneText) dropzoneText.textContent = `Uploading ${file.name} (${(file.size / 1024).toFixed(1)} KB)...`;
 
     const formData = new FormData();
     formData.append("file", file);
@@ -580,20 +596,20 @@ async function uploadFile(file) {
 
         if (!res.ok) {
             const errData = await res.json().catch(() => ({}));
-            throw new Error(errData.detail || "File upload failed");
+            throw new Error(errData.detail || `Upload failed with HTTP ${res.status}`);
         }
 
         const data = await res.json();
         document.getElementById("cvFileUrl").value = data.url;
         document.getElementById("cvFileName").value = data.filename;
         if (dropzoneText) {
-            dropzoneText.innerHTML = `Uploaded: <strong>${escapeHtml(file.name)}</strong> (Ready to save)`;
+            dropzoneText.innerHTML = `✅ Uploaded: <strong>${escapeHtml(file.name)}</strong> (Ready to save)`;
         }
         showToast("PDF document uploaded successfully!", "success");
 
     } catch (err) {
-        console.error(err);
-        if (dropzoneText) dropzoneText.textContent = "Upload failed. Click to try again.";
+        console.error("CV upload error:", err);
+        if (dropzoneText) dropzoneText.textContent = `Upload failed: ${err.message}. Click to try again.`;
         showToast("Upload error: " + err.message, "error");
     }
 }

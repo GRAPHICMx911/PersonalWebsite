@@ -15,6 +15,7 @@ from backend.app.schemas.design import (
     DesignItemUpdate,
     DesignItemResponse,
 )
+from backend.app.core.storage import save_uploaded_file
 
 router = APIRouter(
     prefix="/api/design",
@@ -261,23 +262,13 @@ def admin_delete_design_item(
 async def upload_design_image(
     file: UploadFile = File(...),
     current_admin: User = Depends(get_current_admin),
+    db: Session = Depends(get_db),
 ):
     """Upload visual design mockups, illustrations, or graphics."""
-    if not file.content_type.startswith("image/"):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Uploaded file must be a valid image format (PNG, JPEG, WebP, SVG, GIF)",
-        )
-
-    extension = Path(file.filename).suffix.lower()
-    if extension not in [".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"]:
-        extension = ".png"
-
-    filename = f"design_{uuid.uuid4().hex[:12]}{extension}"
-    target_path = DESIGN_UPLOAD_DIR / filename
-
-    content = await file.read()
-    with open(target_path, "wb") as f:
-        f.write(content)
-
-    return {"image_url": f"/uploads/design/{filename}"}
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="design",
+        allowed_exts=[".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"],
+        db=db,
+    )
+    return {"image_url": result["url"], "filename": result["filename"]}

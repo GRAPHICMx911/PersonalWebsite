@@ -15,6 +15,7 @@ from backend.app.schemas.education import (
     EducationUpdate,
     EducationResponse,
 )
+from backend.app.core.storage import save_uploaded_file
 
 router = APIRouter(
     prefix="/api/education",
@@ -265,33 +266,17 @@ def admin_delete_education(
 async def upload_institution_logo(
     file: UploadFile = File(...),
     current_admin: User = Depends(get_current_admin),
+    db: Session = Depends(get_db),
 ):
     """Upload an institution logo or university crest."""
-    allowed_extensions = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
-    file_ext = Path(file.filename).suffix.lower()
-
-    if file_ext not in allowed_extensions:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Unsupported image format '{file_ext}'. Allowed: {', '.join(allowed_extensions)}",
-        )
-
-    unique_filename = f"{uuid.uuid4().hex}{file_ext}"
-    destination_path = EDU_UPLOAD_DIR / unique_filename
-
-    try:
-        contents = await file.read()
-        with open(destination_path, "wb") as f:
-            f.write(contents)
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to save logo file: {str(e)}",
-        )
-
-    image_url = f"/uploads/education/{unique_filename}"
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="education",
+        allowed_exts=[".png", ".jpg", ".jpeg", ".webp", ".svg"],
+        db=db,
+    )
     return {
         "success": True,
-        "filename": unique_filename,
-        "image_url": image_url,
+        "filename": result["filename"],
+        "image_url": result["url"],
     }

@@ -17,6 +17,7 @@ from backend.app.schemas.cv import (
     CVDocumentUpdate,
     CVDocumentResponse,
 )
+from backend.app.core.storage import save_uploaded_file
 
 router = APIRouter(
     prefix="/api/cvs",
@@ -238,29 +239,13 @@ def admin_toggle_cv_active(
 async def admin_upload_cv_file(
     file: UploadFile = File(...),
     current_admin: User = Depends(get_current_admin),
+    db: Session = Depends(get_db),
 ):
-    """Upload a PDF CV document to frontend/uploads/documents/."""
-    ext = os.path.splitext(file.filename)[1].lower()
-    allowed_exts = [".pdf", ".docx", ".doc"]
-    if ext not in allowed_exts:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid file type '{ext}'. Allowed extensions: {', '.join(allowed_exts)}",
-        )
-
-    clean_basename = "".join(c for c in Path(file.filename).stem if c.isalnum() or c in ("-", "_")).lower()
-    if not clean_basename:
-        clean_basename = "cv"
-    unique_filename = f"{clean_basename}_{uuid.uuid4().hex[:6]}{ext}"
-    filepath = DOCS_UPLOAD_DIR / unique_filename
-
-    with open(filepath, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    relative_url = f"/uploads/documents/{unique_filename}"
-    return {
-        "status": "success",
-        "url": relative_url,
-        "filename": unique_filename,
-        "original_name": file.filename,
-    }
+    """Upload a PDF CV document to persistent cloud database and return accessible URL."""
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="documents",
+        allowed_exts=[".pdf", ".docx", ".doc"],
+        db=db,
+    )
+    return result

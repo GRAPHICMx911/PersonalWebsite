@@ -13,6 +13,7 @@ from backend.app.database import get_db
 from backend.app.models.project import Project, ProjectCategory
 from backend.app.models.user import User
 from backend.app.core.dependencies import get_current_admin
+from backend.app.core.storage import save_uploaded_file
 
 
 router = APIRouter(
@@ -400,24 +401,12 @@ def delete_project(
 async def upload_project_image(
     file: UploadFile = File(...),
     current_admin: User = Depends(get_current_admin),
+    db: Session = Depends(get_db),
 ):
-    allowed_types = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"]
-    if file.content_type not in allowed_types:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid image format. Allowed: JPG, PNG, WEBP, GIF, SVG.",
-        )
-
-    upload_dir = Path("frontend/uploads/projects")
-    upload_dir.mkdir(parents=True, exist_ok=True)
-
-    ext = Path(file.filename).suffix.lower() or ".png"
-    unique_filename = f"{uuid.uuid4().hex}{ext}"
-    destination_path = upload_dir / unique_filename
-
-    contents = await file.read()
-    with open(destination_path, "wb") as f:
-        f.write(contents)
-
-    image_url = f"/uploads/projects/{unique_filename}"
-    return {"image_url": image_url, "filename": unique_filename}
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="projects",
+        allowed_exts=[".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".jfif"],
+        db=db,
+    )
+    return {"image_url": result["url"], "filename": result["filename"]}

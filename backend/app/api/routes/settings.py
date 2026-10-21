@@ -16,6 +16,7 @@ from backend.app.schemas.setting import (
     SiteSettingsResponse,
     SiteSettingsPublic,
 )
+from backend.app.core.storage import save_uploaded_file
 
 router = APIRouter(
     prefix="/api/settings",
@@ -153,22 +154,14 @@ async def admin_upload_resume(
     current_admin: User = Depends(get_current_admin),
     db: Session = Depends(get_db),
 ):
-    """Upload PDF or document resume, update resume_download_url, and return relative URL."""
-    ext = os.path.splitext(file.filename)[1].lower()
-    allowed_exts = [".pdf", ".docx", ".doc"]
-    if ext not in allowed_exts:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid file type '{ext}'. Allowed extensions: {', '.join(allowed_exts)}",
-        )
-
-    filename = f"resume_{uuid.uuid4().hex[:8]}{ext}"
-    filepath = DOCS_UPLOAD_DIR / filename
-
-    with open(filepath, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    relative_url = f"/uploads/documents/{filename}"
+    """Upload PDF or document resume, update resume_download_url, and return URL."""
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="documents",
+        allowed_exts=[".pdf", ".docx", ".doc"],
+        db=db,
+    )
+    relative_url = result["url"]
 
     setting = get_or_create_settings(db)
     setting.resume_download_url = relative_url
@@ -178,7 +171,7 @@ async def admin_upload_resume(
     return {
         "status": "success",
         "url": relative_url,
-        "filename": filename,
+        "filename": result["filename"],
     }
 
 
@@ -191,22 +184,14 @@ async def admin_upload_avatar(
     current_admin: User = Depends(get_current_admin),
     db: Session = Depends(get_db),
 ):
-    """Upload profile photo or avatar image, update avatar_image_url, and return relative URL."""
-    ext = os.path.splitext(file.filename)[1].lower()
-    allowed_exts = [".png", ".jpg", ".jpeg", ".webp", ".svg"]
-    if ext not in allowed_exts:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Invalid image type '{ext}'. Allowed extensions: {', '.join(allowed_exts)}",
-        )
-
-    filename = f"avatar_{uuid.uuid4().hex[:8]}{ext}"
-    filepath = AVATARS_UPLOAD_DIR / filename
-
-    with open(filepath, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-
-    relative_url = f"/uploads/avatars/{filename}"
+    """Upload profile photo or avatar image, update avatar_image_url, and return URL."""
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="avatars",
+        allowed_exts=[".png", ".jpg", ".jpeg", ".webp", ".svg"],
+        db=db,
+    )
+    relative_url = result["url"]
 
     setting = get_or_create_settings(db)
     setting.avatar_image_url = relative_url
@@ -216,5 +201,5 @@ async def admin_upload_avatar(
     return {
         "status": "success",
         "url": relative_url,
-        "filename": filename,
+        "filename": result["filename"],
     }

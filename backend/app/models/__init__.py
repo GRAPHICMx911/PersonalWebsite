@@ -11,6 +11,7 @@ from backend.app.models.message import ContactMessage
 from backend.app.models.social import SocialLink
 from backend.app.models.setting import SiteSetting
 from backend.app.models.cv import CVDocument
+from backend.app.models.uploaded_file import UploadedFile
 
 __all__ = [
     "User",
@@ -28,5 +29,6 @@ __all__ = [
     "SocialLink",
     "SiteSetting",
     "CVDocument",
+    "UploadedFile",
 ]
 

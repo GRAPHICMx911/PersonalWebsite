@@ -16,6 +16,7 @@ from backend.app.schemas.certification import (
     CertificationUpdate,
     CertificationResponse,
 )
+from backend.app.core.storage import save_uploaded_file
 
 router = APIRouter(
     prefix="/api/certifications",
@@ -278,33 +279,17 @@ def admin_delete_certification(
 async def upload_badge_image(
     file: UploadFile = File(...),
     current_admin: User = Depends(get_current_admin),
+    db: Session = Depends(get_db),
 ):
     """Upload a badge or certificate image."""
-    allowed_extensions = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".jfif"}
-    file_ext = Path(file.filename).suffix.lower()
-
-    if file_ext not in allowed_extensions:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Unsupported image format '{file_ext}'. Allowed: {', '.join(allowed_extensions)}",
-        )
-
-    unique_filename = f"{uuid.uuid4().hex}{file_ext}"
-    destination_path = CERT_UPLOAD_DIR / unique_filename
-
-    try:
-        contents = await file.read()
-        with open(destination_path, "wb") as f:
-            f.write(contents)
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to save badge file: {str(e)}",
-        )
-
-    image_url = f"/uploads/certifications/{unique_filename}"
+    result = await save_uploaded_file(
+        file=file,
+        subfolder="certifications",
+        allowed_exts=[".png", ".jpg", ".jpeg", ".webp", ".svg", ".jfif"],
+        db=db,
+    )
     return {
         "success": True,
-        "filename": unique_filename,
-        "image_url": image_url,
+        "filename": result["filename"],
+        "image_url": result["url"],
     }

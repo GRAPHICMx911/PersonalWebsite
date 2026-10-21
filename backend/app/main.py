@@ -9,6 +9,7 @@ from sqlalchemy import text
 from dotenv import load_dotenv
 
 from backend.app.database import get_db
+from backend.app.core.storage import serve_file
 from backend.app.api.routes import auth, admin, projects, skills, certifications, experience, education, design, ux_ui, blog, messages, social, settings, cvs
 
 from contextlib import asynccontextmanager
@@ -84,6 +85,16 @@ if not os.getenv("VERCEL"):
         (uploads_dir / "documents").mkdir(parents=True, exist_ok=True)
     except OSError:
         pass
+
+@app.get("/api/uploads/{subfolder}/{filename}", tags=["Uploads"])
+def serve_api_uploads(subfolder: str, filename: str, db: Session = Depends(get_db)):
+    """Serves uploaded documents and media assets from disk cache or Neon PostgreSQL DB."""
+    return serve_file(subfolder, filename, db)
+
+@app.get("/uploads/{subfolder}/{filename}", tags=["Uploads"])
+def serve_direct_uploads(subfolder: str, filename: str, db: Session = Depends(get_db)):
+    """Serves uploaded documents and media assets from disk cache or Neon PostgreSQL DB."""
+    return serve_file(subfolder, filename, db)
 
 if uploads_dir.exists():
     try:
