@@ -2064,40 +2064,106 @@ function closeCvPreview() {
 }
 
 // =========================================================
-// MOBILE NAVIGATION CONTROLLER
+// MOBILE NAVIGATION & ACTIVE SCROLL SPY CONTROLLER
 // =========================================================
 function initializeMobileNavigation() {
     const toggleBtn = document.getElementById("mobileMenuToggle");
     const navMenu = document.getElementById("publicNavMenu") || document.querySelector(".nav-menu");
     if (!toggleBtn || !navMenu) return;
 
+    function setMenuOpen(open) {
+        if (open) {
+            navMenu.classList.add("open");
+            toggleBtn.setAttribute("aria-expanded", "true");
+            toggleBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+            document.body.classList.add("mobile-menu-locked");
+        } else {
+            navMenu.classList.remove("open");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+            document.body.classList.remove("mobile-menu-locked");
+        }
+    }
+
     toggleBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        navMenu.classList.toggle("open");
         const isOpen = navMenu.classList.contains("open");
-        toggleBtn.setAttribute("aria-expanded", isOpen);
-        toggleBtn.innerHTML = isOpen
-            ? `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
-            : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+        setMenuOpen(!isOpen);
     });
 
     // Close mobile menu when clicking any nav item link
     navMenu.querySelectorAll(".nav-item-link").forEach(link => {
         link.addEventListener("click", () => {
-            if (navMenu.classList.contains("open")) {
-                navMenu.classList.remove("open");
-                toggleBtn.setAttribute("aria-expanded", "false");
-                toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
-            }
+            setMenuOpen(false);
         });
     });
 
     // Close when clicking outside
     document.addEventListener("click", (e) => {
         if (navMenu.classList.contains("open") && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
-            navMenu.classList.remove("open");
-            toggleBtn.setAttribute("aria-expanded", "false");
-            toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+            setMenuOpen(false);
         }
     });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navMenu.classList.contains("open")) {
+            setMenuOpen(false);
+        }
+    });
+
+    // Reset if viewport widened to desktop width
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && navMenu.classList.contains("open")) {
+            setMenuOpen(false);
+        }
+    });
+
+    // Smooth Scroll Spy for Active Nav Highlighting
+    initializeScrollSpy();
+}
+
+function initializeScrollSpy() {
+    const navLinks = document.querySelectorAll("#publicNavMenu .nav-item-link");
+    if (!navLinks || navLinks.length === 0) return;
+
+    const sections = [];
+    navLinks.forEach(link => {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#") && href.length > 1) {
+            const el = document.getElementById(href.substring(1));
+            if (el) sections.push({ id: href.substring(1), link, element: el });
+        }
+    });
+
+    if (sections.length === 0) return;
+
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollPos = window.scrollY + 140;
+                let currentSectionId = sections[0].id;
+
+                for (let i = 0; i < sections.length; i++) {
+                    const top = sections[i].element.offsetTop;
+                    if (scrollPos >= top) {
+                        currentSectionId = sections[i].id;
+                    }
+                }
+
+                navLinks.forEach(l => {
+                    const h = l.getAttribute("href");
+                    if (h === `#${currentSectionId}`) {
+                        l.classList.add("active");
+                    } else if (h && h.startsWith("#")) {
+                        l.classList.remove("active");
+                    }
+                });
+
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 }

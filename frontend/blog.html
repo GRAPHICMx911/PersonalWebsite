@@ -6,7 +6,7 @@
     <meta name="description" content="Technical Blog & Engineering Articles — Deep dives into Cybersecurity, Cloud Architecture, Asynchronous Microservices, and UX Systems.">
     <title>Technical Blog &amp; Articles | Personal Global Website</title>
     <link rel="icon" type="image/png" href="logo.png?v=2.0">
-    <link rel="stylesheet" href="css/style.css?v=6.0">
+    <link rel="stylesheet" href="css/style.css?v=10.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -61,8 +61,8 @@
                 </div>
             </a>
 
-            <nav>
-                <ul class="nav-menu">
+            <nav class="nav-desktop">
+                <ul class="nav-menu" id="publicNavMenu">
                     <li><a href="index.html" class="nav-item-link">Home</a></li>
                     <li><a href="index.html#skills" class="nav-item-link">Skills</a></li>
                     <li><a href="index.html#certifications" class="nav-item-link">Certifications</a></li>
@@ -70,9 +70,23 @@
                     <li><a href="index.html#education" class="nav-item-link">Education</a></li>
                     <li><a href="projects.html" class="nav-item-link">Projects</a></li>
                     <li><a href="blog.html" class="nav-item-link active">Blog</a></li>
-                    <li><a href="index.html#contact" class="nav-item-link">Contact</a></li>
+                    <li class="mobile-only-item"><a href="index.html#contact" class="nav-item-link nav-item-cta-mobile">Let's Talk &rarr;</a></li>
                 </ul>
             </nav>
+
+            <div class="nav-actions">
+                <a href="index.html#contact" class="nav-cta-btn">
+                    <span>Let's Talk</span>
+                    <span class="nav-cta-arrow">&rarr;</span>
+                </a>
+                <button type="button" class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -177,6 +191,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js?v=3.5"></script>
+    <script src="js/script.js?v=12.0"></script>
 </body>
 </html>

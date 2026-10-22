@@ -67,6 +67,9 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -76,6 +79,8 @@ body {
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
 }
 
@@ -2364,30 +2369,75 @@ body {
 /* =========================================================
    MEDIA-HARBOUR COMPREHENSIVE RESPONSIVE DESIGN SYSTEM
    ========================================================= */
+
+/* Mobile helper classes */
+.mobile-only-item {
+    display: none;
+}
+
+body.mobile-menu-locked {
+    overflow: hidden !important;
+    touch-action: none;
+}
+
+/* Touch tap highlight optimization */
+* {
+    -webkit-tap-highlight-color: rgba(8, 125, 216, 0.12);
+}
+
+/* 1. Large Tablets & Small Laptops */
 @media (max-width: 1100px) {
     .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cv-cards-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* 2. Tablets & Mobile Portrait (max-width: 900px) */
 @media (max-width: 900px) {
     .contact-wrapper {
         grid-template-columns: 1fr;
+        gap: 36px;
     }
-    
-    .nav-wrapper {
-        display: none;
+
+    .nav-desktop {
+        position: static;
     }
-    
-    .mobile-toggle {
-        display: block;
-    }
-    
+
     .nav-cta-btn {
         display: none;
     }
-    
-    /* Mobile Overlay Menu */
+
+    .mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(196, 224, 225, 0.35);
+        border-radius: var(--radius-sm);
+        color: #ffffff;
+        cursor: pointer;
+        transition: var(--transition);
+        flex-shrink: 0;
+    }
+
+    .mobile-toggle:hover,
+    .mobile-toggle:active {
+        background: rgba(255, 255, 255, 0.16);
+        border-color: var(--color-primary-light);
+    }
+
+    /* Mobile Drawer Menu */
     .nav-menu {
         position: fixed;
         top: 78px;
@@ -2397,30 +2447,76 @@ body {
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         flex-direction: column;
-        padding: 24px;
-        gap: 8px;
+        padding: 20px 24px 28px;
+        gap: 6px;
         display: none;
         border-bottom: 2px solid var(--color-primary-blue);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+        max-height: calc(100vh - 78px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 9999;
     }
-    
+
     .nav-menu.open {
         display: flex;
+        animation: navMenuSlideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    
+
     .nav-item-link {
         width: 100%;
-        text-align: center;
-        padding: 12px 18px;
-        font-size: 16px;
+        text-align: left;
+        padding: 13px 18px;
+        font-size: 15.5px;
+        font-weight: 600;
+        border-radius: var(--radius-sm);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: rgba(232, 238, 238, 0.92);
+    }
+
+    .nav-item-link:hover,
+    .nav-item-link:active {
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+    }
+
+    .nav-item-link.active {
+        background: rgba(8, 125, 216, 0.35);
+        border-left: 3px solid var(--color-primary-light);
+        color: #ffffff;
+    }
+
+    .mobile-only-item {
+        display: block;
+        width: 100%;
+    }
+
+    .nav-item-cta-mobile {
+        margin-top: 10px;
+        background: var(--color-primary-blue) !important;
+        color: #ffffff !important;
+        text-align: center !important;
+        justify-content: center !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 16px rgba(8, 125, 216, 0.45);
+        padding: 13px 20px;
+        border-radius: var(--radius-pill);
     }
 }
 
+/* 3. Small Tablets & Phones (max-width: 768px) */
 @media (max-width: 768px) {
-    .domains-grid {
-        grid-template-columns: 1fr;
+    /* Prevent iOS Safari auto-zoom on input focus */
+    .form-control,
+    input,
+    select,
+    textarea {
+        font-size: 16px !important;
     }
-    
+
+    .domains-grid,
     .projects-grid,
     .skills-grid,
     .certifications-grid,
@@ -2428,38 +2524,366 @@ body {
     .design-grid,
     .blog-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
-    
+
     .form-row-2col {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
-    
+
+    /* Section vertical padding reduction */
+    .hero-section,
+    .domains-section,
+    .career-section,
+    .education-section,
+    .cv-section,
+    .projects-section,
+    .design-section,
+    .blog-section,
+    .contact-section {
+        padding: clamp(52px, 7vw, 76px) 0;
+    }
+
+    /* Swipeable Native App-Style Pill Filter Strip */
+    .filter-tabs,
+    .skills-filter-tabs,
+    .career-tabs,
+    .design-tabs {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 4px 18px 14px 18px;
+        margin-left: -18px;
+        margin-right: -18px;
+        width: calc(100% + 36px);
+        scroll-snap-type: x proximity;
+    }
+
+    .filter-tabs::-webkit-scrollbar,
+    .skills-filter-tabs::-webkit-scrollbar,
+    .career-tabs::-webkit-scrollbar,
+    .design-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn,
+    .career-tab-btn,
+    .design-tab-btn {
+        flex-shrink: 0;
+        scroll-snap-align: center;
+        padding: 9px 18px;
+        font-size: 13px;
+        min-height: 42px;
+    }
+
+    /* Timeline Cards Responsive Adjustments */
+    .timeline-card {
+        padding: 22px 18px;
+    }
+
+    .timeline-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .timeline-identity {
+        gap: 12px;
+    }
+
+    .timeline-entity-logo {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .timeline-title-wrap h3 {
+        font-size: 17px;
+        line-height: 1.3;
+    }
+
+    .timeline-period-pill,
+    .timeline-duration-badge {
+        align-self: flex-start;
+        font-size: 11.5px;
+        padding: 4px 12px;
+    }
+
+    /* Tailored CV Cards Responsive */
+    .cv-card {
+        padding: 24px 20px;
+    }
+
+    .cv-card-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .cv-card-actions .btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    /* Modal Responsive Overhaul */
+    .public-modal {
+        padding: 12px;
+    }
+
+    .public-modal-dialog {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .public-modal-content {
+        max-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radius-lg);
+    }
+
+    .public-modal-header {
+        padding: 18px 20px;
+    }
+
+    .public-modal-header h2 {
+        font-size: 19px;
+    }
+
+    .public-modal-close {
+        font-size: 26px;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .public-modal-body {
+        padding: 18px 20px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .public-modal-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .public-modal-actions .btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    /* Footer Responsive */
     .footer-content {
         flex-direction: column;
         gap: 24px;
     }
-    
+
     .footer-bottom {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
         text-align: center;
     }
 }
 
+/* 4. Compact Smartphones (max-width: 480px) */
 @media (max-width: 480px) {
     .container {
-        padding: 0 18px;
+        padding: 0 16px;
     }
-    
+
+    /* Header Compact Mode */
+    .site-header {
+        height: 68px;
+    }
+
+    .nav-container {
+        height: 68px;
+        padding: 0 16px;
+        gap: 12px;
+    }
+
+    .brand-logo-img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .brand-name {
+        font-size: 16.5px;
+        letter-spacing: -0.3px;
+    }
+
+    .nav-menu {
+        top: 68px;
+        max-height: calc(100vh - 68px);
+        padding: 16px 18px 24px;
+    }
+
+    /* Hero Section Mobile Typography & Actions */
+    .hero-section {
+        padding: 45px 0 55px;
+    }
+
     .hero-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.85rem, 7.5vw, 2.35rem);
+        line-height: 1.22;
+        margin: 16px 0 14px;
+        letter-spacing: -0.02em;
     }
-    
-    .hero-actions .btn {
+
+    .hero-description {
+        font-size: 14.5px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 12px;
         width: 100%;
     }
-    
+
+    .hero-actions .btn {
+        width: 100%;
+        padding: 13px 20px;
+        font-size: 14.5px;
+        min-height: 46px;
+    }
+
+    .hero-social-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .hero-pill,
+    .hero-availability-badge {
+        font-size: 11px;
+        padding: 6px 14px;
+    }
+
+    /* Section Headers */
+    .section-header {
+        margin-bottom: 28px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .section-title-wrap h2,
+    .cv-section-title,
+    .section-title {
+        font-size: clamp(1.6rem, 5.8vw, 2rem);
+        line-height: 1.25;
+    }
+
+    .section-title-wrap p,
+    .cv-section-subtitle,
+    .section-subtitle {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    /* Domain Cards */
+    .domain-card {
+        padding: 20px 16px;
+    }
+
+    .domain-card-icon-wrap {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .domain-name {
+        font-size: 18px;
+    }
+
+    .domain-desc {
+        font-size: 13.5px;
+    }
+
+    /* Project Cards */
+    .project-card-body {
+        padding: 20px 16px;
+    }
+
+    .project-image-box {
+        height: 190px;
+    }
+
+    .project-card-title {
+        font-size: 18.5px;
+    }
+
+    .project-card-desc {
+        font-size: 13.5px;
+    }
+
+    /* Contact Form Card */
     .contact-form-card {
-        padding: 22px 18px;
+        padding: 22px 16px;
+        border-radius: var(--radius-lg);
+    }
+
+    .form-header h3 {
+        font-size: 20px;
+    }
+
+    .btn-submit-contact {
+        padding: 13px 20px;
+        font-size: 14.5px;
+        min-height: 46px;
+    }
+
+    .details-title {
+        font-size: 24px !important;
+    }
+}
+
+/* 5. Ultra-Small Screens (max-width: 360px) */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .brand-name {
+        font-size: 15px;
+    }
+
+    .hero-title {
+        font-size: 1.7rem;
+    }
+
+    .timeline-card,
+    .cv-card,
+    .project-card-body,
+    .contact-form-card {
+        padding: 18px 14px;
+    }
+
+    .tab-btn,
+    .career-tab-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+}
+
+/* Animations */
+@keyframes navMenuSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

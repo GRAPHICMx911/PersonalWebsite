@@ -135,4 +135,57 @@ function escapeHtml(str) {
         .replace(/'/g, "&#039;");
 }
 
-document.addEventListener("DOMContentLoaded", loadProjectDetails);
+function initializeMobileNavigation() {
+    const toggleBtn = document.getElementById("mobileMenuToggle");
+    const navMenu = document.getElementById("publicNavMenu") || document.querySelector(".nav-menu");
+    if (!toggleBtn || !navMenu) return;
+
+    function setMenuOpen(open) {
+        if (open) {
+            navMenu.classList.add("open");
+            toggleBtn.setAttribute("aria-expanded", "true");
+            toggleBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+            document.body.classList.add("mobile-menu-locked");
+        } else {
+            navMenu.classList.remove("open");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            toggleBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+            document.body.classList.remove("mobile-menu-locked");
+        }
+    }
+
+    toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = navMenu.classList.contains("open");
+        setMenuOpen(!isOpen);
+    });
+
+    navMenu.querySelectorAll(".nav-item-link").forEach(link => {
+        link.addEventListener("click", () => {
+            setMenuOpen(false);
+        });
+    });
+
+    document.addEventListener("click", (e) => {
+        if (navMenu.classList.contains("open") && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
+            setMenuOpen(false);
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navMenu.classList.contains("open")) {
+            setMenuOpen(false);
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900 && navMenu.classList.contains("open")) {
+            setMenuOpen(false);
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadProjectDetails();
+    initializeMobileNavigation();
+});
