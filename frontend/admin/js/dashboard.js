@@ -54,7 +54,7 @@ async function loadAdminProfile() {
 // =========================================================
 async function loadDashboardData() {
     try {
-        const [projRes, catRes, skillsRes, certsRes, eduRes, expRes, designRes, uxuiRes, blogRes, msgRes, socialRes, cvRes] = await Promise.all([
+        const [projRes, catRes, skillsRes, certsRes, eduRes, expRes, designRes, blogRes, msgRes, socialRes, cvRes] = await Promise.all([
             fetch(`${API_BASE_URL}/api/projects`, {
                 headers: { "Authorization": `Bearer ${token}` }
             }),
@@ -72,9 +72,6 @@ async function loadDashboardData() {
                 headers: { "Authorization": `Bearer ${token}` }
             }),
             fetch(`${API_BASE_URL}/api/design`, {
-                headers: { "Authorization": `Bearer ${token}` }
-            }),
-            fetch(`${API_BASE_URL}/api/ux-ui`, {
                 headers: { "Authorization": `Bearer ${token}` }
             }),
             fetch(`${API_BASE_URL}/api/blog`, {
@@ -98,7 +95,6 @@ async function loadDashboardData() {
         const education = eduRes.ok ? await eduRes.json() : [];
         const experience = expRes.ok ? await expRes.json() : [];
         const design = designRes.ok ? await designRes.json() : [];
-        const uxui = uxuiRes.ok ? await uxuiRes.json() : [];
         const blog = blogRes && blogRes.ok ? await blogRes.json() : [];
         const msgStats = msgRes && msgRes.ok ? await msgRes.json() : null;
         const socialLinks = socialRes && socialRes.ok ? await socialRes.json() : [];
@@ -118,7 +114,6 @@ async function loadDashboardData() {
             const eduEl = document.getElementById("dashTotalEducation");
             const expEl = document.getElementById("dashTotalExperience");
             const designEl = document.getElementById("dashTotalDesign");
-            const uxuiEl = document.getElementById("dashTotalUXUI");
             const blogEl = document.getElementById("dashTotalBlog");
             const msgTotalEl = document.getElementById("dashTotalMessages");
             const msgUnreadEl = document.getElementById("dashUnreadMessages");
@@ -135,7 +130,6 @@ async function loadDashboardData() {
             if (eduEl) eduEl.textContent = education.length;
             if (expEl) expEl.textContent = experience.length;
             if (designEl) designEl.textContent = design.length;
-            if (uxuiEl) uxuiEl.textContent = uxui.length;
             if (blogEl) blogEl.textContent = blog.length;
             if (socialEl) socialEl.textContent = socialLinks.length;
             if (cvsEl) cvsEl.textContent = cvs.length;

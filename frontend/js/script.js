@@ -781,10 +781,9 @@ function setupCareerTabs() {
 }
 
 // =========================================================
-// MODULE 5: GRAPHIC DESIGN & UX/UI SHOWCASE
+// MODULE 5: GRAPHIC & VISUAL DESIGN PORTFOLIO
 // =========================================================
 let publicDesignItems = [];
-let publicCaseStudies = [];
 
 async function initializeDesign() {
     const designGrid = document.getElementById("designGalleryGrid");
@@ -868,232 +867,6 @@ function renderDesignItems() {
     }).join("");
 }
 
-async function initializeUXUI() {
-    const uxuiGrid = document.getElementById("uxuiShowcaseGrid");
-    if (!uxuiGrid) return;
-
-    uxuiGrid.innerHTML = `
-        <div class="loading-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-            <div class="loading-spinner"></div>
-            <p style="color: var(--color-primary-dark); font-weight: 600; margin-top: 10px;">Loading UX/UI product case studies...</p>
-        </div>
-    `;
-
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/ux-ui/public`);
-        if (res.ok) {
-            publicCaseStudies = await res.json();
-            renderCaseStudies();
-            return;
-        }
-    } catch (err) {
-        console.warn("Public UX/UI API fetch failed, trying static site data:", err);
-    }
-
-    // Static fallback for GitHub Pages & offline mode
-    const staticData = await getStaticSiteData();
-    if (staticData && Array.isArray(staticData.ux_ui_case_studies) && staticData.ux_ui_case_studies.length > 0) {
-        publicCaseStudies = staticData.ux_ui_case_studies;
-        renderCaseStudies();
-        return;
-    }
-
-    renderCaseStudies();
-}
-
-function renderCaseStudies() {
-    const uxuiGrid = document.getElementById("uxuiShowcaseGrid");
-    if (!uxuiGrid) return;
-
-    if (!publicCaseStudies || publicCaseStudies.length === 0) {
-        uxuiGrid.innerHTML = `
-            <div class="empty-box" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-                <h3 style="color: var(--color-primary-dark);">No UX/UI case studies published yet</h3>
-                <p style="color: var(--text-secondary);">Product design deep dives, interaction workflows, and prototypes will appear here.</p>
-            </div>
-        `;
-        return;
-    }
-
-    uxuiGrid.innerHTML = publicCaseStudies.map(cs => {
-        const rawImg = cs.preview_image_url || cs.cover_image_url;
-        const fullImg = rawImg 
-            ? (rawImg.startsWith("http") || rawImg.startsWith("data:") ? rawImg : `${API_BASE_URL}${rawImg.startsWith("/") ? "" : "/"}${rawImg}`)
-            : "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='480' viewBox='0 0 800 480' fill='%23063F60'><rect width='800' height='480'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='28' fill='%23C4E0E1'>✨ UX/UI Case Study</text></svg>";
-
-        const chips = [];
-        if (cs.client) chips.push(`🏢 ${escapeHtml(cs.client)}`);
-        if (cs.role) chips.push(`👤 ${escapeHtml(cs.role)}`);
-        if (cs.duration) chips.push(`⏱️ ${escapeHtml(cs.duration)}`);
-
-        const chipsHtml = chips.map(c => `<span class="uxui-chip">${c}</span>`).join("");
-
-        const problemSnippet = cs.problem_statement 
-            ? `<div class="uxui-highlight-box">
-                 <strong>⚠️ Challenge &amp; Problem:</strong>
-                 ${escapeHtml(cs.problem_statement.length > 170 ? cs.problem_statement.substring(0, 167) + "..." : cs.problem_statement)}
-               </div>` 
-            : "";
-
-        return `
-            <article class="uxui-card" data-id="${cs.id}">
-                <div class="uxui-card-cover" onclick="openPublicCaseStudyModal(${cs.id})" style="cursor: pointer;">
-                    <img src="${escapeHtml(fullImg)}" alt="${escapeHtml(cs.title)}" class="uxui-cover-img" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'800\\' height=\\'480\\' fill=\\'%23063F60\\'><text x=\\'50%25\\' y=\\'50%25\\' dominant-baseline=\\'middle\\' text-anchor=\\'middle\\' fill=\\'%23C4E0E1\\' font-size=\\'24\\'>Product Mockup</text></svg>'">
-                    <span class="uxui-badge">${escapeHtml(cs.category || "Product UX/UI")}</span>
-                </div>
-                <div class="uxui-card-body">
-                    <h3 class="uxui-card-title">${escapeHtml(cs.title)}</h3>
-                    ${cs.subtitle ? `<div class="uxui-card-subtitle">${escapeHtml(cs.subtitle)}</div>` : ""}
-                    ${chipsHtml ? `<div class="uxui-meta-chips">${chipsHtml}</div>` : ""}
-                    ${problemSnippet}
-                    <div class="uxui-card-actions">
-                        <span style="font-size: 12px; color: var(--color-primary-blue); font-weight: 700;">
-                            ${cs.tools_used ? `🛠️ ${escapeHtml(cs.tools_used)}` : ""}
-                        </span>
-                        <button type="button" class="btn-view-design" onclick="openPublicCaseStudyModal(${cs.id})">
-                            📖 Read Case Study
-                        </button>
-                    </div>
-                </div>
-            </article>
-        `;
-    }).join("");
-}
-
-function setupDesignTabs() {
-    const tabDesignBtn = document.getElementById("tabDesignBtn");
-    const tabUXUIBtn = document.getElementById("tabUXUIBtn");
-    const designContainer = document.getElementById("designGalleryContainer");
-    const uxuiContainer = document.getElementById("uxuiShowcaseContainer");
-
-    if (tabDesignBtn && tabUXUIBtn && designContainer && uxuiContainer) {
-        tabDesignBtn.addEventListener("click", () => {
-            tabDesignBtn.classList.add("active");
-            tabUXUIBtn.classList.remove("active");
-            designContainer.style.display = "block";
-            uxuiContainer.style.display = "none";
-        });
-
-        tabUXUIBtn.addEventListener("click", () => {
-            tabUXUIBtn.classList.add("active");
-            tabDesignBtn.classList.remove("active");
-            uxuiContainer.style.display = "block";
-            designContainer.style.display = "none";
-        });
-    }
-}
-
-// Modal Handlers
-window.openPublicDesignModal = function(id) {
-    const item = publicDesignItems.find(d => d.id === Number(id));
-    if (!item) return;
-
-    const modal = document.getElementById("publicDesignModal");
-    if (!modal) return;
-
-    document.getElementById("publicDesignTitle").textContent = item.title;
-    document.getElementById("publicDesignCategory").textContent = item.category || "Graphic & Visual Design";
-    
-    const rawImg = item.image_url || item.thumbnail_url;
-    const fullImg = rawImg 
-        ? (rawImg.startsWith("http") || rawImg.startsWith("data:") ? rawImg : `${API_BASE_URL}${rawImg.startsWith("/") ? "" : "/"}${rawImg}`)
-        : "";
-    const imgEl = document.getElementById("publicDesignImg");
-    if (imgEl) {
-        imgEl.src = fullImg;
-        imgEl.alt = item.title;
-    }
-
-    document.getElementById("publicDesignClient").textContent = item.client || "Self-Initiated / Independent";
-    document.getElementById("publicDesignYear").textContent = item.year || "—";
-    document.getElementById("publicDesignTools").textContent = item.tools_used || "—";
-    document.getElementById("publicDesignTags").textContent = item.tags || "—";
-    document.getElementById("publicDesignDesc").textContent = item.description || "No creative description provided.";
-
-    modal.classList.add("active", "show");
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-};
-
-window.closePublicDesignModal = function() {
-    const modal = document.getElementById("publicDesignModal");
-    if (modal) {
-        modal.classList.remove("active", "show");
-        modal.style.display = "none";
-        document.body.style.overflow = "";
-    }
-};
-
-window.openPublicCaseStudyModal = function(id) {
-    const cs = publicCaseStudies.find(c => c.id === Number(id));
-    if (!cs) return;
-
-    const modal = document.getElementById("publicCaseStudyModal");
-    if (!modal) return;
-
-    document.getElementById("publicCSTitle").textContent = cs.title;
-    const subtitleEl = document.getElementById("publicCSSubtitle");
-    if (subtitleEl) {
-        subtitleEl.textContent = cs.subtitle || "";
-        subtitleEl.style.display = cs.subtitle ? "block" : "none";
-    }
-
-    document.getElementById("publicCSCategory").textContent = cs.category || "Enterprise UX/UI Design";
-
-    const rawImg = cs.cover_image_url || cs.preview_image_url;
-    const fullImg = rawImg 
-        ? (rawImg.startsWith("http") || rawImg.startsWith("data:") ? rawImg : `${API_BASE_URL}${rawImg.startsWith("/") ? "" : "/"}${rawImg}`)
-        : "";
-    const coverImgEl = document.getElementById("publicCSCoverImg");
-    if (coverImgEl) {
-        coverImgEl.src = fullImg;
-        coverImgEl.alt = cs.title;
-    }
-
-    document.getElementById("publicCSClient").textContent = cs.client || "Enterprise Client";
-    document.getElementById("publicCSRole").textContent = cs.role || "Lead Product Designer";
-    document.getElementById("publicCSDuration").textContent = cs.duration || "—";
-    document.getElementById("publicCSTools").textContent = cs.tools_used || "Figma, User Research";
-
-    document.getElementById("publicCSProblem").textContent = cs.problem_statement || "No problem statement specified.";
-    document.getElementById("publicCSSolution").textContent = cs.solution_overview || "No solution overview specified.";
-    document.getElementById("publicCSProcess").textContent = cs.design_process || "No design methodology specified.";
-
-    const resultsBox = document.getElementById("publicCSResultsBox");
-    const resultsText = document.getElementById("publicCSResults");
-    if (cs.key_results) {
-        resultsText.textContent = cs.key_results;
-        resultsBox.style.display = "block";
-    } else {
-        resultsBox.style.display = "none";
-    }
-
-    const actionsContainer = document.getElementById("publicCSActions");
-    if (actionsContainer) {
-        let actionButtons = "";
-        if (cs.live_prototype_url) {
-            actionButtons += `<a href="${escapeHtml(cs.live_prototype_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🚀 Interactive Prototype</a> `;
-        }
-        if (cs.figma_url) {
-            actionButtons += `<a href="${escapeHtml(cs.figma_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">🎨 Figma Source File</a> `;
-        }
-        actionButtons += `<button type="button" class="btn btn-secondary" onclick="closePublicCaseStudyModal()">Close</button>`;
-        actionsContainer.innerHTML = actionButtons;
-    }
-
-    modal.classList.add("active", "show");
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-};
-
-window.closePublicCaseStudyModal = function() {
-    const modal = document.getElementById("publicCaseStudyModal");
-    if (modal) {
-        modal.classList.remove("active", "show");
-        modal.style.display = "none";
-        document.body.style.overflow = "";
-    }
-};
 
 // =========================================================
 // MODULE 6: TECHNICAL BLOG & ENGINEERING ARTICLES
@@ -1707,8 +1480,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeEducation();
     setupCareerTabs();
     initializeDesign();
-    initializeUXUI();
-    setupDesignTabs();
     initializeBlog();
     initializeBlogCatalog();
     initializeContactForm();
@@ -1739,19 +1510,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (designModal) {
         designModal.addEventListener("click", (e) => {
             if (e.target === designModal) closePublicDesignModal();
-        });
-    }
-
-    // UX/UI Modal handlers
-    const closeCSBtn = document.getElementById("closePublicCSModalBtn");
-    if (closeCSBtn) {
-        closeCSBtn.addEventListener("click", closePublicCaseStudyModal);
-    }
-
-    const csModal = document.getElementById("publicCaseStudyModal");
-    if (csModal) {
-        csModal.addEventListener("click", (e) => {
-            if (e.target === csModal) closePublicCaseStudyModal();
         });
     }
 

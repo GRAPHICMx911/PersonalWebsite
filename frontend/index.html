@@ -6,7 +6,7 @@
     <meta name="description" content="Personal Global Website and Professional Portfolio — Software Engineering, Cybersecurity, AWS Cloud, Networking, UX/UI Design, and Project Management.">
     <title>Personal Global Website | Professional Portfolio</title>
     <link rel="icon" type="image/png" href="logo.png?v=2.0">
-    <link rel="stylesheet" href="css/style.css?v=10.0">
+    <link rel="stylesheet" href="css/style.css?v=11.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -145,15 +145,6 @@
                             <h3 class="domain-name">Network Engineering</h3>
                             <p class="domain-desc">Subnetting, packet inspection, encrypted VPN tunnels, edge proxies, and secure perimeter topologies.</p>
                             <span class="domain-card-link">Explore Networks <span class="arrow">&rarr;</span></span>
-                        </div>
-                    </a>
-
-                    <a href="#design" class="domain-card" title="Explore UX/UI Product Case Studies">
-                        <div class="domain-card-icon-wrap">✨</div>
-                        <div class="domain-card-body">
-                            <h3 class="domain-name">UX / UI Product Design</h3>
-                            <p class="domain-desc">Figma design systems, interactive prototypes, WCAG accessibility, and human-centered user research.</p>
-                            <span class="domain-card-link">Explore UX/UI <span class="arrow">&rarr;</span></span>
                         </div>
                     </a>
 
@@ -480,7 +471,7 @@
                     </div>
                     <div style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap;">
                         <a href="#design" class="section-action-link" style="color: var(--color-primary-blue);">
-                            🎨 Design &amp; UX Showcase &darr;
+                            🎨 Design Showcase &darr;
                         </a>
                         <a href="projects.html" class="section-action-link">
                             View Complete Catalog &rarr;
@@ -498,41 +489,24 @@
             </div>
         </section>
 
-        <!-- Design Portfolio & UX/UI Showcase Section -->
+        <!-- Design Portfolio Showcase Section -->
         <section class="design-uxui-section" id="design">
             <div class="container">
                 <div class="section-header center-header" style="margin-bottom: 36px;">
                     <div class="section-pill">
-                        <span>🎨 Visual Identity &amp; Product Design</span>
+                        <span>🎨 Visual Identity &amp; Creative Works</span>
                     </div>
                     <h2 style="font-size: 34px; font-weight: 800; color: var(--color-primary-dark); letter-spacing: -0.6px; margin-bottom: 10px;">
-                        Design Portfolio &amp; UX/UI Case Studies
+                        Design &amp; Creative Portfolio
                     </h2>
                     <p style="font-size: 16px; color: var(--text-secondary); line-height: 1.6;">
-                        Branding guidelines, vector iconography, and deep-dive product design case studies engineered for clarity, cognitive ergonomics, and enterprise impact.
+                        Brand identity guidelines, typography systems, vector artwork, and creative digital illustrations.
                     </p>
-                </div>
-
-                <!-- Design / UX Tab Switcher -->
-                <div class="design-tabs" id="designTabs">
-                    <button type="button" class="design-tab-btn active" data-tab="design" id="tabDesignBtn">
-                        🎨 Graphic &amp; Visual Design
-                    </button>
-                    <button type="button" class="design-tab-btn" data-tab="uxui" id="tabUXUIBtn">
-                        ✨ UX/UI Product Case Studies
-                    </button>
                 </div>
 
                 <!-- Graphic Design Container -->
                 <div class="design-gallery-container active" id="designGalleryContainer">
                     <div class="design-grid" id="designGalleryGrid">
-                        <!-- Populated dynamically via script.js -->
-                    </div>
-                </div>
-
-                <!-- UX/UI Case Studies Container -->
-                <div class="uxui-showcase-container" id="uxuiShowcaseContainer" style="display: none;">
-                    <div class="uxui-grid" id="uxuiShowcaseGrid">
                         <!-- Populated dynamically via script.js -->
                     </div>
                 </div>
@@ -762,67 +736,6 @@
         </div>
     </div>
 
-    <!-- Public UX/UI Case Study Modal -->
-    <div class="public-modal" id="publicCaseStudyModal" role="dialog" aria-modal="true" aria-labelledby="publicCSTitle">
-        <div class="public-modal-dialog" style="max-width: 840px;">
-            <div class="public-modal-content">
-                <div class="public-modal-header">
-                    <div class="public-modal-badge-title">
-                        <span class="public-modal-issuer" id="publicCSCategory">Enterprise SaaS</span>
-                        <h2 id="publicCSTitle">Case Study Title</h2>
-                        <p id="publicCSSubtitle" style="font-size: 14px; color: var(--color-primary-blue); font-weight: 600; margin-top: 4px;"></p>
-                    </div>
-                    <button type="button" class="public-modal-close" id="closePublicCSModalBtn" aria-label="Close dialog">&times;</button>
-                </div>
-                <div class="public-modal-body">
-                    <img id="publicCSCoverImg" src="" alt="" class="public-cs-hero-img">
-
-                    <div class="public-cs-meta-grid">
-                        <div>
-                            <span class="meta-label">Client:</span>
-                            <div id="publicCSClient" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
-                        </div>
-                        <div>
-                            <span class="meta-label">My Role:</span>
-                            <div id="publicCSRole" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
-                        </div>
-                        <div>
-                            <span class="meta-label">Duration:</span>
-                            <div id="publicCSDuration" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
-                        </div>
-                        <div>
-                            <span class="meta-label">Tools &amp; Methods:</span>
-                            <div id="publicCSTools" style="font-weight: 700; color: var(--color-primary-dark); font-size: 13.5px;">—</div>
-                        </div>
-                    </div>
-
-                    <div class="public-cs-block">
-                        <h4>⚠️ The Challenge &amp; Problem Statement</h4>
-                        <div id="publicCSProblem" class="public-cs-block-content"></div>
-                    </div>
-
-                    <div class="public-cs-block">
-                        <h4>💡 Solution &amp; Interaction Architecture</h4>
-                        <div id="publicCSSolution" class="public-cs-block-content"></div>
-                    </div>
-
-                    <div class="public-cs-block">
-                        <h4>🔄 Design Process &amp; Research Stages</h4>
-                        <div id="publicCSProcess" class="public-cs-block-content"></div>
-                    </div>
-
-                    <div class="public-cs-results-box" id="publicCSResultsBox">
-                        <h4>📈 Measurable Impact &amp; Usability Metrics</h4>
-                        <p id="publicCSResults"></p>
-                    </div>
-
-                    <div class="public-modal-actions" id="publicCSActions">
-                        <!-- Populated dynamically via script.js -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Public Technical Blog Article Reader Modal -->
     <div class="public-modal" id="publicBlogModal" role="dialog" aria-modal="true" aria-labelledby="publicBlogModalTitle">
@@ -945,7 +858,7 @@
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#education">Education</a></li>
                     <li><a href="#projects">Projects</a></li>
-                    <li><a href="#design">Design &amp; UX</a></li>
+                    <li><a href="#design">Design Portfolio</a></li>
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="projects.html">Catalog</a></li>
                 </ul>
@@ -963,6 +876,6 @@
     </footer>
 
     <script src="js/hero-canvas.js?v=1.0" defer></script>
-    <script src="js/script.js?v=12.0"></script>
+    <script src="js/script.js?v=13.0"></script>
 </body>
 </html>
