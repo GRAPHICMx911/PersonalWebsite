@@ -45,7 +45,7 @@ origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins if origins else ["*"],
-    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.railway\.app|\.vercel\.app|\.hf\.space|\.github\.io)",
+    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.railway\.app|\.vercel\.app|\.hf\.space|\.github\.io|\.netlify\.app)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
