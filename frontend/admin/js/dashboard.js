@@ -82,9 +82,6 @@ async function loadDashboardData() {
             }),
             fetch(`${API_BASE_URL}/api/social`, {
                 headers: { "Authorization": `Bearer ${token}` }
-            }),
-            fetch(`${API_BASE_URL}/api/cvs/`, {
-                headers: { "Authorization": `Bearer ${token}` }
             })
         ]);
 
@@ -98,7 +95,6 @@ async function loadDashboardData() {
         const blog = blogRes && blogRes.ok ? await blogRes.json() : [];
         const msgStats = msgRes && msgRes.ok ? await msgRes.json() : null;
         const socialLinks = socialRes && socialRes.ok ? await socialRes.json() : [];
-        const cvs = cvRes && cvRes.ok ? await cvRes.json() : [];
 
             // Stats
             const total = projects.length;
@@ -118,7 +114,6 @@ async function loadDashboardData() {
             const msgTotalEl = document.getElementById("dashTotalMessages");
             const msgUnreadEl = document.getElementById("dashUnreadMessages");
             const socialEl = document.getElementById("dashTotalSocial");
-            const cvsEl = document.getElementById("dashTotalCvs");
             const sidebarBadge = document.getElementById("sidebarUnreadBadge");
 
             if (totalEl) totalEl.textContent = total;
@@ -132,7 +127,6 @@ async function loadDashboardData() {
             if (designEl) designEl.textContent = design.length;
             if (blogEl) blogEl.textContent = blog.length;
             if (socialEl) socialEl.textContent = socialLinks.length;
-            if (cvsEl) cvsEl.textContent = cvs.length;
 
             if (msgStats) {
                 if (msgTotalEl) msgTotalEl.textContent = msgStats.total || 0;
