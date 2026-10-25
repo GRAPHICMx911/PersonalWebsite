@@ -60,7 +60,14 @@ loginForm.addEventListener("submit", async (event) => {
             body: formData,
         });
 
-        const data = await response.json();
+        const contentType = response.headers.get("content-type") || "";
+        let data = {};
+        if (contentType.includes("application/json")) {
+            data = await response.json();
+        } else {
+            const rawText = await response.text();
+            throw new Error(response.status === 404 ? "Backend API service unavailable (404). Please ensure rewrites are active." : "Unexpected response from server.");
+        }
 
         if (!response.ok) {
             throw new Error(data.detail || "Authentication failed. Please check your credentials.");

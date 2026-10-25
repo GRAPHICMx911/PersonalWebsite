@@ -1,26 +1,24 @@
 [build]
   publish = "frontend"
-  functions = "netlify/functions"
 
-[build.environment]
-  PYTHON_VERSION = "3.12"
-  NETLIFY = "true"
-
-# API routes rewritten to Python serverless function
+# Reverse-proxy all /api requests transparently to the live backend
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "https://personal-website-phi-three-11.vercel.app/api/:splat"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/docs"
-  to = "/.netlify/functions/api/docs"
+  to = "https://personal-website-phi-three-11.vercel.app/docs"
   status = 200
+  force = true
 
 [[redirects]]
   from = "/openapi.json"
-  to = "/.netlify/functions/api/openapi.json"
+  to = "https://personal-website-phi-three-11.vercel.app/openapi.json"
   status = 200
+  force = true
 
 # Admin CMS routing
 [[redirects]]

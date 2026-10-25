@@ -1,5 +1,5 @@
-/api/*          /.netlify/functions/api/:splat  200
-/docs           /.netlify/functions/api/docs    200
-/openapi.json   /.netlify/functions/api/openapi.json 200
-/admin          /admin/dashboard.html           301
-/admin/         /admin/dashboard.html           301
+/api/*          https://personal-website-phi-three-11.vercel.app/api/:splat  200!
+/docs           https://personal-website-phi-three-11.vercel.app/docs         200!
+/openapi.json   https://personal-website-phi-three-11.vercel.app/openapi.json 200!
+/admin          /admin/dashboard.html                                         301
+/admin/         /admin/dashboard.html                                         301
