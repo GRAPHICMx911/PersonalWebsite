@@ -12,7 +12,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not DATABASE_URL:
     # Zero-config fallback to SQLite so deployment works out-of-the-box on any cloud platform
-    if os.getenv("VERCEL"):
+    if os.getenv("VERCEL") or os.getenv("NETLIFY") or os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
         sqlite_path = Path("/tmp/personal_website.db")
     else:
         sqlite_path = BASE_DIR / "personal_website.db"

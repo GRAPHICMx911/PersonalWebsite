@@ -45,7 +45,7 @@ origins = [o.strip() for o in raw_origins.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins if origins else ["*"],
-    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.railway\.app|\.vercel\.app|\.hf\.space|\.github\.io|\.netlify\.app)",
+    allow_origin_regex=r"https://.*(\.pages\.dev|\.trycloudflare\.com|\.railway\.app|\.vercel\.app|\.netlify\.app|\.hf\.space|\.github\.io)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -72,7 +72,7 @@ frontend_dir = BASE_DIR / "frontend"
 uploads_dir = frontend_dir / "uploads"
 
 # Mount Uploads directory (only create directories in local development, not on read-only serverless)
-if not os.getenv("VERCEL"):
+if not os.getenv("VERCEL") and not os.getenv("NETLIFY") and not os.getenv("AWS_LAMBDA_FUNCTION_NAME"):
     try:
         uploads_dir.mkdir(parents=True, exist_ok=True)
         (uploads_dir / "projects").mkdir(parents=True, exist_ok=True)

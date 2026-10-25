@@ -11,3 +11,4 @@ python-jose[cryptography]>=3.3.0
 pwdlib[argon2]>=0.2.0
 python-multipart>=0.0.9
 alembic>=1.13.0
+mangum>=0.17.0

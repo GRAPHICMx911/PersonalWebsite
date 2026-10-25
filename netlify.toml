@@ -1,32 +1,45 @@
-# ==============================================================================
-# NETLIFY DEPLOYMENT CONFIGURATION
-# Production URLs:
-#   Public Website: https://muneebahmad.netlify.app
-#   Admin CMS:      https://muneebahmad.netlify.app/admin
-# ==============================================================================
-
 [build]
   publish = "frontend"
+  functions = "netlify/functions"
 
-# Reverse-proxy /api requests transparently to the live production backend
+[build.environment]
+  PYTHON_VERSION = "3.12"
+  NETLIFY = "true"
+
+# API routes rewritten to Python serverless function
 [[redirects]]
   from = "/api/*"
-  to = "https://personal-website-phi-three-11.vercel.app/api/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
-  force = true
 
-# Route /admin to /admin/dashboard.html
+[[redirects]]
+  from = "/docs"
+  to = "/.netlify/functions/api/docs"
+  status = 200
+
+[[redirects]]
+  from = "/openapi.json"
+  to = "/.netlify/functions/api/openapi.json"
+  status = 200
+
+# Admin CMS routing
 [[redirects]]
   from = "/admin"
   to = "/admin/dashboard.html"
-  status = 200
+  status = 301
 
 [[redirects]]
   from = "/admin/"
   to = "/admin/dashboard.html"
+  status = 301
+
+# Public site root
+[[redirects]]
+  from = "/"
+  to = "/index.html"
   status = 200
 
-# Security and caching headers
+# Security and cache headers
 [[headers]]
   for = "/*"
   [headers.values]
@@ -38,14 +51,14 @@
 [[headers]]
   for = "/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=86400, must-revalidate"
 
 [[headers]]
   for = "/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=86400, must-revalidate"
 
 [[headers]]
   for = "/uploads/*"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=604800, immutable"
