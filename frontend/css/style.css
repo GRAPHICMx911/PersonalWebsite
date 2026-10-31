@@ -2256,15 +2256,68 @@ body {
     margin-bottom: 22px;
 }
 
-.public-cs-meta-grid {
+.public-cs-meta-grid,
+.public-modal-meta-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 16px;
     background: var(--color-background);
     padding: 16px 20px;
     border-radius: var(--radius-md);
     margin-bottom: 24px;
     border: 1px solid rgba(196, 224, 225, 0.6);
+}
+
+.public-cert-preview-frame {
+    width: 100%;
+    background: #f8fafc;
+    border: 1.5px solid rgba(196, 224, 225, 0.8);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.public-cert-full-img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 480px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(6, 63, 96, 0.12);
+    background: #ffffff;
+    cursor: zoom-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.public-cert-full-img:hover {
+    transform: scale(1.015);
+    box-shadow: 0 8px 28px rgba(6, 63, 96, 0.18);
+}
+
+.public-cert-fallback-icon {
+    font-size: 64px;
+    padding: 40px;
+    text-align: center;
+    color: var(--color-primary-blue);
+}
+
+.public-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.public-meta-item .status-verified {
+    color: #16a34a;
+    font-weight: 700;
 }
 
 .meta-label {
@@ -2668,6 +2721,20 @@ body.mobile-menu-locked {
         padding: 18px 20px;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+    }
+
+    .public-cert-preview-frame {
+        padding: 8px;
+    }
+
+    .public-cert-full-img {
+        max-height: 280px;
+    }
+
+    .public-modal-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 12px 14px;
     }
 
     .public-modal-actions {

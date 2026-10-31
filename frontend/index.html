@@ -6,7 +6,7 @@
     <meta name="description" content="Personal Global Website and Professional Portfolio — Software Engineering, Cybersecurity, AWS Cloud, Networking, UX/UI Design, and Project Management.">
     <title>Personal Global Website | Professional Portfolio</title>
     <link rel="icon" type="image/png" href="logo.png?v=2.0">
-    <link rel="stylesheet" href="css/style.css?v=11.0">
+    <link rel="stylesheet" href="css/style.css?v=12.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -436,7 +436,7 @@
 
     <!-- Public Certificate Details Modal -->
     <div class="public-modal" id="publicCertModal" role="dialog" aria-modal="true" aria-labelledby="publicCertModalTitle">
-        <div class="public-modal-dialog">
+        <div class="public-modal-dialog" style="max-width: 860px;">
             <div class="public-modal-content">
                 <div class="public-modal-header">
                     <div class="public-modal-badge-title">
@@ -446,34 +446,33 @@
                     <button type="button" class="public-modal-close" id="closePublicCertModalBtn" aria-label="Close dialog">&times;</button>
                 </div>
                 <div class="public-modal-body">
-                    <div class="public-modal-hero">
-                        <div class="public-modal-badge-container" id="publicCertBadgeContainer">
-                            <!-- Digital badge image or accredited seal -->
+                    <div class="public-cert-preview-frame" id="publicCertBadgeContainer">
+                        <!-- Full certificate preview image -->
+                    </div>
+
+                    <div class="public-modal-meta-grid">
+                        <div class="public-meta-item">
+                            <span class="meta-label">Credential ID:</span>
+                            <div class="meta-val-copy">
+                                <code id="publicCertId">N/A</code>
+                                <button type="button" class="btn-copy-id" id="copyCertIdBtn" title="Copy Credential ID">📋 Copy</button>
+                            </div>
                         </div>
-                        <div class="public-modal-meta-grid">
-                            <div class="public-meta-item">
-                                <span class="meta-label">Credential ID:</span>
-                                <div class="meta-val-copy">
-                                    <code id="publicCertId">N/A</code>
-                                    <button type="button" class="btn-copy-id" id="copyCertIdBtn" title="Copy Credential ID">📋 Copy</button>
-                                </div>
-                            </div>
-                            <div class="public-meta-item">
-                                <span class="meta-label">Issue Date:</span>
-                                <span class="meta-val" id="publicCertIssueDate">—</span>
-                            </div>
-                            <div class="public-meta-item">
-                                <span class="meta-label">Validity / Expiration:</span>
-                                <span class="meta-val" id="publicCertExpiryDate">—</span>
-                            </div>
-                            <div class="public-meta-item">
-                                <span class="meta-label">Verification Status:</span>
-                                <span class="meta-val status-verified">✓ Verified &amp; Active</span>
-                            </div>
+                        <div class="public-meta-item">
+                            <span class="meta-label">Issue Date:</span>
+                            <span class="meta-val" id="publicCertIssueDate">—</span>
+                        </div>
+                        <div class="public-meta-item">
+                            <span class="meta-label">Validity / Expiration:</span>
+                            <span class="meta-val" id="publicCertExpiryDate">—</span>
+                        </div>
+                        <div class="public-meta-item">
+                            <span class="meta-label">Verification Status:</span>
+                            <span class="meta-val status-verified">✓ Verified &amp; Active</span>
                         </div>
                     </div>
 
-                    <div class="public-modal-section">
+                    <div class="public-modal-section" id="publicCertDescSection">
                         <h4>Domain Competencies &amp; Validated Technical Mastery</h4>
                         <p id="publicCertDescription" class="public-cert-desc">
                             Description of skills and technologies validated...
@@ -621,6 +620,6 @@
     </footer>
 
     <script src="js/hero-canvas.js?v=1.0" defer></script>
-    <script src="js/script.js?v=14.0"></script>
+    <script src="js/script.js?v=15.0"></script>
 </body>
 </html>

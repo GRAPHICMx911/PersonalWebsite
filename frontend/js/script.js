@@ -25,9 +25,11 @@ async function getStaticSiteData() {
 
 function resolveAssetUrl(url) {
     if (!url) return "";
-    if (url.startsWith("http://") || url.startsWith("https://")) return url;
-    if (url.startsWith("/")) return url.slice(1);
-    return url;
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
+    if (url.startsWith("/")) {
+        return window.location.protocol.startsWith("http") ? url : url.slice(1);
+    }
+    return window.location.protocol.startsWith("http") ? `/${url}` : url;
 }
 
 let publishedProjects = [];
@@ -205,6 +207,7 @@ function renderProjects() {
         `;
     }).join("");
 }
+
 
 function escapeHtml(str) {
     if (str === null || str === undefined) return "";
@@ -483,22 +486,44 @@ window.openPublicCertModal = function(id) {
     const modalTitle = document.getElementById("publicCertModalTitle");
     const certIssuer = document.getElementById("publicCertIssuer");
     const certId = document.getElementById("publicCertId");
+    const copyBtn = document.getElementById("copyCertIdBtn");
     const certIssueDate = document.getElementById("publicCertIssueDate");
     const certExpiryDate = document.getElementById("publicCertExpiryDate");
     const certDesc = document.getElementById("publicCertDescription");
+    const descSection = document.getElementById("publicCertDescSection");
     const badgeContainer = document.getElementById("publicCertBadgeContainer");
     const actionsContainer = document.getElementById("publicCertActions");
 
     if (modalTitle) modalTitle.textContent = cert.name;
     if (certIssuer) certIssuer.textContent = cert.issuing_organization;
-    if (certId) certId.textContent = cert.credential_id || "Unspecified / N/A";
+
+    const hasCredId = Boolean(cert.credential_id && cert.credential_id.trim() && cert.credential_id !== "Unspecified / N/A");
+    if (certId) {
+        certId.textContent = hasCredId ? cert.credential_id : "Official Credential / Accredited";
+    }
+    if (copyBtn) {
+        copyBtn.style.display = hasCredId ? "inline-flex" : "none";
+    }
+
     if (certIssueDate) certIssueDate.textContent = cert.issue_date || "Accredited";
     if (certExpiryDate) certExpiryDate.textContent = cert.expiry_date || "Lifetime / No Expiration";
-    if (certDesc) certDesc.textContent = cert.description || "Validated professional industry credentials demonstrating domain mastery.";
 
+    const hasDesc = Boolean(cert.description && cert.description.trim());
+    if (descSection) {
+        descSection.style.display = hasDesc ? "block" : "none";
+    }
+    if (certDesc && hasDesc) {
+        certDesc.textContent = cert.description;
+    }
+
+    const certImgUrl = cert.certificate_image_url ? resolveAssetUrl(cert.certificate_image_url) : "";
     if (badgeContainer) {
-        if (cert.certificate_image_url) {
-            badgeContainer.innerHTML = `<img src="${escapeHtml(cert.certificate_image_url)}" alt="${escapeHtml(cert.name)}" class="public-cert-full-img" onerror="this.outerHTML='<div class=\\'public-cert-fallback-icon\\'>📜</div>'">`;
+        if (certImgUrl) {
+            badgeContainer.innerHTML = `
+                <a href="${escapeHtml(certImgUrl)}" target="_blank" rel="noopener noreferrer" title="Click to view full-resolution certificate" style="display: flex; justify-content: center; width: 100%; text-decoration: none;">
+                    <img src="${escapeHtml(certImgUrl)}" alt="${escapeHtml(cert.name)}" class="public-cert-full-img" onerror="this.outerHTML='<div class=\'public-cert-fallback-icon\'>📜</div>'">
+                </a>
+            `;
         } else {
             badgeContainer.innerHTML = `<div class="public-cert-fallback-icon">📜</div>`;
         }
@@ -506,6 +531,13 @@ window.openPublicCertModal = function(id) {
 
     if (actionsContainer) {
         let buttonsHtml = '';
+        if (certImgUrl) {
+            buttonsHtml += `
+                <a href="${escapeHtml(certImgUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 6px;">
+                    🔍 Full Certificate ↗
+                </a>
+            `;
+        }
         if (cert.credential_url) {
             buttonsHtml += `
                 <a href="${escapeHtml(cert.credential_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary public-verify-link">
@@ -866,6 +898,56 @@ function renderDesignItems() {
         `;
     }).join("");
 }
+
+// =========================================================
+// PUBLIC DESIGN MODAL CONTROLLER
+// =========================================================
+window.openPublicDesignModal = function(id) {
+    const item = publicDesignItems.find(d => d.id === Number(id));
+    if (!item) return;
+
+    const modal = document.getElementById("publicDesignModal");
+    if (!modal) return;
+
+    const titleEl = document.getElementById("publicDesignTitle");
+    const catEl = document.getElementById("publicDesignCategory");
+    const imgEl = document.getElementById("publicDesignImg");
+    const clientEl = document.getElementById("publicDesignClient");
+    const yearEl = document.getElementById("publicDesignYear");
+    const toolsEl = document.getElementById("publicDesignTools");
+    const tagsEl = document.getElementById("publicDesignTags");
+    const descEl = document.getElementById("publicDesignDesc");
+
+    if (titleEl) titleEl.textContent = item.title;
+    if (catEl) catEl.textContent = item.category || "Graphic & Visual Design";
+
+    const rawImg = item.image_url || item.thumbnail_url;
+    const fullImg = rawImg ? resolveAssetUrl(rawImg) : "";
+    if (imgEl) {
+        imgEl.src = fullImg;
+        imgEl.alt = item.title;
+    }
+
+    if (clientEl) clientEl.textContent = item.client || "Self-Initiated / Independent";
+    if (yearEl) yearEl.textContent = item.year || "—";
+    if (toolsEl) toolsEl.textContent = item.tools_used || "—";
+    if (tagsEl) tagsEl.textContent = item.tags || "—";
+    if (descEl) descEl.textContent = item.description || "No creative description provided.";
+
+    modal.classList.add("active", "show");
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+};
+
+window.closePublicDesignModal = function() {
+    const modal = document.getElementById("publicDesignModal");
+    if (modal) {
+        modal.classList.remove("active", "show");
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+    }
+};
+
 
 
 // =========================================================
@@ -1528,8 +1610,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const copyBtn = document.getElementById("copyCertIdBtn");
     if (copyBtn) {
         copyBtn.addEventListener("click", () => {
-            const idText = document.getElementById("publicCertId")?.textContent;
-            if (idText && idText !== "Unspecified / N/A") {
+            const idText = document.getElementById("publicCertId")?.textContent?.trim();
+            if (idText && idText !== "Unspecified / N/A" && idText !== "N/A" && idText !== "Official Credential / Accredited") {
                 navigator.clipboard.writeText(idText).then(() => {
                     const originalText = copyBtn.textContent;
                     copyBtn.textContent = "✓ Copied!";
@@ -1543,9 +1625,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Escape") {
             if (certModal?.classList.contains("active")) closePublicCertModal();
             if (designModal?.classList.contains("active")) closePublicDesignModal();
-            if (csModal?.classList.contains("active")) closePublicCaseStudyModal();
             if (blogModal?.classList.contains("active")) closePublicBlogModal();
-            if (document.getElementById("cvPreviewModal")?.classList.contains("active")) closeCvPreview();
         }
     });
 
